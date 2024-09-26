@@ -1,0 +1,23 @@
+{
+  "name": "data_vis",
+  "version": "1.0.0",
+  "description": "This is our project page with our implementation",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "concurrently \"npm run start\" \"npm run watch:tailwind\"",
+    "watch:tailwind": "tailwindcss -i ./styles.css -o ./public/dist/output.css --watch",
+    "build:tailwind": "tailwindcss -i ./styles.css -o ./public/dist/output.css --minify"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "d3": "^7.9.0",
+    "express": "^4.21.0",
+    "tailwindcss": "^3.4.13"
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.1"
+  }
+}
