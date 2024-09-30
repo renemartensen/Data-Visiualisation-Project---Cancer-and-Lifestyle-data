@@ -1,0 +1,14 @@
+.tooltip {
+    position: absolute;
+    background-color: white;
+    padding: 5px;
+    border: 1px solid #999;
+    border-radius: 4px;
+    pointer-events: none;
+    opacity: 0.9;
+    display: none;
+}
+.country {
+    cursor: pointer;
+    fill: gray;
+}

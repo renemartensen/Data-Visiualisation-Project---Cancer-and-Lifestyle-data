@@ -5,15 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Data Vis</title>
   <link href="/dist/output.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body class="bg-gray-100 text-center">
   <h1 class="text-3xl font-bold text-grey">DataVis Project</h1>
-  <p>With some d3 circle</p>
-  <svg width="400" height="400"></svg>
-  
+  <div id="map" class="flex justify-center items-center"></div>
+
+  <div id="tooltip" class="tooltip"></div>
 
 
   <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="https://unpkg.com/topojson@3"></script>
+
   <script src="app.js"></script>
 </body>
 </html>
