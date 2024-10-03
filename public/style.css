@@ -12,3 +12,9 @@
     cursor: pointer;
     fill: gray;
 }
+
+.country {
+    cursor: pointer;
+    fill: gray;
+    border-radius: 4px;
+}

@@ -9,14 +9,53 @@
 </head>
 <body class="bg-gray-100 text-center">
   <h1 class="text-3xl font-bold text-grey">DataVis Project</h1>
-  <div id="map" class="flex justify-center items-center"></div>
+  
+  <div class="container">
+    <div id="controls">
+      <label for="lifestyle-choice">Select Lifestyle Factor:</label>
+      <select id="lifestyle-choice">
+          <option >None</option>
+          <option value="alcohol">Alcohol</option>
+          <option value="tobacco">Tobacco</option>
+      </select>
+      
+      <label for="cancer-type">Select Cancer Type:</label>
+      <select id="cancer-type">
+          <option value="all">All</option>
+          <option value="skinCancer">Skin Cancer</option>
+      </select>
+      
+      <label for="gender-choice">Select Gender:</label>
+      <select id="gender-choice">
+          <option value="both">Both</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+      </select>
 
-  <div id="tooltip" class="tooltip"></div>
+      <button id="update-map">Update Map</button>
+  </div>
+
+    <div id="map" class="flex justify-center items-center">
+      <div id="tooltip" class="tooltip"></div>
+    </div>
+
+
+    <div id="mapBi" class="flex justify-center items-center">
+      <div id="tooltip" class="tooltip"></div>
+    </div>
+
+    <div id="subPlots" class=""></div>
+    
+  </div>
+  
+
+  
 
 
   <script src="https://d3js.org/d3.v7.min.js"></script>
   <script src="https://unpkg.com/topojson@3"></script>
 
-  <script src="app.js"></script>
+  <script type="module" src="app.js"></script>
+  <script src="js/listeners.js"></script>
 </body>
 </html>
