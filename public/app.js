@@ -20,7 +20,7 @@ function updateMap() {
 
 
 renderBaseMap();
-renderMatrix();
+renderMatrix(mainData);
 
 
 
