@@ -63,7 +63,7 @@ export function renderBaseMap() {
 }
 
 
-export function renderMap(data) {
+export function renderMap(data, gender) {
     
     const svg = d3.select("#map").select("svg");
     const tooltip = d3.select("#tooltip");
@@ -75,13 +75,12 @@ export function renderMap(data) {
 
     const cancerRateMap = {};
     cancerData.forEach(d => {
-        cancerRateMap[d["iso"]] =+ d["both"];
+        cancerRateMap[d["iso"]] =+ d[gender];
     });
 
 
-
     const colorScale = d3.scaleSequential(d3.interpolateBlues)
-        .domain([0, d3.max(cancerData, d => +d["both"])]);
+        .domain([0, d3.max(cancerData, d => +d[gender])]);
         
         
 

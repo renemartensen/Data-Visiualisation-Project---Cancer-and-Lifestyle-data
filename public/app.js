@@ -1,9 +1,12 @@
 import { loadData } from './js/data_loading.js';
 import { renderMap, renderBaseMap } from './js/map.js';
+import { renderMatrix } from './js/correlationMatrix.js';
 
 let mainData;
 loadData().then(d => {
     mainData = d;
+    console.log(mainData);
+    updateMap();
 });
 
 let selectedLifestyle = "tobacco";
@@ -11,13 +14,14 @@ let selectedCancer = "all";
 let selectedGender = "both";
 
 function updateMap() {
-    console.log(selectedLifestyle, selectedCancer, selectedGender);
     const filteredData = mainData.cancerTypes[selectedCancer];
-    renderMap(filteredData)
+    renderMap(filteredData, selectedGender)
 }
 
 
 renderBaseMap();
+renderMatrix();
+
 
 
 
@@ -37,16 +41,19 @@ renderBaseMap();
 document.getElementById('lifestyle-choice').addEventListener('change', (event) => {
     selectedLifestyle = event.target.value;
     console.log(selectedLifestyle);
+    updateMap();
   });
   
   document.getElementById('cancer-type').addEventListener('change', (event) => {
     selectedCancer = event.target.value;
     console.log(selectedCancer);
+    updateMap();
   });
   
   document.getElementById('gender-choice').addEventListener('change', (event) => {
     selectedGender = event.target.value;
     console.log(selectedGender);
+    updateMap();
   });
   
   document.getElementById('update-map').addEventListener('click', () => {
