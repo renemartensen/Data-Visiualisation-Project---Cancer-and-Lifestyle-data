@@ -72,7 +72,7 @@ export function renderBivariateMap(cancerData, lifestyleData, gender) {
     
     // Append legend to the SVG
     svg.append(() => legend())
-       .attr("transform", "translate(870,450)");
+       .attr("transform", "translate(150,330)");
   
 
     const cancerRateMap = {};
