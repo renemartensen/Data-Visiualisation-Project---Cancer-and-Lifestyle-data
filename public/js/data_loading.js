@@ -6,7 +6,7 @@ let mainData = {
 const cancerTypes = ["all", "breast", "lung"];
 const lifeStyleChoices = ["tobacco", "alcohol"];
 
-export function loadData() {
+export async function loadData() {
     // Load cancer types
     const cancerPromises = Promise.all(
         cancerTypes.map(type => 
@@ -30,9 +30,9 @@ export function loadData() {
             d3.csv(`data/lifestyle/${type}.csv`).then(lifeStyleData => {
                 const filteredData = lifeStyleData.map(row => ({
                     iso: row.Code,
-                    both: row.BOTH,
-                    male: row.MALE,
-                    female: row.FEMALE
+                    both: row.Both,
+                    male: row.Male,
+                    female: row.Female
                 }));
                 
                 mainData.lifeStyleChoices[type] = filteredData;

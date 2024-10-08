@@ -1,5 +1,7 @@
 
 export function renderBaseMap() {
+
+    console.log("render base map")
     const width = 960;
     const height = 600;
 
@@ -8,7 +10,7 @@ export function renderBaseMap() {
         .attr("width", width)
         .attr("height", height);
 
-    const projection = d3.geoEquirectangular()
+    const projection = d3.geoEquirectangular() // robinson
 
     const path = d3.geoPath().projection(projection);
 
@@ -62,8 +64,59 @@ export function renderBaseMap() {
 
 }
 
+export function renderBivariateMap(cancerData, lifestyleData, gender) {
+    console.log("render bivariate map")
+    const svg = d3.select("#map").select("svg");
+    const cancerMap = {};
+    cancerData.forEach(d => {
+        cancerMap[d["iso"]] = +d[gender];
+    })
+    
+    const lifestyleMap = {};
+
+    lifestyleData.forEach(d => {
+        lifestyleMap[d["iso"]] = +d[gender];
+    })
+
+    console.log("cancer map", cancerMap["392"]);
+    console.log("lifestyle map", lifestyleMap["392"]);
+    
+    
+    const cancerDomain = d3.extent(cancerData, d => +d[gender]);
+    const lifestyleDomain = d3.extent(lifestyleData, d => +d[gender]);
+    
+    const colorScale1 = d3.scaleSequential(d3.interpolateBlues).domain(cancerDomain);
+    const colorScale2 = d3.scaleSequential(d3.interpolateReds).domain(lifestyleDomain);
+
+
+    
+    const bivariateColorScale = (v1, v2) => {
+      return d3.interpolateRgb(
+        colorScale1(v1),
+        colorScale2(v2)
+      )(0.5);  // Mix the colors
+    };
+
+    svg.selectAll("path")
+    .style("fill", d => {
+        if (lifestyleMap[d.id] == undefined) {
+            console.log("lifestyle data", d);
+            console.log("lifestyle data", lifestyleMap[d.id]);
+        }
+        if (cancerData && lifestyleData) {
+            return bivariateColorScale(cancerMap[d.id], lifestyleMap[d.id]);
+        } else {
+            return "#ccc";
+        }
+    })
+    
+}
+ 
+
+
 
 export function renderMap(data, gender) {
+    console.log("render map", data);
     
     const svg = d3.select("#map").select("svg");
     const tooltip = d3.select("#tooltip");
