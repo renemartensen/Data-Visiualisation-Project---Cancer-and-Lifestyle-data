@@ -1,0 +1,186 @@
+code,country,both,male,female
+004,Afghanistan,7.22,11.03,3.64
+008,Albania,25.28,41.51,10.27
+012,Algeria,11.32,19.52,3.21
+024,Angola,2.4,3.28,1.6
+031,Azerbaijan,19.35,37.51,5.16
+032,Argentina,19.87,29.98,12.06
+036,Australia,24.08,27.05,21.49
+040,Austria,27.16,31.15,23.86
+044,Bahamas,8.78,13.06,5.32
+048,Bahrain,10.05,15.07,5.33
+050,Bangladesh,8.8,13.45,4.0
+051,Armenia,28.95,57.38,9.08
+052,Barbados,9.42,13.19,6.02
+056,Belgium,32.69,42.31,24.37
+064,Bhutan,7.03,6.53,7.6
+068,Bolivia,8.48,11.55,5.97
+070,Bosnia Herzegovina,36.06,59.51,15.67
+072,Botswana,3.62,6.46,1.65
+076,Brazil,14.62,18.34,11.74
+084,Belize,8.79,13.59,3.97
+090,Solomon Islands,6.18,9.4,3.15
+096,Brunei Darussalam,24.03,25.55,22.57
+100,Bulgaria,27.13,43.8,13.27
+104,Myanmar,16.07,21.59,12.19
+108,Burundi,3.41,4.18,2.84
+112,Belarus,26.03,56.48,5.48
+116,Cambodia,15.7,23.93,9.92
+120,Cameroon,3.06,4.37,1.94
+124,Canada,32.39,34.86,30.35
+132,Cape Verde,2.19,1.82,2.47
+140,Central African Republic,2.04,2.68,1.46
+144,Sri Lanka,6.66,11.23,3.13
+148,Chad,1.99,3.48,0.64
+152,Chile,12.7,16.98,9.23
+156,China,40.78,52.03,30.34
+170,Colombia,10.08,13.12,7.61
+174,Comoros,1.79,2.63,1.08
+178,"Congo, Republic of",1.37,2.08,0.8
+180,"Congo, Democratic Republic of",2.17,2.78,1.64
+188,Costa Rica,6.75,9.73,4.07
+191,Croatia,37.05,56.35,21.62
+192,Cuba,29.75,38.29,22.35
+196,Cyprus,27.04,41.35,14.61
+203,Czechia,23.72,31.27,17.57
+204,Benin,1.49,2.07,1.13
+208,Denmark,34.21,34.27,34.4
+214,Dominican Republic,12.81,15.07,10.82
+218,Ecuador,6.29,6.62,6.04
+222,El Salvador,4.66,5.21,4.28
+226,Equatorial Guinea,2.72,2.91,2.47
+231,Ethiopia,3.69,3.88,3.52
+232,Eritrea,3.21,3.69,2.75
+233,Estonia,25.84,45.02,12.62
+242,Fiji,6.79,9.06,4.85
+246,Finland,19.18,25.05,14.15
+250,France (metropolitan),35.91,49.0,24.73
+254,French Guyana,15.04,23.83,7.46
+258,French Polynesia,39.96,57.39,22.59
+262,Djibouti,3.08,3.6,2.47
+266,Gabon,3.11,3.48,2.67
+268,Georgia,21.98,45.93,4.43
+270,The Republic of the Gambia,5.0,9.51,0.87
+275,Gaza Strip and West Bank,20.42,35.83,6.59
+276,Germany,28.13,35.23,21.97
+288,Ghana,2.53,3.14,1.97
+300,Greece,31.34,49.64,15.68
+312,"France, Guadeloupe",12.28,18.71,7.17
+316,Guam,31.52,45.48,19.14
+320,Guatemala,3.76,4.5,3.18
+324,Guinea,3.22,5.21,1.86
+328,Guyana,4.26,6.43,2.39
+332,Haiti,6.07,5.54,6.6
+340,Honduras,6.68,8.8,4.89
+348,Hungary,47.57,64.36,34.96
+352,Iceland,26.9,26.07,27.78
+356,India,5.79,8.46,3.18
+360,Indonesia,13.38,21.3,6.39
+364,"Iran, Islamic Republic of",12.1,16.73,7.39
+368,Iraq,12.52,23.45,3.64
+372,Ireland,31.39,32.61,30.41
+376,Israel,22.6,29.91,16.13
+380,Italy,24.64,34.54,16.21
+384,Côte d'Ivoire,2.45,3.47,1.37
+388,Jamaica,14.0,19.01,9.41
+392,Japan,30.47,47.19,15.82
+398,Kazakhstan,19.71,41.44,4.51
+400,Jordan,14.34,24.11,5.1
+404,Kenya,3.35,3.56,3.23
+408,"Korea, Democratic People Republic of",38.42,50.11,29.8
+410,"Korea, Republic of",26.21,38.58,16.38
+414,Kuwait,6.4,7.65,4.32
+417,Kyrgyzstan,14.13,26.26,5.74
+418,Lao People's Democratic Republic,17.55,27.09,9.12
+422,Lebanon,19.88,25.69,14.25
+426,Lesotho,4.23,5.0,3.71
+428,Latvia,23.51,45.7,9.2
+430,Liberia,2.68,4.02,1.48
+434,Libya,16.36,32.19,3.2
+440,Lithuania,24.22,44.88,10.38
+442,Luxembourg,25.69,31.56,21.03
+450,Madagascar,2.08,2.8,1.49
+454,Malawi,1.55,2.22,1.02
+458,Malaysia,15.13,23.23,7.12
+462,Maldives,12.39,18.13,5.9
+466,Mali,3.16,4.54,2.01
+470,Malta,19.19,27.72,11.92
+474,"France, Martinique",9.0,12.74,6.05
+478,Mauritania,1.93,2.81,1.19
+480,Mauritius,8.42,12.2,5.34
+484,Mexico,5.4,7.3,3.83
+496,Mongolia,18.96,35.91,6.38
+498,Moldova,22.34,42.81,7.14
+499,Montenegro,36.71,58.77,17.24
+504,Morocco,20.44,38.44,4.2
+508,Mozambique,1.32,2.35,0.68
+512,Oman,5.24,6.96,2.84
+516,Namibia,5.75,8.28,4.12
+524,Nepal,9.25,12.86,6.28
+528,The Netherlands,34.93,36.5,33.89
+540,New Caledonia,41.77,59.25,25.82
+548,Vanuatu,7.7,11.79,3.44
+554,New Zealand,27.29,33.13,22.17
+558,Nicaragua,5.43,7.13,4.15
+562,Niger,0.95,1.83,0.09
+566,Nigeria,1.73,1.9,1.6
+578,Norway,27.97,28.65,27.62
+586,Pakistan,5.96,9.49,2.31
+591,Panama,6.35,8.69,4.29
+598,Papua New Guinea,10.66,13.63,7.91
+600,Paraguay,12.72,21.4,4.45
+604,Peru,6.76,6.87,6.74
+608,Philippines,23.98,37.66,13.0
+616,Poland,36.49,52.54,24.11
+620,Portugal,23.88,36.85,13.3
+624,Guinea-Bissau,2.12,3.11,1.36
+626,Timor-Leste,10.15,14.7,5.97
+630,Puerto Rico,10.23,14.86,6.76
+634,Qatar,5.78,6.05,4.63
+638,"France, La Réunion",21.81,36.34,9.18
+642,Romania,30.27,49.25,14.57
+643,Russian Federation,26.02,52.38,8.64
+646,Rwanda,2.82,4.41,1.51
+662,Saint Lucia,9.74,16.52,3.43
+678,Sao Tome and Principe,12.7,15.98,9.53
+682,Saudi Arabia,4.34,5.62,2.47
+686,Senegal,2.65,4.17,1.52
+688,Serbia,40.39,59.6,23.82
+694,Sierra Leone,1.25,2.74,0.02
+702,Singapore,24.31,33.22,15.86
+703,Slovakia,22.63,36.52,12.3
+704,Viet Nam,20.25,31.54,11.0
+705,Slovenia,34.22,43.81,25.69
+706,Somalia,3.5,3.89,3.13
+710,South Africa,18.09,27.57,11.23
+716,Zimbabwe,5.89,9.22,3.87
+724,Spain,27.78,41.36,16.02
+728,South Sudan,2.1,2.42,1.8
+729,Sudan,2.52,3.14,1.93
+740,Suriname,16.62,24.11,10.44
+748,Eswatini,4.12,7.59,2.41
+752,Sweden,17.39,15.75,19.06
+756,Switzerland,24.07,27.93,20.57
+760,Syrian Arab Republic,17.82,28.74,8.16
+762,Tajikistan,5.35,7.05,3.81
+764,Thailand,18.14,25.91,11.73
+768,Togo,1.9,3.11,0.88
+780,Trinidad and Tobago,11.66,19.16,5.12
+784,United Arab Emirates,6.22,6.78,5.07
+788,Tunisia,20.14,37.75,4.5
+792,Türkiye,37.88,67.99,13.5
+795,Turkmenistan,9.53,16.14,4.45
+800,Uganda,3.0,3.45,2.61
+804,Ukraine,20.57,41.71,6.25
+807,North Macedonia,31.07,49.44,14.3
+818,Egypt,8.8,13.93,4.35
+826,United Kingdom,30.05,31.92,28.53
+834,"Tanzania, United Republic of",2.48,2.75,2.25
+840,United States of America,31.85,33.7,30.4
+854,Burkina Faso,3.76,3.01,4.51
+858,Uruguay,29.7,46.56,16.36
+860,Uzbekistan,8.41,13.63,4.1
+862,Venezuela,15.86,20.38,12.17
+882,Samoa,33.34,49.63,18.88
+887,Yemen,4.05,5.04,3.2
+894,Zambia,3.03,4.57,2.24

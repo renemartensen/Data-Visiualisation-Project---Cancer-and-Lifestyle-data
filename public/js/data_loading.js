@@ -3,8 +3,8 @@ let mainData = {
     lifeStyleChoices: {},
 };
 
-const cancerTypes = ["all", "breast", "lung"];
-const lifeStyleChoices = ["tobacco", "alcohol"];
+const cancerTypes = ["all-cancers", "breast", "trachea-bronchus-and-lung"];
+const lifeStyleChoices = ["tobacco_2005", "alcohol_2019"];
 
 export async function loadData() {
     // Load cancer types
@@ -13,10 +13,10 @@ export async function loadData() {
             d3.csv(`data/cancerTypes/${type}.csv`).then(cancerTypeData => {
 
                 const filteredData = cancerTypeData.map(row => ({
-                    iso: row.Code,
-                    both: row["BOTH ASR (World) per 100 000"],
-                    male: row["MALE ASR (World) per 100 000"],
-                    female: row["FEMALE ASR (World) per 100 000"]
+                    iso: row.code,
+                    both: row["both"],
+                    male: row["male"],
+                    female: row["female"]
                 }));
                 
                 mainData.cancerTypes[type] = filteredData;
@@ -29,14 +29,12 @@ export async function loadData() {
         lifeStyleChoices.map(type => 
             d3.csv(`data/lifestyle/${type}.csv`).then(lifeStyleData => {
                 const filteredData = lifeStyleData.map(row => ({
-                    iso: row.Code,
-                    both: row.Both,
-                    male: row.Male,
-                    female: row.Female
+                    iso: row.code,
+                    both: row.both,
+                    male: row.male,
+                    female: row.female
                 }));
-                
                 mainData.lifeStyleChoices[type] = filteredData;
-                
             })
         )
     );

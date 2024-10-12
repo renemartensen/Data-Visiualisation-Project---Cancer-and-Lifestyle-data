@@ -1,0 +1,186 @@
+Cancer id,Cancer label,Population code (ISO/UN),Population,Alpha‑3 code,Sex,Type,ASR (World) per 100 000
+15,"Trachea, bronchus and lung",004,Afghanistan,AFG,1,0,11.03
+15,"Trachea, bronchus and lung",008,Albania,ALB,1,0,41.51
+15,"Trachea, bronchus and lung",012,Algeria,DZA,1,0,19.52
+15,"Trachea, bronchus and lung",024,Angola,AGO,1,0,3.28
+15,"Trachea, bronchus and lung",031,Azerbaijan,AZE,1,0,37.51
+15,"Trachea, bronchus and lung",032,Argentina,ARG,1,0,29.98
+15,"Trachea, bronchus and lung",036,Australia,AUS,1,0,27.05
+15,"Trachea, bronchus and lung",040,Austria,AUT,1,0,31.15
+15,"Trachea, bronchus and lung",044,Bahamas,BHS,1,0,13.06
+15,"Trachea, bronchus and lung",048,Bahrain,BHR,1,0,15.07
+15,"Trachea, bronchus and lung",050,Bangladesh,BGD,1,0,13.45
+15,"Trachea, bronchus and lung",051,Armenia,ARM,1,0,57.38
+15,"Trachea, bronchus and lung",052,Barbados,BRB,1,0,13.19
+15,"Trachea, bronchus and lung",056,Belgium,BEL,1,0,42.31
+15,"Trachea, bronchus and lung",064,Bhutan,BTN,1,0,6.53
+15,"Trachea, bronchus and lung",068,Bolivia,BOL,1,0,11.55
+15,"Trachea, bronchus and lung",070,Bosnia Herzegovina,BIH,1,0,59.51
+15,"Trachea, bronchus and lung",072,Botswana,BWA,1,0,6.46
+15,"Trachea, bronchus and lung",076,Brazil,BRA,1,0,18.34
+15,"Trachea, bronchus and lung",084,Belize,BLZ,1,0,13.59
+15,"Trachea, bronchus and lung",090,Solomon Islands,SLB,1,0,9.4
+15,"Trachea, bronchus and lung",096,Brunei Darussalam,BRN,1,0,25.55
+15,"Trachea, bronchus and lung",100,Bulgaria,BGR,1,0,43.8
+15,"Trachea, bronchus and lung",104,Myanmar,MMR,1,0,21.59
+15,"Trachea, bronchus and lung",108,Burundi,BDI,1,0,4.18
+15,"Trachea, bronchus and lung",112,Belarus,BLR,1,0,56.48
+15,"Trachea, bronchus and lung",116,Cambodia,KHM,1,0,23.93
+15,"Trachea, bronchus and lung",120,Cameroon,CMR,1,0,4.37
+15,"Trachea, bronchus and lung",124,Canada,CAN,1,0,34.86
+15,"Trachea, bronchus and lung",132,Cape Verde,CPV,1,0,1.82
+15,"Trachea, bronchus and lung",140,Central African Republic,CAF,1,0,2.68
+15,"Trachea, bronchus and lung",144,Sri Lanka,LKA,1,0,11.23
+15,"Trachea, bronchus and lung",148,Chad,TCD,1,0,3.48
+15,"Trachea, bronchus and lung",152,Chile,CHL,1,0,16.98
+15,"Trachea, bronchus and lung",156,China,CHN,1,0,52.03
+15,"Trachea, bronchus and lung",170,Colombia,COL,1,0,13.12
+15,"Trachea, bronchus and lung",174,Comoros,COM,1,0,2.63
+15,"Trachea, bronchus and lung",178,"Congo, Republic of",COG,1,0,2.08
+15,"Trachea, bronchus and lung",180,"Congo, Democratic Republic of",COD,1,0,2.78
+15,"Trachea, bronchus and lung",188,Costa Rica,CRI,1,0,9.73
+15,"Trachea, bronchus and lung",191,Croatia,HRV,1,0,56.35
+15,"Trachea, bronchus and lung",192,Cuba,CUB,1,0,38.29
+15,"Trachea, bronchus and lung",196,Cyprus,CYP,1,0,41.35
+15,"Trachea, bronchus and lung",203,Czechia,CZE,1,0,31.27
+15,"Trachea, bronchus and lung",204,Benin,BEN,1,0,2.07
+15,"Trachea, bronchus and lung",208,Denmark,DNK,1,0,34.27
+15,"Trachea, bronchus and lung",214,Dominican Republic,DOM,1,0,15.07
+15,"Trachea, bronchus and lung",218,Ecuador,ECU,1,0,6.62
+15,"Trachea, bronchus and lung",222,El Salvador,SLV,1,0,5.21
+15,"Trachea, bronchus and lung",226,Equatorial Guinea,GNQ,1,0,2.91
+15,"Trachea, bronchus and lung",231,Ethiopia,ETH,1,0,3.88
+15,"Trachea, bronchus and lung",232,Eritrea,ERI,1,0,3.69
+15,"Trachea, bronchus and lung",233,Estonia,EST,1,0,45.02
+15,"Trachea, bronchus and lung",242,Fiji,FJI,1,0,9.06
+15,"Trachea, bronchus and lung",246,Finland,FIN,1,0,25.05
+15,"Trachea, bronchus and lung",250,France (metropolitan),FRA,1,0,49
+15,"Trachea, bronchus and lung",254,French Guyana,GUF,1,0,23.83
+15,"Trachea, bronchus and lung",258,French Polynesia,PYF,1,0,57.39
+15,"Trachea, bronchus and lung",262,Djibouti,DJI,1,0,3.6
+15,"Trachea, bronchus and lung",266,Gabon,GAB,1,0,3.48
+15,"Trachea, bronchus and lung",268,Georgia,GEO,1,0,45.93
+15,"Trachea, bronchus and lung",270,The Republic of the Gambia,GMB,1,0,9.51
+15,"Trachea, bronchus and lung",275,Gaza Strip and West Bank,PSE,1,0,35.83
+15,"Trachea, bronchus and lung",276,Germany,DEU,1,0,35.23
+15,"Trachea, bronchus and lung",288,Ghana,GHA,1,0,3.14
+15,"Trachea, bronchus and lung",300,Greece,GRC,1,0,49.64
+15,"Trachea, bronchus and lung",312,"France, Guadeloupe",GLP,1,0,18.71
+15,"Trachea, bronchus and lung",316,Guam,GUM,1,0,45.48
+15,"Trachea, bronchus and lung",320,Guatemala,GTM,1,0,4.5
+15,"Trachea, bronchus and lung",324,Guinea,GIN,1,0,5.21
+15,"Trachea, bronchus and lung",328,Guyana,GUY,1,0,6.43
+15,"Trachea, bronchus and lung",332,Haiti,HTI,1,0,5.54
+15,"Trachea, bronchus and lung",340,Honduras,HND,1,0,8.8
+15,"Trachea, bronchus and lung",348,Hungary,HUN,1,0,64.36
+15,"Trachea, bronchus and lung",352,Iceland,ISL,1,0,26.07
+15,"Trachea, bronchus and lung",356,India,IND,1,0,8.46
+15,"Trachea, bronchus and lung",360,Indonesia,IDN,1,0,21.3
+15,"Trachea, bronchus and lung",364,"Iran, Islamic Republic of",IRN,1,0,16.73
+15,"Trachea, bronchus and lung",368,Iraq,IRQ,1,0,23.45
+15,"Trachea, bronchus and lung",372,Ireland,IRL,1,0,32.61
+15,"Trachea, bronchus and lung",376,Israel,ISR,1,0,29.91
+15,"Trachea, bronchus and lung",380,Italy,ITA,1,0,34.54
+15,"Trachea, bronchus and lung",384,"Côte d'Ivoire",CIV,1,0,3.47
+15,"Trachea, bronchus and lung",388,Jamaica,JAM,1,0,19.01
+15,"Trachea, bronchus and lung",392,Japan,JPN,1,0,47.19
+15,"Trachea, bronchus and lung",398,Kazakhstan,KAZ,1,0,41.44
+15,"Trachea, bronchus and lung",400,Jordan,JOR,1,0,24.11
+15,"Trachea, bronchus and lung",404,Kenya,KEN,1,0,3.56
+15,"Trachea, bronchus and lung",408,"Korea, Democratic People Republic of",PRK,1,0,50.11
+15,"Trachea, bronchus and lung",410,"Korea, Republic of",KOR,1,0,38.58
+15,"Trachea, bronchus and lung",414,Kuwait,KWT,1,0,7.65
+15,"Trachea, bronchus and lung",417,Kyrgyzstan,KGZ,1,0,26.26
+15,"Trachea, bronchus and lung",418,"Lao People's Democratic Republic",LAO,1,0,27.09
+15,"Trachea, bronchus and lung",422,Lebanon,LBN,1,0,25.69
+15,"Trachea, bronchus and lung",426,Lesotho,LSO,1,0,5
+15,"Trachea, bronchus and lung",428,Latvia,LVA,1,0,45.7
+15,"Trachea, bronchus and lung",430,Liberia,LBR,1,0,4.02
+15,"Trachea, bronchus and lung",434,Libya,LBY,1,0,32.19
+15,"Trachea, bronchus and lung",440,Lithuania,LTU,1,0,44.88
+15,"Trachea, bronchus and lung",442,Luxembourg,LUX,1,0,31.56
+15,"Trachea, bronchus and lung",450,Madagascar,MDG,1,0,2.8
+15,"Trachea, bronchus and lung",454,Malawi,MWI,1,0,2.22
+15,"Trachea, bronchus and lung",458,Malaysia,MYS,1,0,23.23
+15,"Trachea, bronchus and lung",462,Maldives,MDV,1,0,18.13
+15,"Trachea, bronchus and lung",466,Mali,MLI,1,0,4.54
+15,"Trachea, bronchus and lung",470,Malta,MLT,1,0,27.72
+15,"Trachea, bronchus and lung",474,"France, Martinique",MTQ,1,0,12.74
+15,"Trachea, bronchus and lung",478,Mauritania,MRT,1,0,2.81
+15,"Trachea, bronchus and lung",480,Mauritius,MUS,1,0,12.2
+15,"Trachea, bronchus and lung",484,Mexico,MEX,1,0,7.3
+15,"Trachea, bronchus and lung",496,Mongolia,MNG,1,0,35.91
+15,"Trachea, bronchus and lung",498,Moldova,MDA,1,0,42.81
+15,"Trachea, bronchus and lung",499,Montenegro,MNE,1,0,58.77
+15,"Trachea, bronchus and lung",504,Morocco,MAR,1,0,38.44
+15,"Trachea, bronchus and lung",508,Mozambique,MOZ,1,0,2.35
+15,"Trachea, bronchus and lung",512,Oman,OMN,1,0,6.96
+15,"Trachea, bronchus and lung",516,Namibia,NAM,1,0,8.28
+15,"Trachea, bronchus and lung",524,Nepal,NPL,1,0,12.86
+15,"Trachea, bronchus and lung",528,The Netherlands,NLD,1,0,36.5
+15,"Trachea, bronchus and lung",540,New Caledonia,NCL,1,0,59.25
+15,"Trachea, bronchus and lung",548,Vanuatu,VUT,1,0,11.79
+15,"Trachea, bronchus and lung",554,New Zealand,NZL,1,0,33.13
+15,"Trachea, bronchus and lung",558,Nicaragua,NIC,1,0,7.13
+15,"Trachea, bronchus and lung",562,Niger,NER,1,0,1.83
+15,"Trachea, bronchus and lung",566,Nigeria,NGA,1,0,1.9
+15,"Trachea, bronchus and lung",578,Norway,NOR,1,0,28.65
+15,"Trachea, bronchus and lung",586,Pakistan,PAK,1,0,9.49
+15,"Trachea, bronchus and lung",591,Panama,PAN,1,0,8.69
+15,"Trachea, bronchus and lung",598,Papua New Guinea,PNG,1,0,13.63
+15,"Trachea, bronchus and lung",600,Paraguay,PRY,1,0,21.4
+15,"Trachea, bronchus and lung",604,Peru,PER,1,0,6.87
+15,"Trachea, bronchus and lung",608,Philippines,PHL,1,0,37.66
+15,"Trachea, bronchus and lung",616,Poland,POL,1,0,52.54
+15,"Trachea, bronchus and lung",620,Portugal,PRT,1,0,36.85
+15,"Trachea, bronchus and lung",624,Guinea-Bissau,GNB,1,0,3.11
+15,"Trachea, bronchus and lung",626,Timor-Leste,TLS,1,0,14.7
+15,"Trachea, bronchus and lung",630,Puerto Rico,PRI,1,0,14.86
+15,"Trachea, bronchus and lung",634,Qatar,QAT,1,0,6.05
+15,"Trachea, bronchus and lung",638,"France, La Réunion",REU,1,0,36.34
+15,"Trachea, bronchus and lung",642,Romania,ROU,1,0,49.25
+15,"Trachea, bronchus and lung",643,Russian Federation,RUS,1,0,52.38
+15,"Trachea, bronchus and lung",646,Rwanda,RWA,1,0,4.41
+15,"Trachea, bronchus and lung",662,Saint Lucia,LCA,1,0,16.52
+15,"Trachea, bronchus and lung",678,Sao Tome and Principe,STP,1,0,15.98
+15,"Trachea, bronchus and lung",682,Saudi Arabia,SAU,1,0,5.62
+15,"Trachea, bronchus and lung",686,Senegal,SEN,1,0,4.17
+15,"Trachea, bronchus and lung",688,Serbia,SRB,1,0,59.6
+15,"Trachea, bronchus and lung",694,Sierra Leone,SLE,1,0,2.74
+15,"Trachea, bronchus and lung",702,Singapore,SGP,1,0,33.22
+15,"Trachea, bronchus and lung",703,Slovakia,SVK,1,0,36.52
+15,"Trachea, bronchus and lung",704,Viet Nam,VNM,1,0,31.54
+15,"Trachea, bronchus and lung",705,Slovenia,SVN,1,0,43.81
+15,"Trachea, bronchus and lung",706,Somalia,SOM,1,0,3.89
+15,"Trachea, bronchus and lung",710,South Africa,ZAF,1,0,27.57
+15,"Trachea, bronchus and lung",716,Zimbabwe,ZWE,1,0,9.22
+15,"Trachea, bronchus and lung",724,Spain,ESP,1,0,41.36
+15,"Trachea, bronchus and lung",728,South Sudan,SSD,1,0,2.42
+15,"Trachea, bronchus and lung",729,Sudan,SDN,1,0,3.14
+15,"Trachea, bronchus and lung",740,Suriname,SUR,1,0,24.11
+15,"Trachea, bronchus and lung",748,Eswatini,SWZ,1,0,7.59
+15,"Trachea, bronchus and lung",752,Sweden,SWE,1,0,15.75
+15,"Trachea, bronchus and lung",756,Switzerland,CHE,1,0,27.93
+15,"Trachea, bronchus and lung",760,Syrian Arab Republic,SYR,1,0,28.74
+15,"Trachea, bronchus and lung",762,Tajikistan,TJK,1,0,7.05
+15,"Trachea, bronchus and lung",764,Thailand,THA,1,0,25.91
+15,"Trachea, bronchus and lung",768,Togo,TGO,1,0,3.11
+15,"Trachea, bronchus and lung",780,Trinidad and Tobago,TTO,1,0,19.16
+15,"Trachea, bronchus and lung",784,United Arab Emirates,ARE,1,0,6.78
+15,"Trachea, bronchus and lung",788,Tunisia,TUN,1,0,37.75
+15,"Trachea, bronchus and lung",792,Türkiye,TUR,1,0,67.99
+15,"Trachea, bronchus and lung",795,Turkmenistan,TKM,1,0,16.14
+15,"Trachea, bronchus and lung",800,Uganda,UGA,1,0,3.45
+15,"Trachea, bronchus and lung",804,Ukraine,UKR,1,0,41.71
+15,"Trachea, bronchus and lung",807,North Macedonia,MKD,1,0,49.44
+15,"Trachea, bronchus and lung",818,Egypt,EGY,1,0,13.93
+15,"Trachea, bronchus and lung",826,United Kingdom,GBR,1,0,31.92
+15,"Trachea, bronchus and lung",834,"Tanzania, United Republic of",TZA,1,0,2.75
+15,"Trachea, bronchus and lung",840,United States of America,USA,1,0,33.7
+15,"Trachea, bronchus and lung",854,Burkina Faso,BFA,1,0,3.01
+15,"Trachea, bronchus and lung",858,Uruguay,URY,1,0,46.56
+15,"Trachea, bronchus and lung",860,Uzbekistan,UZB,1,0,13.63
+15,"Trachea, bronchus and lung",862,Venezuela,VEN,1,0,20.38
+15,"Trachea, bronchus and lung",882,Samoa,WSM,1,0,49.63
+15,"Trachea, bronchus and lung",887,Yemen,YEM,1,0,5.04
+15,"Trachea, bronchus and lung",894,Zambia,ZMB,1,0,4.57

@@ -65,6 +65,7 @@ export function renderBaseMap() {
 }
 
 export function renderBivariateMap(cancerData, lifestyleData, gender) {
+
     console.log("render bivariate map", cancerData)
     // Create the SVG canvas
     const svg = d3.select("#map").select("svg");
@@ -102,6 +103,7 @@ export function renderBivariateMap(cancerData, lifestyleData, gender) {
     const color = (a,b) => {
         if (!a || !b) return "#ccc"; // Gray for missing data
         const res = y(b) + x(a) * n;
+        console.log("sdds")
         console.log(a, x(a));
         return colors[res];
     };
@@ -119,6 +121,7 @@ export function renderBivariateMap(cancerData, lifestyleData, gender) {
             if (!d || !cancerRateMap[d.id] || !lifestyleRateMap[d.id]) {
                 return "#ccc"; // Gray for missing data
             } else {
+                console.log(d)
                 return color(cancerRateMap[d.id], lifestyleRateMap[d.id]);
             }
             
