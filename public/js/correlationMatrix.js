@@ -69,7 +69,7 @@ const createMatrix = (avgTobacco, avgAlcohol, cancerTypesAverages) => {
     const lifestyles = ["Tobacco", "Alcohol"];
 
     // Set fixed width and height for the entire table
-    const tableWidth = 600;   // Fixed width
+    const tableWidth = 300;   // Fixed width
     const tableHeight = 300;  // Fixed height
 
     // Create the SVG canvas with fixed width and height

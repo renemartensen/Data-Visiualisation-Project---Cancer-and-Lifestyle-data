@@ -10,8 +10,7 @@ export function renderBaseMap() {
         .attr("width", width)
         .attr("height", height);
 
-    const projection = d3.geoEquirectangular() // robinson
-
+    const projection = d3.geoRobinson();
     const path = d3.geoPath().projection(projection);
 
     const tooltip = d3.select("#tooltip");

@@ -1,6 +1,7 @@
 import { loadData } from './js/data_loading.js';
 import { renderMap, renderBaseMap, renderBivariateMap } from './js/map.js';
 import { renderMatrix } from './js/correlationMatrix.js';
+
 // import { svg } from 'd3';
 
 
