@@ -34,6 +34,9 @@ export function renderBaseMap() {
         .enter()
         .append("path")
         .attr("class", "country")
+        .attr("value", d => {
+            return d.properties.name;
+        })
         .attr("d", path)
         .style("stroke", "black")
         .style("stroke-width", "0.2px") 
@@ -66,7 +69,7 @@ export function renderBaseMap() {
 
 export function renderBivariateMap(cancerData, lifestyleData, gender) {
 
-    console.log("render bivariate map", cancerData)
+    console.log("render bivariate map", cancerData, lifestyleData)
     // Create the SVG canvas
     const svg = d3.select("#map").select("svg");
 
@@ -103,8 +106,7 @@ export function renderBivariateMap(cancerData, lifestyleData, gender) {
     const color = (a,b) => {
         if (!a || !b) return "#ccc"; // Gray for missing data
         const res = y(b) + x(a) * n;
-        console.log("sdds")
-        console.log(a, x(a));
+
         return colors[res];
     };
   
@@ -118,10 +120,9 @@ export function renderBivariateMap(cancerData, lifestyleData, gender) {
     // Add paths to the SVG for each geographical region (counties in this case)
     svg.selectAll("path")
         .style("fill", d => {
-            if (!d || !cancerRateMap[d.id] || !lifestyleRateMap[d.id]) {
+            if (d == undefined || !cancerRateMap[d.id] || !lifestyleRateMap[d.id]) {
                 return "#ccc"; // Gray for missing data
             } else {
-                console.log(d)
                 return color(cancerRateMap[d.id], lifestyleRateMap[d.id]);
             }
             

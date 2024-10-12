@@ -20,7 +20,6 @@ export function renderMatrix(data) {
 
 
     createMatrix(avgTobacco, avgAlcohol, cancerTypesAverages)
-    console.log("hej")
 }
 
 
@@ -32,7 +31,7 @@ const calculateAverage = (dataArray, gender) => {
     }, 0);
   
     return sum / dataArray.length; // Calculate average
-  };
+};
 
 
 const createMatrix = (avgTobacco, avgAlcohol, cancerTypesAverages) => {
