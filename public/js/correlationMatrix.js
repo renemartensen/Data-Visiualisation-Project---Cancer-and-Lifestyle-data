@@ -38,7 +38,7 @@ const createMatrix = (avgTobacco, avgAlcohol, cancerTypesAverages) => {
 
 
     // Define margins at the top, before usage
-    const margin = { top: 0, right: 0, bottom: 100, left: 100 };
+    const margin = { top: 0, right: 0, bottom: 0, left: 0 };
 
     // const cancerTypesAverages = [
     //     { cancerType: "Breast Cancer", cancerRate: 25 },
@@ -128,17 +128,18 @@ const createMatrix = (avgTobacco, avgAlcohol, cancerTypesAverages) => {
     // X axis for Cancer Types (below the matrix)
     const xAxis = svg.append("g")
         .attr("class", "x-axis")
-        .attr("transform", `translate(0, ${tableHeight})`)
+        .attr("transform", `translate(0, 0)`)
         .call(d3.axisBottom(xScale));
 
 
     const yAxis = svg.append("g")
     .attr("class", "y-axis")
-    .call(d3.axisLeft(yScale));
+    .attr("transform", `translate(0, 0)`)
+    .call(d3.axisRight(yScale));
 
     yAxis.selectAll("text")
         .attr("transform", "rotate(-45)")  // Rotate by 45 degrees
-        .style("text-anchor", "end")       // Align text for readability
+        .style("text-anchor", "start")       // Align text for readability
         .style("font-size", `${Math.min(cellWidth, cellHeight) / 12}px`);
 
 

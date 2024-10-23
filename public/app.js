@@ -5,6 +5,7 @@ import { renderMatrix } from './js/correlationMatrix.js';
 // import { svg } from 'd3';
 
 
+
 let selectedLifestyle= "alcohol_2019"
 let selectedCancer= "all-cancers"
 let selectedGender= "both"
@@ -23,6 +24,7 @@ let mainData;
 loadData()
   .then(data => {
     mainData = data;
+    console.log(mainData);
     updateMap("alcohol_2019", "all-cancers", "both");
     renderMatrix(mainData)
 });
@@ -60,30 +62,13 @@ svg.on("click", function(event) {
 
 });
 
-
-
-// Event listeners for dropdown filters
-document.getElementById('lifestyle-choice').addEventListener('change', (event) => {
-  selectedLifestyle = event.target.value;
-  console.log(selectedLifestyle);
+/* svg.on("click", function(event) {
+  const value = event.target.value;
+  selectedCancer = value.split(",")[0]
+  selectedLifestyle = value.split(",")[1]
   updateMap(selectedLifestyle, selectedCancer, selectedGender);
-});
 
-document.getElementById('cancer-type').addEventListener('change', (event) => {
-  selectedCancer = event.target.value;
-  console.log(selectedCancer);
-  updateMap(selectedLifestyle, selectedCancer, selectedGender);
-});
-
-document.getElementById('gender-choice').addEventListener('change', (event) => {
-  selectedGender = event.target.value;
-  console.log(selectedGender);
-  updateMap(selectedLifestyle, selectedCancer, selectedGender);
-});
-
-document.getElementById('update-map').addEventListener('click', () => {
-  updateMap(selectedLifestyle, selectedCancer, selectedGender);  // Update the map when filters are changed
-});
+}) */
 
 
 

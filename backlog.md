@@ -1,7 +1,1 @@
-# Backlog
-
-Find out why not all entries have iso numbers and fix it
-
-
-
-Hvvordan gær man hvis vores datasæt er 50,50,50, og resten over 300?
+https://hypnotic-dragon-8b0.notion.site/Project-128cde790cd180e8bfddcfa934a31556
