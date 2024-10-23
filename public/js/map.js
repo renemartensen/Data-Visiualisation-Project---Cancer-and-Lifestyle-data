@@ -1,5 +1,5 @@
 let dragging = false;
-export function renderBaseMap() {
+export function renderBaseMap(updateSubPlots) {
 
     console.log("render base map")
     const parentDiv = document.querySelector("#mapContainer");
@@ -72,7 +72,7 @@ export function renderBaseMap() {
                 tooltip.style("display", "block")
                     .html(`${d.properties.name}`)
                     .style("left", `${event.pageX + 10}px`)
-                    .style("top", `${event.pageY + 10}px`);
+                    .style("top", `${event.pageY - 200}px`);
 
                 d3.select(this)
                     .style("stroke", "black")
@@ -80,7 +80,8 @@ export function renderBaseMap() {
             })
             .on("mousemove", function(event) {
                 if (dragging) return;
-                
+                tooltip.style("left", `${event.pageX + 10}px`)
+                        .style("top", `${event.pageY - 200}px`);
             })
             .on("mouseout", function(event, d) {
                 if (dragging) return;
@@ -90,14 +91,14 @@ export function renderBaseMap() {
                     .style("stroke", "black")
                     .style("stroke-width", "0.2px"); 
             });
-            initRangeSelectionRect(svg, zoom, projection, countryData, width, height);
+            initRangeSelectionRect(svg, zoom, projection, countryData, width, height, updateSubPlots);
             
         }).catch(error => {
         console.error("Error loading or processing the data:", error);
     });
 }
 
-function initRangeSelectionRect(svg, zoom, projection, countryData,  width, height) {
+function initRangeSelectionRect(svg, zoom, projection, countryData,  width, height, updateSubPlots) {
     // Add a rectangle for the selection
     const selectionRect = svg.append("rect")
         .attr("class", "selection")
@@ -175,6 +176,7 @@ function initRangeSelectionRect(svg, zoom, projection, countryData,  width, heig
                         return false;  // No intersection found for this country
                     }).map(d => d.properties.name);
 
+                    updateSubPlots(selectedCountries);
                     console.log("Selected Countries:", selectedCountries);
 
                     // Calculate the scale and translation for the zoom

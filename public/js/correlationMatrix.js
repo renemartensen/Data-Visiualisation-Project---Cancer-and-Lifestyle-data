@@ -136,7 +136,7 @@ const createMatrix = (data) => {
     const lifeStyles = lifeStyleAverages.map(d => d.lifeStyleType);
 
     // Set fixed width and height for the entire table
-    const tableHeight = 150;  // Fixed height
+    const tableHeight = 175;  // Fixed height
     const parentDiv = document.querySelector("#correlationMatrix");
     const tableWidth = parentDiv.offsetWidth;   // Dynamic width based on parent div
 

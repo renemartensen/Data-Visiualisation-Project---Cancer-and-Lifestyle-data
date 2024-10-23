@@ -14,10 +14,22 @@ const updateMap = (selectedLifestyle, selectedCancer, selectedGender) => {
   const cancerData = mainData.cancerTypes[selectedCancer];
   const lifestyleData = mainData.lifeStyleChoices[selectedLifestyle];
   //renderMap(lifestyleData, selectedGender)
-  //renderBivariateMap(cancerData, lifestyleData, selectedGender)
+  renderBivariateMap(cancerData, lifestyleData, selectedGender)
 }
 
-renderBaseMap();
+const updateSubPlots = (selectedCountries) => {
+  console.log(selectedCountries)
+  const subplotsDiv = document.getElementById('ul');
+  subplotsDiv.innerHTML = '';
+
+  selectedCountries.forEach(country => {
+    const countryElement = document.createElement('li');
+    countryElement.textContent = country;
+    subplotsDiv.appendChild(countryElement);
+  });
+}
+
+renderBaseMap(updateSubPlots);
 
 let mainData;
 
