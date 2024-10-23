@@ -10,44 +10,30 @@
 <body class="bg-gray-100 text-center">
   <h1 class="text-3xl font-bold text-grey">DataVis Project</h1>
   
-  <div class="flex flex-row w-full justify-between m-6">
-    <!-- <div id="controls">
-      <label for="lifestyle-choice">Select Lifestyle Factor:</label>
-      <select id="lifestyle-choice">
-          <option >None</option>
-          <option value="alcohol_2019">Alcohol</option>
-          <option value="tobacco_2005">Tobacco</option>
-      </select>
-      
-      <label for="cancer-type">Select Cancer Type:</label>
-      <select id="cancer-type">
-          <option >None</option>
-          <option value="all-cancers">All</option>
-          <option value="trachea-bronchus-and-lung">Lung Cancer</option>
-          <option value="breast">Breast Cancer</option>
-      </select>
-      
-      <label for="gender-choice">Select Gender:</label>
-      <select id="gender-choice">
-          <option value="both">Both</option>
-          <option value="male">Male</option>
-          <option value="female">Female</option>
-      </select>
+  <div class="flex flex-col md:flex-row justify-between m-6">
+    <!-- Left section: Correlation Matrix + Map (2/3 width) -->
+    <div class="w-full md:w-2/3">
+        <!-- Correlation Matrix (fills width of 2/3 section) -->
+        <div id="correlationMatrix">
+            <!-- Correlation Matrix content goes here -->
+        </div>
 
-      <button id="update-map">Update Map</button>
-  </div> -->
-
-
-    <div id="correlationMatrix"> </div>
-    <div id="map" class="">
-      <div id="tooltip" class="tooltip"></div>
+        <!-- World Map (fills width of 2/3 section) -->
+        <div id="mapContainer" class="relative">
+            <div id="map"></div>
+            <div id="tooltip" class="tooltip"></div>
+            <button id="resetZoomBtn" class="hidden absolute top-4 right-4 bg-blue-500 text-white px-4 py-2 rounded shadow-lg">
+              Zoom to Default
+          </button>
+        </div>
     </div>
 
-
-
-    <div id="subPlots" class=""></div>
-    
-  </div>
+    <!-- Right section: Subplots (1/3 width) -->
+    <div id="subPlots" class="w-full md:w-1/3 md:ml-[10px]">
+        We are going to have subplot here
+        <!-- Subplots content goes here -->
+    </div>
+</div>
   
 
   

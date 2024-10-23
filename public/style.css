@@ -8,13 +8,37 @@
     opacity: 0.9;
     display: none;
 }
-.country {
-    cursor: pointer;
-    fill: gray;
-}
 
 .country {
     cursor: pointer;
     fill: gray;
     border-radius: 4px;
 }
+
+
+#mapContainer {
+    width: 100%;
+    height: auto;
+    border: 1px solid #ccc;
+}
+
+#correlationMatrix {
+    width: 100%;
+    border: 1px solid #ccc;
+}
+
+#subPlots {
+    border: 1px solid #ccc;
+}
+
+#map {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.svg-content-responsive {
+    width: 100%;   /* Make SVG take full width of its parent */
+    height: auto;  /* Maintain aspect ratio */
+    display: block; /* Prevent inline SVG spacing issues */
+}
+

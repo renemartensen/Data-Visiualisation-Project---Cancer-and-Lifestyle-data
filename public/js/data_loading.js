@@ -1,6 +1,7 @@
 let mainData = {
     cancerTypes: {},
     lifeStyleChoices: {},
+    lifeStyleNames: {"tobacco_2005": "Tobacco", "alcohol_2019": "Alcohol"}
 };
 
 const cancerTypes = ["all-cancers", "breast", "trachea-bronchus-and-lung"];

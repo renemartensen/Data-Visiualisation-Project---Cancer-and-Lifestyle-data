@@ -1,25 +1,45 @@
 
 
+
+
+
 export function renderMatrix(data) {
 
-    let cancerTypes = data.cancerTypes;
-    let lifeStyleChoices = data.lifeStyleChoices;
-    
-    let avgTobacco = calculateAverage(lifeStyleChoices["tobacco_2005"], "both");
-    let avgAlcohol = calculateAverage(lifeStyleChoices["alcohol_2019"], "both");
+    createMatrix(data)
+}
 
-    let cancerTypesAverages = []
 
-    let keys = Object.keys(cancerTypes)
-    for(let i=0; i < keys.length; i++){
-        let key = keys[i]
-        let cancerTypeArray = cancerTypes[key]
-        let avg = calculateAverage(cancerTypeArray, "both")
-        cancerTypesAverages.push({cancerType: key, cancerRate: avg})
+
+// Calculate correlations between cancer rate and lifestyle rates
+const calculateCorrelation = (cancerRate, lifestyleRate) => {
+    return Math.abs(cancerRate - lifestyleRate);  // Simple difference
+};
+
+
+const calculateMeans = (data) => {
+    let cancerData = data.cancerTypes;
+    let lifeStyleData = data.lifeStyleChoices;
+
+    let lifeStyleAverages = []
+
+    let keysLifeStyle = Object.keys(lifeStyleData)
+    for(let i=0; i < keysLifeStyle.length; i++){
+        let key = keysLifeStyle[i]
+        let avg = calculateAverage(lifeStyleData[key], "both")
+        lifeStyleAverages.push({lifeStyleType: key, lifeStyleRate: avg})
     }
 
 
-    createMatrix(avgTobacco, avgAlcohol, cancerTypesAverages)
+    let cancerTypesAverages = []
+
+    let keys = Object.keys(cancerData)
+    for(let i=0; i < keys.length; i++){
+        let key = keys[i]
+        let cancerTypeArray = cancerData[key]
+        let avg = calculateAverage(cancerTypeArray, "both")
+        cancerTypesAverages.push({cancerType: key, cancerRate: avg})
+    }
+    return [cancerTypesAverages, lifeStyleAverages]
 }
 
 
@@ -34,56 +54,103 @@ const calculateAverage = (dataArray, gender) => {
 };
 
 
-const createMatrix = (avgTobacco, avgAlcohol, cancerTypesAverages) => {
+const calculateDifferencesFromMean = (data, meansCancer, meansLifeStyle) => {
+    let cancerData = data.cancerTypes;
+    let lifeStyleData = data.lifeStyleChoices;
 
+    let diffsFromMeanCancer = {}
+
+    meansCancer.forEach(d => {
+        let diffs = {}
+        let avg = d.cancerRate
+        let currData = cancerData[d.cancerType]
+        let values = currData.map(entry => [entry["iso"], parseFloat(entry["both"])])
+        values.forEach(entry => diffs[entry[0]] = entry[1] - avg)
+        diffsFromMeanCancer[d.cancerType] = diffs
+    })
+
+    let diffsFromMeanLifeStyle = {}
+    meansLifeStyle.forEach(d => {
+        let diffs = {}
+        let avg = d.lifeStyleRate
+        let currData = lifeStyleData[d.lifeStyleType]
+        let values = currData.map(entry => [entry["iso"], parseFloat(entry["both"])])
+        values.forEach(entry => diffs[entry[0]] = entry[1] -avg)
+        diffsFromMeanLifeStyle[d.lifeStyleType] = diffs
+    })
+    return [diffsFromMeanCancer, diffsFromMeanLifeStyle]
+}
+
+const calculateProductOfDifferences = (diffsFromMeanCancer, diffsFromMeanLifeStyle) => {
+    let resultDict = {}
+    Object.keys(diffsFromMeanCancer).forEach(cancerType => {
+        let diffsCancer = diffsFromMeanCancer[cancerType]
+        Object.keys(diffsFromMeanLifeStyle).forEach(lifeStyleType => {
+            let diffsLifeStyle = diffsFromMeanLifeStyle[lifeStyleType]
+            let sum = 0
+            Object.keys(diffsCancer).forEach(countryCode => {
+                let cancerDiff = diffsCancer[countryCode]
+                let lifeStyleDiff = diffsLifeStyle[countryCode]
+                if (!(cancerDiff === undefined || lifeStyleDiff === undefined)){ // Hvis begge er defined
+                    sum += cancerDiff * lifeStyleDiff
+                }
+            })
+            resultDict[`${cancerType},${lifeStyleType}`] = sum
+        })
+    })
+
+    return resultDict
+
+}
+
+const createMatrix = (data) => {
+    
+    let lifeStyleNames = data.lifeStyleNames;
+    
+    let result = calculateMeans(data)
+    let cancerTypesAverages = result[0];
+    let lifeStyleAverages = result[1];
+
+    let resultDiffs = calculateDifferencesFromMean(data, cancerTypesAverages, lifeStyleAverages)
+    let diffsFromMeanCancer = resultDiffs[0]
+    let diffsFromMeanLifeStyle = resultDiffs[1]
+
+    let productOfDifferences = calculateProductOfDifferences(diffsFromMeanCancer, diffsFromMeanLifeStyle)
+    console.log(productOfDifferences)
 
     // Define margins at the top, before usage
     const margin = { top: 0, right: 0, bottom: 0, left: 0 };
 
-    // const cancerTypesAverages = [
-    //     { cancerType: "Breast Cancer", cancerRate: 25 },
-    //     { cancerType: "Lung Cancer", cancerRate: 50 },
-    //     { cancerType: "Colorectal Cancer", cancerRate: 30 },
-    //     { cancerType: "Colorectal Cancer1", cancerRate: 37 },
-    //     { cancerType: "Colorectal Cancer3", cancerRate: 20 },
-    //     { cancerType: "Colorectal Cancer4", cancerRate: 40 },
-    //     { cancerType: "Colorectal Cancer5", cancerRate: 32 },
-    //     { cancerType: "Colorectal Cancer6", cancerRate: 45 },
-    //     { cancerType: "Colorectal Cancer7", cancerRate: 42 }
-    //     // Add more cancer types and rates as needed
-    // ];
-
-    // Calculate correlations between cancer rate and lifestyle rates
-    const calculateCorrelation = (cancerRate, lifestyleRate) => {
-        return Math.abs(cancerRate - lifestyleRate);  // Simple difference
-    };
-
     // Add correlation values to the cancerRates array
     cancerTypesAverages.forEach(d => {
-        d.tobaccoCorrelation = calculateCorrelation(d.cancerRate, avgTobacco);
-        d.alcoholCorrelation = calculateCorrelation(d.cancerRate, avgAlcohol);
+        for(let i=0; i < lifeStyleAverages.length; i++){
+            let lifeStyle = lifeStyleAverages[i]
+            let lifeStyleType = lifeStyle.lifeStyleType
+            let correlation = calculateCorrelation(d.cancerRate, lifeStyle.lifeStyleRate)
+            d[lifeStyleType + "Correlation"] = correlation
+        }
     });
 
     // Cancer types and lifestyle factors
     const cancerTypes = cancerTypesAverages.map(d => d.cancerType);
-    const lifestyles = ["Tobacco", "Alcohol"];
+    const lifeStyles = lifeStyleAverages.map(d => d.lifeStyleType);
 
     // Set fixed width and height for the entire table
-    const tableWidth = 300;   // Fixed width
-    const tableHeight = 300;  // Fixed height
+    const tableHeight = 150;  // Fixed height
+    const parentDiv = document.querySelector("#correlationMatrix");
+    const tableWidth = parentDiv.offsetWidth;   // Dynamic width based on parent div
 
     // Create the SVG canvas with fixed width and height
     const svg = d3.select("#correlationMatrix")
     .append("svg")
-        .attr("width", tableWidth + margin.left + margin.right)
-        .attr("height", tableHeight + margin.top + margin.bottom)
+        .attr("viewBox", `0 0 ${tableWidth + margin.left + margin.right} ${tableHeight + margin.top + margin.bottom}`)
         .append("g")
         .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
 
     // Dynamically calculate the size of each cell based on the number of rows and columns
     const cellWidth = tableWidth / cancerTypes.length;  // Adjusted cell width based on number of columns
-    const cellHeight = tableHeight / lifestyles.length; // Adjusted cell height based on number of rows
+    const cellHeight = tableHeight / lifeStyles.length; // Adjusted cell height based on number of rows
 
     // Scales adjusted based on the fixed table size
     const xScale = d3.scaleBand()
@@ -91,39 +158,34 @@ const createMatrix = (avgTobacco, avgAlcohol, cancerTypesAverages) => {
         .range([0, tableWidth])
 
     const yScale = d3.scaleBand()
-        .domain(lifestyles)
+        .domain(lifeStyles.map(d => lifeStyleNames[d]))
         .range([0, tableHeight])
 
+
     const colorScale = d3.scaleLinear()
-        .domain([0, d3.max(cancerTypesAverages, d => Math.max(d.tobaccoCorrelation, d.alcoholCorrelation))])
-        .range(["white", "steelblue"]);
+    .domain([0, d3.max(cancerTypesAverages, d => {
+        const correlations = Object.entries(d)
+            .filter(([key, value]) => key.includes("Correlation"))
+            .map(([key, value]) => value); 
 
-
-    // Add Tobacco Correlation Cells
-    svg.selectAll(".tobacco-cell")
+        return Math.max(...correlations);
+    })])
+    .range(["white", "steelblue"]);
+    
+    
+    for(let i=0; i < lifeStyles.length; i++){
+        let lifeStyle = lifeStyles[i]
+        svg.selectAll(`.${lifeStyle}-cell`)
         .data(cancerTypesAverages)
         .enter()
         .append("rect")
-        .attr("class", "tobacco-cell")
-        .attr("id", d => d.cancerType + "," + d.tobaccoCorrelation)
+        .attr("id", d => d.cancerType + "," + lifeStyle)
         .attr("x", d => xScale(d.cancerType))
-        .attr("y", yScale("Tobacco"))
+        .attr("y", yScale([lifeStyleNames[lifeStyle]]))
         .attr("width", cellWidth)
         .attr("height", cellHeight)
-        .style("fill", d => colorScale(d.tobaccoCorrelation));
-
-    // Add Alcohol Correlation Cells
-    svg.selectAll(".alcohol-cell")
-        .data(cancerTypesAverages)
-        .enter()
-        .append("rect")
-        .attr("class", "alcohol-cell")
-        .attr("id", d => d.cancerType + "," + d.alcoholCorrelation)
-        .attr("x", d => xScale(d.cancerType))
-        .attr("y", yScale("Alcohol"))
-        .attr("width", cellWidth)
-        .attr("height", cellHeight)
-        .style("fill", d => colorScale(d.alcoholCorrelation));
+        .style("fill", d => colorScale(d[lifeStyle + "Correlation"]));
+    }
 
     // X axis for Cancer Types (below the matrix)
     const xAxis = svg.append("g")
@@ -143,24 +205,11 @@ const createMatrix = (avgTobacco, avgAlcohol, cancerTypesAverages) => {
         .style("font-size", `${Math.min(cellWidth, cellHeight) / 12}px`);
 
 
-
     // Rotate the x-axis labels to fit longer text
     xAxis.selectAll("text")
         .attr("transform", "rotate(-45)")  // Rotate by 45 degrees
         .style("text-anchor", "end")       // Adjust text-anchor for readability
         .style("font-size", `${Math.min(cellWidth, cellHeight) / 12}px`);  // Adjust font size
 
-    // No Y axis for Lifestyle Factors, handled by manual row headers
-
-
-
         
-}; 
-
-
-
-
-
-
-//TODO: Find out how to calc correlation
-//
+};

@@ -1,69 +1,251 @@
-
+let dragging = false;
 export function renderBaseMap() {
 
     console.log("render base map")
-    const width = 960;
-    const height = 600;
+    const parentDiv = document.querySelector("#mapContainer");
+    const width = parentDiv.offsetWidth;   // Dynamic width based on parent div
+    const height = width / 2
 
     const svg = d3.select("#map")
         .append("svg")
-        .attr("width", width)
-        .attr("height", height);
+        .attr("viewBox", `0 0 ${width} ${height}`)
+        .classed("svg-content-responsive", true);
 
-    const projection = d3.geoRobinson();
+    const projection = d3.geoRobinson()
+        .scale(width / 6)  // Adjust scale based on dynamic width
+        .translate([(width / 2.2), height / 1.8]);  // Center the map
     const path = d3.geoPath().projection(projection);
 
     const tooltip = d3.select("#tooltip");
+    
+    let zoom = d3.zoom()
+        .scaleExtent([1, 8])  // Set the minimum and maximum zoom levels
+        .translateExtent([[0, 0], [width, height]])  // Set the boundaries of the map
+        .on("zoom", (event) => {
+            svg.selectAll("path")
+                .attr("transform", event.transform)
+            if (event.transform.k > 1) {
+                resetZoomBtn.classList.remove("hidden");
+            } else {
+                resetZoomBtn.classList.add("hidden");
+            }
+                
+        });
 
+    svg.call(zoom)
+
+    resetZoomBtn.addEventListener("click", () => {
+        svg.transition()
+            .duration(750)
+            .call(zoom.transform, d3.zoomIdentity);  // Reset to the default zoom
+    });
+
+    let countryData;
+    
     Promise.all([
     d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json"),
     ]).then(([world]) => {
-    // Convert TopoJSON to GeoJSON
-    const countries = topojson.feature(world, world.objects.countries);
+        // Convert TopoJSON to GeoJSON
+        const countries = topojson.feature(world, world.objects.countries);
 
-    // Filter out Antarctica
-    const filteredCountries = countries.features.filter(function(d) {
-        return d.properties.name !== "Antarctica";
-    });
-        
-
-    svg.append("g")
-        .selectAll("path")
-        .data(filteredCountries)
-        .enter()
-        .append("path")
-        .attr("class", "country")
-        .attr("value", d => {
-            return d.properties.name;
-        })
-        .attr("d", path)
-        .style("stroke", "black")
-        .style("stroke-width", "0.2px") 
-        .on("mouseover", function(event, d) {
-            tooltip.style("display", "block")
-                .html(`${d.properties.name}`)
-                .style("left", (event.pageX + 10) + "px")
-                .style("top", (event.pageY - 10) + "px");
-
-            d3.select(this)
-                .style("stroke", "black")
-                .style("stroke-width", "2px"); 
-        })
-        .on("mousemove", function(event) {
-            tooltip.style("left", (event.pageX + 10) + "px")
-                    .style("top", (event.pageY - 10) + "px");
-        })
-        .on("mouseout", function(event, d) {
-            tooltip.style("display", "none");
-
-            d3.select(this)
-                .style("stroke", "black")
-                .style("stroke-width", "0.2px"); 
+        // Filter out Antarctica
+        const filteredCountries = countries.features.filter(function(d) {
+            return d.properties.name !== "Antarctica";
         });
-    }).catch(error => {
-    console.error("Error loading or processing the data:", error);
+
+        countryData = filteredCountries;
+
+        svg.append("g")
+            .selectAll("path")
+            .data(filteredCountries)
+            .enter()
+            .append("path")
+            .attr("class", "country")
+            .attr("value", d => {
+                return d.properties.name;
+            })
+            .attr("d", path)
+            .style("stroke", "black")
+            .style("stroke-width", "0.2px") 
+            .on("mouseover", function(event, d) {
+                if (dragging) return;
+                tooltip.style("display", "block")
+                    .html(`${d.properties.name}`)
+                    .style("left", `${event.pageX + 10}px`)
+                    .style("top", `${event.pageY + 10}px`);
+
+                d3.select(this)
+                    .style("stroke", "black")
+                    .style("stroke-width", "2px"); 
+            })
+            .on("mousemove", function(event) {
+                if (dragging) return;
+                
+            })
+            .on("mouseout", function(event, d) {
+                if (dragging) return;
+                tooltip.style("display", "none");
+
+                d3.select(this)
+                    .style("stroke", "black")
+                    .style("stroke-width", "0.2px"); 
+            });
+            initRangeSelectionRect(svg, zoom, projection, countryData, width, height);
+            
+        }).catch(error => {
+        console.error("Error loading or processing the data:", error);
+    });
+}
+
+function initRangeSelectionRect(svg, zoom, projection, countryData,  width, height) {
+    // Add a rectangle for the selection
+    const selectionRect = svg.append("rect")
+        .attr("class", "selection")
+        .attr("fill", "rgba(211, 211, 211, 0.3)")
+        .attr("stroke", "#000")
+        .attr("stroke-width", 0.1)
+        .style("display", "none");
+
+        let startX, startY;
+        
+    
+        // Drag behavior for the selection, only works when Cmd/Ctrl is pressed
+        const drag = d3.drag()
+            .on("start", function(event) {
+                if (dragging) {
+                    console.log("drag start")
+    
+                    // Record the start position
+                    startX = event.x;
+                    startY = event.y;
+    
+                    // Show and position the selection rectangle
+                    selectionRect
+                        .style("display", "block")
+                        .attr("x", startX)
+                        .attr("y", startY)
+                        .attr("width", 0)
+                        .attr("height", 0);
+                }
+            })
+            .on("drag", function(event) {
+                if (dragging) {
+                    // Calculate the width and height based on the current mouse position
+                    const currentX = event.x;
+                    const currentY = event.y;
+                    selectionRect
+                        .attr("width", Math.abs(currentX - startX))
+                        .attr("height", Math.abs(currentY - startY))
+                        .attr("x", Math.min(currentX, startX))
+                        .attr("y", Math.min(currentY, startY));
+                }
+            })
+            .on("end", function(event) {
+                if (dragging) {
+                    dragging = false;
+                    svg.call(zoom);  // Re-enable zoom behavior
+    
+                    // Log the final position of the rectangle
+                    const endX = event.x;
+                    const endY = event.y;
+    
+                    const xMin = Math.min(startX, endX);
+                    const yMin = Math.min(startY, endY);
+                    const xMax = Math.max(startX, endX);
+                    const yMax = Math.max(startY, endY);
+    
+                    console.log(`Selection coordinates: xMin: ${xMin}, yMin: ${yMin}, xMax: ${xMax}, yMax: ${yMax}`);
+    
+                    // Find countries that intersect with the selection rectangle
+                    const selectedCountries = countryData.filter(d => {
+                        const type = d.geometry.type;
+                        const coordinates = d.geometry.coordinates;
+    
+                        if (type === "Polygon") {
+                            return checkPolygonIntersection(coordinates, xMin, xMax, yMin, yMax);
+                        } else if (type === "MultiPolygon") {
+                            // Iterate over each polygon in the MultiPolygon
+                            for (let i = 0; i < coordinates.length; i++) {
+                                if (checkPolygonIntersection(coordinates[i], xMin, xMax, yMin, yMax)) {
+                                    return true;
+                                }
+                            }
+                        }
+    
+                        return false;  // No intersection found for this country
+                    }).map(d => d.properties.name);
+
+                    console.log("Selected Countries:", selectedCountries);
+
+                    // Calculate the scale and translation for the zoom
+                    const scaleX = width / (xMax - xMin);
+                    const scaleY = height / (yMax - yMin);
+                    const scale = Math.min(scaleX, scaleY);
+    
+                    const translateX = width / 2 - scale * (xMin + (xMax - xMin) / 2);
+                    const translateY = height / 2 - scale * (yMin + (yMax - yMin) / 2);
+    
+                    // Apply the zoom transformation
+                    svg.transition()
+                        .duration(750)
+                        .call(
+                            zoom.transform,
+                            d3.zoomIdentity
+                                .translate(translateX, translateY)
+                                .scale(scale)
+                        );
+    
+                    // Hide the rectangle after the drag
+                    selectionRect.style("display", "none");
+                }
+            });
+
+    // Apply drag behavior to the SVG
+    svg.call(drag);
+
+    // Function to check if any point in the polygon intersects with the selection rectangle
+    function checkPolygonIntersection(polygon, xMin, xMax, yMin, yMax) {
+        for (let i = 0; i < polygon.length; i++) {
+            const ring = polygon[i];
+            for (let j = 0; j < ring.length; j++) {
+                const point = ring[j];
+                const [x, y] = projection(point);
+
+                if (x >= xMin && x <= xMax && y >= yMin && y <= yMax) {
+                    return true;  // This point intersects with the rectangle
+                }
+            }
+        }
+        return false;
+    }
+
+
+    // Disable zoom when Cmd/Ctrl is pressed and enable drag
+    function enableDrag() {
+        svg.on(".zoom", null);  // Disable zoom behavior
+        svg.call(drag);         // Enable drag behavior
+        dragging = true;        // Set the dragging flag
+    }
+
+    // Re-enable zoom when Cmd/Ctrl is released
+    function enableZoom() {
+        svg.on(".drag", null);  // Disable drag behavior
+        svg.call(zoom);         // Enable zoom behavior
+        dragging = false;       // Reset the dragging flag
+    }
+
+    // Event listeners for keydown and keyup
+    window.addEventListener("keydown", (event) => {
+        if (event.key === "Meta" || event.key === "Alt") {
+            enableDrag();
+        }
     });
 
+    window.addEventListener("keyup", (event) => {
+        if (event.key === "Meta" || event.key === "Alt") {
+            enableZoom();
+        }
+    });
 }
 
 export function renderBivariateMap(cancerData, lifestyleData, gender) {
@@ -75,7 +257,7 @@ export function renderBivariateMap(cancerData, lifestyleData, gender) {
     
     // Append legend to the SVG
     svg.append(() => legend())
-       .attr("transform", "translate(150,330)");
+       .attr("transform", "translate(70,370)");
   
 
     const cancerRateMap = {};
@@ -126,16 +308,20 @@ export function renderBivariateMap(cancerData, lifestyleData, gender) {
             }
             
         }) 
-        .append("title")
-        // .text(d => `${d.properties.name}, ${states.get(d.id.slice(0, 2)).name}
-        //     ${format(index.get(d.id))}`); // Tooltip with formatted data
-
-  
+        .append("title") // Tooltip with formatted data
 
 }
+
+
+
+
+
+
+
+
   
   // Legend for the bivariate map
-  function legend() {
+function legend() {
     const k = 24; // Size of each square in the legend grid
     const n = 3
     const arrowId = "legend-arrow"; // Unique ID for arrow markers
