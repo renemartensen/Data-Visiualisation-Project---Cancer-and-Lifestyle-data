@@ -1,8 +1,3 @@
-
-
-
-
-
 export function renderMatrix(data) {
 
     createMatrix(data)
@@ -103,10 +98,45 @@ const calculateProductOfDifferences = (diffsFromMeanCancer, diffsFromMeanLifeSty
 
 }
 
-const createMatrix = (data) => {
+const calculateSumOfSquaredDifferences = (diffsFromMeanCancer, diffsFromMeanLifeStyle) => {
     
-    let lifeStyleNames = data.lifeStyleNames;
-    
+    let resultDict = {}
+    Object.keys(diffsFromMeanCancer).forEach(cancerType => {
+        let diffsCancer = diffsFromMeanCancer[cancerType]
+        let diffsCancerValues = Object.values(diffsCancer)
+        let squaredDiffsCancer = diffsCancerValues.map(d => d**2)
+        const sum = squaredDiffsCancer.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+        resultDict[cancerType] = sum
+    })
+
+    Object.keys(diffsFromMeanLifeStyle).forEach(lifeStyleType => {
+        let diffsLifeStyle = diffsFromMeanLifeStyle[lifeStyleType]
+        let diffsLifeStyleValues = Object.values(diffsLifeStyle)
+        let squaredDiffsLifeStyle = diffsLifeStyleValues.map(d => d**2)
+        const sum = squaredDiffsLifeStyle.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+        resultDict[lifeStyleType] = sum
+    })
+
+    return resultDict
+}
+
+const calculateCorrelationCoeffs = (productOfDifferences, sumOfSquaredDifferences) => {
+    let resultDict = {}
+    Object.keys(productOfDifferences).forEach(key => {
+        let valueProductOfDifferences = productOfDifferences[key]
+        let cancerType = key.split(",")[0]
+        let lifeStyleType = key.split(",")[1]
+        let valueSumOfSquaredDiffsCancer = sumOfSquaredDifferences[cancerType]
+        let valueSumOfSquaredDiffsLifeStyle = sumOfSquaredDifferences[lifeStyleType]
+        let r = (valueProductOfDifferences)/(Math.sqrt(valueSumOfSquaredDiffsCancer) * Math.sqrt(valueSumOfSquaredDiffsLifeStyle))
+        resultDict[key] = r
+    })
+
+    return resultDict
+
+}
+
+const pearsonCorrelationCoeff = (data) => {
     let result = calculateMeans(data)
     let cancerTypesAverages = result[0];
     let lifeStyleAverages = result[1];
@@ -116,27 +146,30 @@ const createMatrix = (data) => {
     let diffsFromMeanLifeStyle = resultDiffs[1]
 
     let productOfDifferences = calculateProductOfDifferences(diffsFromMeanCancer, diffsFromMeanLifeStyle)
-    console.log(productOfDifferences)
+
+    let sumOfSquaredDifferences = calculateSumOfSquaredDifferences(diffsFromMeanCancer, diffsFromMeanLifeStyle)
+
+    let correlationCoeffs = calculateCorrelationCoeffs(productOfDifferences, sumOfSquaredDifferences)
+    return correlationCoeffs
+
+}
+
+const createMatrix = (data) => {
+    
+    let lifeStyleNames = data.lifeStyleNames;
+
+    const cancerTypes = Object.keys(data.cancerTypes);
+    const lifeStyles = Object.keys(data.lifeStyleChoices);
+
+    let correlationCoeffs = pearsonCorrelationCoeff(data)
+    console.log(correlationCoeffs)
+    
 
     // Define margins at the top, before usage
     const margin = { top: 0, right: 0, bottom: 0, left: 0 };
 
-    // Add correlation values to the cancerRates array
-    cancerTypesAverages.forEach(d => {
-        for(let i=0; i < lifeStyleAverages.length; i++){
-            let lifeStyle = lifeStyleAverages[i]
-            let lifeStyleType = lifeStyle.lifeStyleType
-            let correlation = calculateCorrelation(d.cancerRate, lifeStyle.lifeStyleRate)
-            d[lifeStyleType + "Correlation"] = correlation
-        }
-    });
-
-    // Cancer types and lifestyle factors
-    const cancerTypes = cancerTypesAverages.map(d => d.cancerType);
-    const lifeStyles = lifeStyleAverages.map(d => d.lifeStyleType);
-
     // Set fixed width and height for the entire table
-    const tableHeight = 175;  // Fixed height
+    const tableHeight = 150;  // Fixed height
     const parentDiv = document.querySelector("#correlationMatrix");
     const tableWidth = parentDiv.offsetWidth;   // Dynamic width based on parent div
 
@@ -163,28 +196,22 @@ const createMatrix = (data) => {
 
 
     const colorScale = d3.scaleLinear()
-    .domain([0, d3.max(cancerTypesAverages, d => {
-        const correlations = Object.entries(d)
-            .filter(([key, value]) => key.includes("Correlation"))
-            .map(([key, value]) => value); 
-
-        return Math.max(...correlations);
-    })])
-    .range(["white", "steelblue"]);
+    .domain([-1,0,1])
+    .range(["red", "white", "steelblue"]);
     
     
     for(let i=0; i < lifeStyles.length; i++){
         let lifeStyle = lifeStyles[i]
         svg.selectAll(`.${lifeStyle}-cell`)
-        .data(cancerTypesAverages)
+        .data(cancerTypes)
         .enter()
         .append("rect")
-        .attr("id", d => d.cancerType + "," + lifeStyle)
-        .attr("x", d => xScale(d.cancerType))
+        .attr("id", cancerType => cancerType + "," + lifeStyle)
+        .attr("x", cancerType => xScale(cancerType))
         .attr("y", yScale([lifeStyleNames[lifeStyle]]))
         .attr("width", cellWidth)
         .attr("height", cellHeight)
-        .style("fill", d => colorScale(d[lifeStyle + "Correlation"]));
+        .style("fill", cancerType => colorScale(correlationCoeffs[`${cancerType},${lifeStyle}`]));
     }
 
     // X axis for Cancer Types (below the matrix)
