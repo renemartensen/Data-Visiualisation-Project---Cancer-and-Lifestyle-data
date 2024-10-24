@@ -1,102 +1,143 @@
 let dragging = false;
+let startX, startY;
+
 export function renderBaseMap(updateSubPlots) {
 
     console.log("render base map")
+    const { width, height, svg } = setupSVG();
+
+    const projection = setupProjection(width, height);
+    const path = d3.geoPath().projection(projection);
+
+    const tooltip = d3.select("#tooltip");
+    
+    const zoom = setupZoom(svg, width, height);
+    svg.call(zoom);
+
+    setupResetZoomButton(svg, zoom);
+
+    loadMapData(svg, path, projection, tooltip, zoom, width, height, updateSubPlots);
+    
+}
+
+function setupResetZoomButton(svg, zoom) {
+    const resetZoomBtn = document.querySelector("#resetZoomBtn");
+    resetZoomBtn.addEventListener("click", () => {
+        svg.transition()
+            .duration(750)
+            .call(zoom.transform, d3.zoomIdentity);
+    });
+}
+
+function setupSVG() {
     const parentDiv = document.querySelector("#mapContainer");
-    const width = parentDiv.offsetWidth;   // Dynamic width based on parent div
-    const height = width / 2
+    const width = parentDiv.offsetWidth;
+    const height = width / 2;
 
     const svg = d3.select("#map")
         .append("svg")
         .attr("viewBox", `0 0 ${width} ${height}`)
         .classed("svg-content-responsive", true);
 
-    const projection = d3.geoRobinson()
-        .scale(width / 6)  // Adjust scale based on dynamic width
-        .translate([(width / 2.2), height / 1.8]);  // Center the map
-    const path = d3.geoPath().projection(projection);
-
-    const tooltip = d3.select("#tooltip");
-    
-    let zoom = d3.zoom()
-        .scaleExtent([1, 8])  // Set the minimum and maximum zoom levels
-        .translateExtent([[0, 0], [width, height]])  // Set the boundaries of the map
-        .on("zoom", (event) => {
-            svg.selectAll("path")
-                .attr("transform", event.transform)
-            if (event.transform.k > 1) {
-                resetZoomBtn.classList.remove("hidden");
-            } else {
-                resetZoomBtn.classList.add("hidden");
-            }
-                
-        });
-
-    svg.call(zoom)
-
-    resetZoomBtn.addEventListener("click", () => {
-        svg.transition()
-            .duration(750)
-            .call(zoom.transform, d3.zoomIdentity);  // Reset to the default zoom
-    });
-
-    let countryData;
-    
-    Promise.all([
-    d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json"),
-    ]).then(([world]) => {
-        // Convert TopoJSON to GeoJSON
-        const countries = topojson.feature(world, world.objects.countries);
-
-        // Filter out Antarctica
-        const filteredCountries = countries.features.filter(function(d) {
-            return d.properties.name !== "Antarctica";
-        });
-
-        countryData = filteredCountries;
-
-        svg.append("g")
-            .selectAll("path")
-            .data(filteredCountries)
-            .enter()
-            .append("path")
-            .attr("class", "country")
-            .attr("value", d => {
-                return d.properties.name;
-            })
-            .attr("d", path)
-            .style("stroke", "black")
-            .style("stroke-width", "0.2px") 
-            .on("mouseover", function(event, d) {
-                if (dragging) return;
-                tooltip.style("display", "block")
-                    .html(`${d.properties.name}`)
-                    .style("left", `${event.pageX + 10}px`)
-                    .style("top", `${event.pageY - 200}px`);
-
-                d3.select(this)
-                    .style("stroke", "black")
-                    .style("stroke-width", "2px"); 
-            })
-            .on("mousemove", function(event) {
-                if (dragging) return;
-                tooltip.style("left", `${event.pageX + 10}px`)
-                        .style("top", `${event.pageY - 200}px`);
-            })
-            .on("mouseout", function(event, d) {
-                if (dragging) return;
-                tooltip.style("display", "none");
-
-                d3.select(this)
-                    .style("stroke", "black")
-                    .style("stroke-width", "0.2px"); 
-            });
-            initRangeSelectionRect(svg, zoom, projection, countryData, width, height, updateSubPlots);
-            
-        }).catch(error => {
-        console.error("Error loading or processing the data:", error);
-    });
+    return { width, height, svg };
 }
+
+function setupProjection(width, height) {
+    return d3.geoRobinson()
+        .scale(width / 6)
+        .translate([width / 2.2, height / 1.8]);
+}
+
+function setupZoom(svg, width, height) {
+    const zoom = d3.zoom()
+        .scaleExtent([1, 8])
+        .translateExtent([[0, 0], [width, height]])
+        .on("zoom", (event) => {
+            svg.selectAll("path").attr("transform", event.transform);
+            toggleResetZoomButton(event.transform.k > 1);
+        });
+
+    return zoom;
+}
+
+// Function to toggle the visibility of the reset zoom button
+function toggleResetZoomButton(show) {
+    const resetZoomBtn = document.querySelector("#resetZoomBtn");
+    resetZoomBtn.classList.toggle("hidden", !show);
+}
+
+function loadMapData(svg, path, projection, tooltip, zoom, width, height, updateSubPlots) {
+    Promise.all([
+        d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json"),
+        ]).then(([world]) => {
+            // Convert TopoJSON to GeoJSON
+            const countries = topojson.feature(world, world.objects.countries);
+    
+            // Filter out Antarctica
+            const filteredCountries = countries.features.filter(function(d) {
+                return d.properties.name !== "Antarctica";
+            });
+    
+            const countryData = filteredCountries;
+    
+            svg.append("g")
+                .selectAll("path")
+                .data(filteredCountries)
+                .enter()
+                .append("path")
+                .attr("class", "country")
+                .attr("value", d => {
+                    return d.properties.name;
+                })
+                .attr("d", path)
+                .style("stroke", "black")
+                .style("stroke-width", "0.2px") 
+                .on("mouseover", (event, d) => handleMouseOver(event,d, tooltip))
+                .on("mousemove", (event) => handleMouseMove(event, tooltip))
+                .on("mouseout", (event, d) => handleMouseOut(event, tooltip));
+                initRangeSelectionRect(svg, zoom, projection, countryData, width, height, updateSubPlots);
+                
+            }).catch(error => {
+            console.error("Error loading or processing the data:", error);
+        });
+}
+
+// Event handler for mouseover
+function handleMouseOver(event, d, tooltip) {
+    if (dragging) return;
+    tooltip.style("display", "block")
+        .html(`${d.properties.name}`)
+    positionTooltip(event, tooltip);
+
+    d3.select(event.currentTarget)
+        .style("stroke", "black")
+        .style("stroke-width", "2px"); 
+}
+
+// Event handler for mousemove
+function handleMouseMove(event, tooltip) {
+    if (dragging) return;
+    positionTooltip(event, tooltip);
+}
+
+// Event handler for mouseout
+function handleMouseOut(event, tooltip) {
+    if (dragging) return;
+    tooltip.style("display", "none");
+
+    d3.select(event.currentTarget)
+        .style("stroke", "black")
+        .style("stroke-width", "0.2px"); 
+}
+
+// Utility function to position the tooltip
+function positionTooltip(event, tooltip) {
+    tooltip.style("left", `${event.pageX + 10}px`)
+            .style("top", `${event.pageY - 200}px`);
+}
+
+
+
 
 function initRangeSelectionRect(svg, zoom, projection, countryData,  width, height, updateSubPlots) {
     // Add a rectangle for the selection
@@ -107,7 +148,6 @@ function initRangeSelectionRect(svg, zoom, projection, countryData,  width, heig
         .attr("stroke-width", 0.1)
         .style("display", "none");
 
-        let startX, startY;
         
     
         // Drag behavior for the selection, only works when Cmd/Ctrl is pressed
@@ -313,8 +353,6 @@ export function renderBivariateMap(cancerData, lifestyleData, gender) {
         .append("title") // Tooltip with formatted data
 
 }
-
-
 
 
 
