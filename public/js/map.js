@@ -1,5 +1,6 @@
 let dragging = false;
 let startX, startY;
+let selectedCountries =[];
 
 export function renderBaseMap(updateSubPlots) {
 
@@ -66,6 +67,7 @@ function toggleResetZoomButton(show) {
     resetZoomBtn.classList.toggle("hidden", !show);
 }
 
+// loads initial map data and adds the button/zoom/range selection rectangle
 function loadMapData(svg, path, projection, tooltip, zoom, width, height, updateSubPlots) {
     Promise.all([
         d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json"),
@@ -94,12 +96,48 @@ function loadMapData(svg, path, projection, tooltip, zoom, width, height, update
                 .style("stroke-width", "0.2px") 
                 .on("mouseover", (event, d) => handleMouseOver(event,d, tooltip))
                 .on("mousemove", (event) => handleMouseMove(event, tooltip))
-                .on("mouseout", (event, d) => handleMouseOut(event, tooltip));
+                .on("mouseout", (event, d) => handleMouseOut(event,d, tooltip))
+                .on("click", (event,d) => {handleCountrySelect(event, d,updateSubPlots)})
                 initRangeSelectionRect(svg, zoom, projection, countryData, width, height, updateSubPlots);
-                
             }).catch(error => {
             console.error("Error loading or processing the data:", error);
         });
+
+
+}
+
+function handleCountrySelect(event,d, updateSubPlots) {
+    const country = d.properties.name;
+    selectedCountries.push(country);
+    console.log("added country", country);
+    selectCountryBorder(event);
+    //updateSubPlots(country);
+}
+
+function hoverCountryBorder(event) {
+    d3.select(event.currentTarget)
+        .style("stroke", "black")
+        .style("stroke-width", "1px"); 
+}
+
+function unhoverCountryBorder(event, country) {
+    console.log(selectedCountries, country)
+    if (selectedCountries.includes(country)) {
+        return;
+    }
+    d3.select(event.currentTarget)
+        .style("stroke", "black")
+        .style("stroke-width", "0.2px"); 
+}
+
+function selectCountryBorder(event) {
+    d3.select(event.currentTarget)
+        .style("stroke", "black")
+        .style("stroke-width", "3px")
+}
+
+function deselectCountryBorder(event) {
+
 }
 
 // Event handler for mouseover
@@ -108,10 +146,7 @@ function handleMouseOver(event, d, tooltip) {
     tooltip.style("display", "block")
         .html(`${d.properties.name}`)
     positionTooltip(event, tooltip);
-
-    d3.select(event.currentTarget)
-        .style("stroke", "black")
-        .style("stroke-width", "2px"); 
+    hoverCountryBorder(event)
 }
 
 // Event handler for mousemove
@@ -121,13 +156,11 @@ function handleMouseMove(event, tooltip) {
 }
 
 // Event handler for mouseout
-function handleMouseOut(event, tooltip) {
+function handleMouseOut(event,d, tooltip) {
     if (dragging) return;
     tooltip.style("display", "none");
 
-    d3.select(event.currentTarget)
-        .style("stroke", "black")
-        .style("stroke-width", "0.2px"); 
+    unhoverCountryBorder(event,d.properties.name);
 }
 
 // Utility function to position the tooltip
