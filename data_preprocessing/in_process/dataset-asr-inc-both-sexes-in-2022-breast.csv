@@ -1,186 +1,186 @@
-Cancer label,Code,Country,ASR (World) per 100 000
-Breast,004,Afghanistan,29.44
-Breast,008,Albania,51.14
-Breast,012,Algeria,61.87
-Breast,024,Angola,29.43
-Breast,031,Azerbaijan,32.9
-Breast,032,Argentina,71.32
-Breast,036,Australia,101.47
-Breast,040,Austria,69.54
-Breast,044,Bahamas,64.64
-Breast,048,Bahrain,58.49
-Breast,050,Bangladesh,15.18
-Breast,051,Armenia,39.61
-Breast,052,Barbados,57.74
-Breast,056,Belgium,104.39
-Breast,064,Bhutan,4.56
-Breast,068,Bolivia,26.78
-Breast,070,Bosnia Herzegovina,51.88
-Breast,072,Botswana,23.03
-Breast,076,Brazil,63.12
-Breast,084,Belize,46.75
-Breast,090,Solomon Islands,49.18
-Breast,096,Brunei Darussalam,50.16
-Breast,100,Bulgaria,52.82
-Breast,104,Myanmar,23.41
-Breast,108,Burundi,25.32
-Breast,112,Belarus,56.57
-Breast,116,Cambodia,25.13
-Breast,120,Cameroon,48.64
-Breast,124,Canada,88.59
-Breast,132,Cape Verde,23.4
-Breast,140,Central African Republic,37.72
-Breast,144,Sri Lanka,27.68
-Breast,148,Chad,14.24
-Breast,152,Chile,38.23
-Breast,156,China,33.04
-Breast,170,Colombia,50.7
-Breast,174,Comoros,21.5
-Breast,178,"Congo, Republic of",26.85
-Breast,180,"Congo, Democratic Republic of",26.45
-Breast,188,Costa Rica,37.53
-Breast,191,Croatia,74.64
-Breast,192,Cuba,47.24
-Breast,196,Cyprus,104.75
-Breast,203,Czechia,72.51
-Breast,204,Benin,33.26
-Breast,208,Denmark,95.42
-Breast,214,Dominican Republic,53.39
-Breast,218,Ecuador,39.46
-Breast,222,El Salvador,39.65
-Breast,226,Equatorial Guinea,40.99
-Breast,231,Ethiopia,40.81
-Breast,232,Eritrea,37.78
-Breast,233,Estonia,63.06
-Breast,242,Fiji,60.26
-Breast,246,Finland,92.33
-Breast,250,France (metropolitan),105.42
-Breast,254,French Guyana,55.71
-Breast,258,French Polynesia,71.91
-Breast,262,Djibouti,38.06
-Breast,266,Gabon,36.41
-Breast,268,Georgia,49.04
-Breast,270,The Republic of the Gambia,12.12
-Breast,275,Gaza Strip and West Bank,46.33
-Breast,276,Germany,77.02
-Breast,288,Ghana,40.19
-Breast,300,Greece,82.36
-Breast,312,"France, Guadeloupe",66.41
-Breast,316,Guam,44.15
-Breast,320,Guatemala,28.35
-Breast,324,Guinea,15.95
-Breast,328,Guyana,52.6
-Breast,332,Haiti,25.16
-Breast,340,Honduras,27.28
-Breast,348,Hungary,76.38
-Breast,352,Iceland,71.06
-Breast,356,India,26.6
-Breast,360,Indonesia,41.78
-Breast,364,"Iran, Islamic Republic of",30.45
-Breast,368,Iraq,56.91
-Breast,372,Ireland,91.45
-Breast,376,Israel,78.74
-Breast,380,Italy,87.01
-Breast,384,Côte d'Ivoire,45.44
-Breast,388,Jamaica,71.12
-Breast,392,Japan,74.39
-Breast,398,Kazakhstan,36.94
-Breast,400,Jordan,59.99
-Breast,404,Kenya,40.77
-Breast,408,"Korea, Democratic People Republic of",32.25
-Breast,410,"Korea, Republic of",61.48
-Breast,414,Kuwait,49.83
-Breast,417,Kyrgyzstan,25.31
-Breast,418,Lao People's Democratic Republic,31.63
-Breast,422,Lebanon,57.89
-Breast,426,Lesotho,18.92
-Breast,428,Latvia,65.95
-Breast,430,Liberia,33.57
-Breast,434,Libya,30.98
-Breast,440,Lithuania,62.74
-Breast,442,Luxembourg,99.7
-Breast,450,Madagascar,30.32
-Breast,454,Malawi,25.19
-Breast,458,Malaysia,46.09
-Breast,462,Maldives,39.84
-Breast,466,Mali,37.73
-Breast,470,Malta,86.3
-Breast,474,"France, Martinique",77.16
-Breast,478,Mauritania,34.54
-Breast,480,Mauritius,52.68
-Breast,484,Mexico,39.94
-Breast,496,Mongolia,12.63
-Breast,498,Moldova,46.57
-Breast,499,Montenegro,76.54
-Breast,504,Morocco,58.37
-Breast,508,Mozambique,19.69
-Breast,512,Oman,33.96
-Breast,516,Namibia,53.93
-Breast,524,Nepal,14.35
-Breast,528,The Netherlands,101.6
-Breast,540,New Caledonia,90.18
-Breast,548,Vanuatu,29.6
-Breast,554,New Zealand,94.36
-Breast,558,Nicaragua,35.32
-Breast,562,Niger,29.46
-Breast,566,Nigeria,51.5
-Breast,578,Norway,95.56
-Breast,586,Pakistan,34.23
-Breast,591,Panama,41.39
-Breast,598,Papua New Guinea,46.03
-Breast,600,Paraguay,58.37
-Breast,604,Peru,39.3
-Breast,608,Philippines,60.34
-Breast,616,Poland,65.96
-Breast,620,Portugal,88.75
-Breast,624,Guinea-Bissau,27.17
-Breast,626,Timor-Leste,26.38
-Breast,630,Puerto Rico,62.32
-Breast,634,Qatar,39.03
-Breast,638,"France, La Réunion",55.94
-Breast,642,Romania,69.22
-Breast,643,Russian Federation,57.67
-Breast,646,Rwanda,16.2
-Breast,662,Saint Lucia,51.68
-Breast,678,Sao Tome and Principe,19.91
-Breast,682,Saudi Arabia,25.28
-Breast,686,Senegal,29.89
-Breast,688,Serbia,60.5
-Breast,694,Sierra Leone,7.02
-Breast,702,Singapore,72.61
-Breast,703,Slovakia,67.3
-Breast,704,Viet Nam,37.96
-Breast,705,Slovenia,82.27
-Breast,706,Somalia,38.62
-Breast,710,South Africa,47.8
-Breast,716,Zimbabwe,35.84
-Breast,724,Spain,80.96
-Breast,728,South Sudan,27.99
-Breast,729,Sudan,39.94
-Breast,740,Suriname,46.38
-Breast,748,Eswatini,26.17
-Breast,752,Sweden,81.41
-Breast,756,Switzerland,77.42
-Breast,760,Syrian Arab Republic,46.21
-Breast,762,Tajikistan,19.47
-Breast,764,Thailand,37.44
-Breast,768,Togo,32.93
-Breast,780,Trinidad and Tobago,54.0
-Breast,784,United Arab Emirates,57.05
-Breast,788,Tunisia,36.16
-Breast,792,Türkiye,46.77
-Breast,795,Turkmenistan,31.13
-Breast,800,Uganda,23.34
-Breast,804,Ukraine,43.08
-Breast,807,North Macedonia,65.28
-Breast,818,Egypt,55.4
-Breast,826,United Kingdom,94.03
-Breast,834,"Tanzania, United Republic of",25.12
-Breast,840,United States of America,95.91
-Breast,854,Burkina Faso,21.38
-Breast,858,Uruguay,75.05
-Breast,860,Uzbekistan,27.79
-Breast,862,Venezuela,47.1
-Breast,882,Samoa,88.75
-Breast,887,Yemen,25.35
-Breast,894,Zambia,22.32
+country,code,ASR (World)
+Afghanistan,004,29.44
+Albania,008,51.14
+Algeria,012,61.87
+Angola,024,29.43
+Azerbaijan,031,32.9
+Argentina,032,71.32
+Australia,036,101.47
+Austria,040,69.54
+Bahamas,044,64.64
+Bahrain,048,58.49
+Bangladesh,050,15.18
+Armenia,051,39.61
+Barbados,052,57.74
+Belgium,056,104.39
+Bhutan,064,4.56
+Bolivia,068,26.78
+Bosnia Herzegovina,070,51.88
+Botswana,072,23.03
+Brazil,076,63.12
+Belize,084,46.75
+Solomon Islands,090,49.18
+Brunei Darussalam,096,50.16
+Bulgaria,100,52.82
+Myanmar,104,23.41
+Burundi,108,25.32
+Belarus,112,56.57
+Cambodia,116,25.13
+Cameroon,120,48.64
+Canada,124,88.59
+Cape Verde,132,23.4
+Central African Republic,140,37.72
+Sri Lanka,144,27.68
+Chad,148,14.24
+Chile,152,38.23
+China,160,33.04
+Colombia,170,50.7
+Comoros,174,21.5
+"Congo, Republic of",178,26.85
+"Congo, Democratic Republic of",180,26.45
+Costa Rica,188,37.53
+Croatia,191,74.64
+Cuba,192,47.24
+Cyprus,196,104.75
+Czechia,203,72.51
+Benin,204,33.26
+Denmark,208,95.42
+Dominican Republic,214,53.39
+Ecuador,218,39.46
+El Salvador,222,39.65
+Equatorial Guinea,226,40.99
+Ethiopia,231,40.81
+Eritrea,232,37.78
+Estonia,233,63.06
+Fiji,242,60.26
+Finland,246,92.33
+France (metropolitan),250,105.42
+French Guyana,254,55.71
+French Polynesia,258,71.91
+Djibouti,262,38.06
+Gabon,266,36.41
+Georgia,268,49.04
+The Republic of the Gambia,270,12.12
+Gaza Strip and West Bank,275,46.33
+Germany,276,77.02
+Ghana,288,40.19
+Greece,300,82.36
+"France, Guadeloupe",312,66.41
+Guam,316,44.15
+Guatemala,320,28.35
+Guinea,324,15.95
+Guyana,328,52.6
+Haiti,332,25.16
+Honduras,340,27.28
+Hungary,348,76.38
+Iceland,352,71.06
+India,356,26.6
+Indonesia,360,41.78
+"Iran, Islamic Republic of",364,30.45
+Iraq,368,56.91
+Ireland,372,91.45
+Israel,376,78.74
+Italy,380,87.01
+Côte d'Ivoire,384,45.44
+Jamaica,388,71.12
+Japan,392,74.39
+Kazakhstan,398,36.94
+Jordan,400,59.99
+Kenya,404,40.77
+"Korea, Democratic People Republic of",408,32.25
+"Korea, Republic of",410,61.48
+Kuwait,414,49.83
+Kyrgyzstan,417,25.31
+Lao People's Democratic Republic,418,31.63
+Lebanon,422,57.89
+Lesotho,426,18.92
+Latvia,428,65.95
+Liberia,430,33.57
+Libya,434,30.98
+Lithuania,440,62.74
+Luxembourg,442,99.7
+Madagascar,450,30.32
+Malawi,454,25.19
+Malaysia,458,46.09
+Maldives,462,39.84
+Mali,466,37.73
+Malta,470,86.3
+"France, Martinique",474,77.16
+Mauritania,478,34.54
+Mauritius,480,52.68
+Mexico,484,39.94
+Mongolia,496,12.63
+Moldova,498,46.57
+Montenegro,499,76.54
+Morocco,504,58.37
+Mozambique,508,19.69
+Oman,512,33.96
+Namibia,516,53.93
+Nepal,524,14.35
+The Netherlands,528,101.6
+New Caledonia,540,90.18
+Vanuatu,548,29.6
+New Zealand,554,94.36
+Nicaragua,558,35.32
+Niger,562,29.46
+Nigeria,566,51.5
+Norway,578,95.56
+Pakistan,586,34.23
+Panama,591,41.39
+Papua New Guinea,598,46.03
+Paraguay,600,58.37
+Peru,604,39.3
+Philippines,608,60.34
+Poland,616,65.96
+Portugal,620,88.75
+Guinea-Bissau,624,27.17
+Timor-Leste,626,26.38
+Puerto Rico,630,62.32
+Qatar,634,39.03
+"France, La Réunion",638,55.94
+Romania,642,69.22
+Russian Federation,643,57.67
+Rwanda,646,16.2
+Saint Lucia,662,51.68
+Sao Tome and Principe,678,19.91
+Saudi Arabia,682,25.28
+Senegal,686,29.89
+Serbia,688,60.5
+Sierra Leone,694,7.02
+Singapore,702,72.61
+Slovakia,703,67.3
+Viet Nam,704,37.96
+Slovenia,705,82.27
+Somalia,706,38.62
+South Africa,710,47.8
+Zimbabwe,716,35.84
+Spain,724,80.96
+South Sudan,728,27.99
+Sudan,729,39.94
+Suriname,740,46.38
+Eswatini,748,26.17
+Sweden,752,81.41
+Switzerland,756,77.42
+Syrian Arab Republic,760,46.21
+Tajikistan,762,19.47
+Thailand,764,37.44
+Togo,768,32.93
+Trinidad and Tobago,780,54.0
+United Arab Emirates,784,57.05
+Tunisia,788,36.16
+Türkiye,792,46.77
+Turkmenistan,795,31.13
+Uganda,800,23.34
+Ukraine,804,43.08
+North Macedonia,807,65.28
+Egypt,818,55.4
+United Kingdom,826,94.03
+"Tanzania, United Republic of",834,25.12
+United States of America,840,95.91
+Burkina Faso,854,21.38
+Uruguay,858,75.05
+Uzbekistan,860,27.79
+Venezuela,862,47.1
+Samoa,882,88.75
+Yemen,887,25.35
+Zambia,894,22.32

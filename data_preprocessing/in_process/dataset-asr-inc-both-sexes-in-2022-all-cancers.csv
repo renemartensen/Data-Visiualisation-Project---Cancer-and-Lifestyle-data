@@ -1,186 +1,186 @@
-Cancer label,Code,Country,ASR (World) per 100 000
-All cancers,004,Afghanistan,106.24
-All cancers,008,Albania,160.77
-All cancers,012,Algeria,141.17
-All cancers,024,Angola,133.47
-All cancers,031,Azerbaijan,152.34
-All cancers,032,Argentina,215.82
-All cancers,036,Australia,462.51
-All cancers,040,Austria,258.47
-All cancers,044,Bahamas,192.73
-All cancers,048,Bahrain,113.76
-All cancers,050,Bangladesh,105.59
-All cancers,051,Armenia,201.57
-All cancers,052,Barbados,205.34
-All cancers,056,Belgium,324.67
-All cancers,064,Bhutan,87.62
-All cancers,068,Bolivia,143.77
-All cancers,070,Bosnia Herzegovina,218.58
-All cancers,072,Botswana,115.41
-All cancers,076,Brazil,214.43
-All cancers,084,Belize,114.72
-All cancers,090,Solomon Islands,134.8
-All cancers,096,Brunei Darussalam,192.22
-All cancers,100,Bulgaria,222.03
-All cancers,104,Myanmar,135.5
-All cancers,108,Burundi,128.2
-All cancers,112,Belarus,273.23
-All cancers,116,Cambodia,138.3
-All cancers,120,Cameroon,126.02
-All cancers,124,Canada,345.94
-All cancers,132,Cape Verde,87.01
-All cancers,140,Central African Republic,101.8
-All cancers,144,Sri Lanka,106.94
-All cancers,148,Chad,118.14
-All cancers,152,Chile,188.67
-All cancers,156,China,201.61
-All cancers,170,Colombia,177.62
-All cancers,174,Comoros,106.81
-All cancers,178,"Congo, Republic of",80.73
-All cancers,180,"Congo, Democratic Republic of",102.99
-All cancers,188,Costa Rica,177.73
-All cancers,191,Croatia,313.4
-All cancers,192,Cuba,220.76
-All cancers,196,Cyprus,292.27
-All cancers,203,Czechia,280.9
-All cancers,204,Benin,102.63
-All cancers,208,Denmark,374.69
-All cancers,214,Dominican Republic,167.02
-All cancers,218,Ecuador,152.7
-All cancers,222,El Salvador,127.11
-All cancers,226,Equatorial Guinea,107.72
-All cancers,231,Ethiopia,104.49
-All cancers,232,Eritrea,99.82
-All cancers,233,Estonia,282.49
-All cancers,242,Fiji,174.79
-All cancers,246,Finland,276.85
-All cancers,250,France (metropolitan),339.02
-All cancers,254,French Guyana,204.28
-All cancers,258,French Polynesia,228.07
-All cancers,262,Djibouti,90.71
-All cancers,266,Gabon,114.38
-All cancers,268,Georgia,197.5
-All cancers,270,The Republic of the Gambia,79.17
-All cancers,275,Gaza Strip and West Bank,152.25
-All cancers,276,Germany,274.24
-All cancers,288,Ghana,120.36
-All cancers,300,Greece,258.66
-All cancers,312,"France, Guadeloupe",253.9
-All cancers,316,Guam,167.19
-All cancers,320,Guatemala,121.77
-All cancers,324,Guinea,116.32
-All cancers,328,Guyana,142.49
-All cancers,332,Haiti,141.05
-All cancers,340,Honduras,127.96
-All cancers,348,Hungary,336.74
-All cancers,352,Iceland,268.28
-All cancers,356,India,98.54
-All cancers,360,Indonesia,136.93
-All cancers,364,"Iran, Islamic Republic of",148.98
-All cancers,368,Iraq,136.56
-All cancers,372,Ireland,344.7
-All cancers,376,Israel,245.78
-All cancers,380,Italy,284.49
-All cancers,384,Côte d'Ivoire,136.96
-All cancers,388,Jamaica,199.58
-All cancers,392,Japan,267.08
-All cancers,398,Kazakhstan,162.28
-All cancers,400,Jordan,152.57
-All cancers,404,Kenya,149.14
-All cancers,408,"Korea, Democratic People Republic of",166.06
-All cancers,410,"Korea, Republic of",234.7
-All cancers,414,Kuwait,111.4
-All cancers,417,Kyrgyzstan,125.77
-All cancers,418,Lao People's Democratic Republic,154.53
-All cancers,422,Lebanon,168.78
-All cancers,426,Lesotho,115.54
-All cancers,428,Latvia,288.89
-All cancers,430,Liberia,115.21
-All cancers,434,Libya,132.25
-All cancers,440,Lithuania,287.93
-All cancers,442,Luxembourg,273.31
-All cancers,450,Madagascar,117.41
-All cancers,454,Malawi,159.5
-All cancers,458,Malaysia,142.13
-All cancers,462,Maldives,105.31
-All cancers,466,Mali,139.88
-All cancers,470,Malta,282.52
-All cancers,474,"France, Martinique",224.16
-All cancers,478,Mauritania,105.31
-All cancers,480,Mauritius,139.99
-All cancers,484,Mexico,140.93
-All cancers,496,Mongolia,235.79
-All cancers,498,Moldova,232.15
-All cancers,499,Montenegro,237.99
-All cancers,504,Morocco,149.83
-All cancers,508,Mozambique,128.75
-All cancers,512,Oman,105.25
-All cancers,516,Namibia,193.48
-All cancers,524,Nepal,81.6
-All cancers,528,The Netherlands,341.44
-All cancers,540,New Caledonia,287.55
-All cancers,548,Vanuatu,108.16
-All cancers,554,New Zealand,427.32
-All cancers,558,Nicaragua,133.48
-All cancers,562,Niger,83.65
-All cancers,566,Nigeria,113.55
-All cancers,578,Norway,357.9
-All cancers,586,Pakistan,105.58
-All cancers,591,Panama,154.86
-All cancers,598,Papua New Guinea,188.69
-All cancers,600,Paraguay,192.24
-All cancers,604,Peru,173.81
-All cancers,608,Philippines,185.4
-All cancers,616,Poland,262.76
-All cancers,620,Portugal,294.63
-All cancers,624,Guinea-Bissau,100.34
-All cancers,626,Timor-Leste,84.45
-All cancers,630,Puerto Rico,226.63
-All cancers,634,Qatar,82.37
-All cancers,638,"France, La Réunion",203.07
-All cancers,642,Romania,276.46
-All cancers,643,Russian Federation,248.06
-All cancers,646,Rwanda,83.22
-All cancers,662,Saint Lucia,166.77
-All cancers,678,Sao Tome and Principe,104.86
-All cancers,682,Saudi Arabia,87.09
-All cancers,686,Senegal,113.85
-All cancers,688,Serbia,250.4
-All cancers,694,Sierra Leone,35.9
-All cancers,702,Singapore,231.06
-All cancers,703,Slovakia,283.3
-All cancers,704,Viet Nam,150.75
-All cancers,705,Slovenia,305.14
-All cancers,706,Somalia,121.03
-All cancers,710,South Africa,203.42
-All cancers,716,Zimbabwe,207.96
-All cancers,724,Spain,274.58
-All cancers,728,South Sudan,99.42
-All cancers,729,Sudan,95.63
-All cancers,740,Suriname,169.46
-All cancers,748,Eswatini,135.3
-All cancers,752,Sweden,310.03
-All cancers,756,Switzerland,292.72
-All cancers,760,Syrian Arab Republic,138.57
-All cancers,762,Tajikistan,91.72
-All cancers,764,Thailand,154.36
-All cancers,768,Togo,107.48
-All cancers,780,Trinidad and Tobago,186.71
-All cancers,784,United Arab Emirates,105.12
-All cancers,788,Tunisia,135.35
-All cancers,792,Türkiye,225.86
-All cancers,795,Turkmenistan,122.73
-All cancers,800,Uganda,154.35
-All cancers,804,Ukraine,199.85
-All cancers,807,North Macedonia,206.91
-All cancers,818,Egypt,166.13
-All cancers,826,United Kingdom,307.82
-All cancers,834,"Tanzania, United Republic of",140.13
-All cancers,840,United States of America,366.95
-All cancers,854,Burkina Faso,125.18
-All cancers,858,Uruguay,279.91
-All cancers,860,Uzbekistan,112.67
-All cancers,862,Venezuela,184.79
-All cancers,882,Samoa,240.01
-All cancers,887,Yemen,83.13
-All cancers,894,Zambia,159.53
+country,code,ASR (World)
+Afghanistan,004,106.24
+Albania,008,160.77
+Algeria,012,141.17
+Angola,024,133.47
+Azerbaijan,031,152.34
+Argentina,032,215.82
+Australia,036,462.51
+Austria,040,258.47
+Bahamas,044,192.73
+Bahrain,048,113.76
+Bangladesh,050,105.59
+Armenia,051,201.57
+Barbados,052,205.34
+Belgium,056,324.67
+Bhutan,064,87.62
+Bolivia,068,143.77
+Bosnia Herzegovina,070,218.58
+Botswana,072,115.41
+Brazil,076,214.43
+Belize,084,114.72
+Solomon Islands,090,134.8
+Brunei Darussalam,096,192.22
+Bulgaria,100,222.03
+Myanmar,104,135.5
+Burundi,108,128.2
+Belarus,112,273.23
+Cambodia,116,138.3
+Cameroon,120,126.02
+Canada,124,345.94
+Cape Verde,132,87.01
+Central African Republic,140,101.8
+Sri Lanka,144,106.94
+Chad,148,118.14
+Chile,152,188.67
+China,160,201.61
+Colombia,170,177.62
+Comoros,174,106.81
+"Congo, Republic of",178,80.73
+"Congo, Democratic Republic of",180,102.99
+Costa Rica,188,177.73
+Croatia,191,313.4
+Cuba,192,220.76
+Cyprus,196,292.27
+Czechia,203,280.9
+Benin,204,102.63
+Denmark,208,374.69
+Dominican Republic,214,167.02
+Ecuador,218,152.7
+El Salvador,222,127.11
+Equatorial Guinea,226,107.72
+Ethiopia,231,104.49
+Eritrea,232,99.82
+Estonia,233,282.49
+Fiji,242,174.79
+Finland,246,276.85
+France (metropolitan),250,339.02
+French Guyana,254,204.28
+French Polynesia,258,228.07
+Djibouti,262,90.71
+Gabon,266,114.38
+Georgia,268,197.5
+The Republic of the Gambia,270,79.17
+Gaza Strip and West Bank,275,152.25
+Germany,276,274.24
+Ghana,288,120.36
+Greece,300,258.66
+"France, Guadeloupe",312,253.9
+Guam,316,167.19
+Guatemala,320,121.77
+Guinea,324,116.32
+Guyana,328,142.49
+Haiti,332,141.05
+Honduras,340,127.96
+Hungary,348,336.74
+Iceland,352,268.28
+India,356,98.54
+Indonesia,360,136.93
+"Iran, Islamic Republic of",364,148.98
+Iraq,368,136.56
+Ireland,372,344.7
+Israel,376,245.78
+Italy,380,284.49
+Côte d'Ivoire,384,136.96
+Jamaica,388,199.58
+Japan,392,267.08
+Kazakhstan,398,162.28
+Jordan,400,152.57
+Kenya,404,149.14
+"Korea, Democratic People Republic of",408,166.06
+"Korea, Republic of",410,234.7
+Kuwait,414,111.4
+Kyrgyzstan,417,125.77
+Lao People's Democratic Republic,418,154.53
+Lebanon,422,168.78
+Lesotho,426,115.54
+Latvia,428,288.89
+Liberia,430,115.21
+Libya,434,132.25
+Lithuania,440,287.93
+Luxembourg,442,273.31
+Madagascar,450,117.41
+Malawi,454,159.5
+Malaysia,458,142.13
+Maldives,462,105.31
+Mali,466,139.88
+Malta,470,282.52
+"France, Martinique",474,224.16
+Mauritania,478,105.31
+Mauritius,480,139.99
+Mexico,484,140.93
+Mongolia,496,235.79
+Moldova,498,232.15
+Montenegro,499,237.99
+Morocco,504,149.83
+Mozambique,508,128.75
+Oman,512,105.25
+Namibia,516,193.48
+Nepal,524,81.6
+The Netherlands,528,341.44
+New Caledonia,540,287.55
+Vanuatu,548,108.16
+New Zealand,554,427.32
+Nicaragua,558,133.48
+Niger,562,83.65
+Nigeria,566,113.55
+Norway,578,357.9
+Pakistan,586,105.58
+Panama,591,154.86
+Papua New Guinea,598,188.69
+Paraguay,600,192.24
+Peru,604,173.81
+Philippines,608,185.4
+Poland,616,262.76
+Portugal,620,294.63
+Guinea-Bissau,624,100.34
+Timor-Leste,626,84.45
+Puerto Rico,630,226.63
+Qatar,634,82.37
+"France, La Réunion",638,203.07
+Romania,642,276.46
+Russian Federation,643,248.06
+Rwanda,646,83.22
+Saint Lucia,662,166.77
+Sao Tome and Principe,678,104.86
+Saudi Arabia,682,87.09
+Senegal,686,113.85
+Serbia,688,250.4
+Sierra Leone,694,35.9
+Singapore,702,231.06
+Slovakia,703,283.3
+Viet Nam,704,150.75
+Slovenia,705,305.14
+Somalia,706,121.03
+South Africa,710,203.42
+Zimbabwe,716,207.96
+Spain,724,274.58
+South Sudan,728,99.42
+Sudan,729,95.63
+Suriname,740,169.46
+Eswatini,748,135.3
+Sweden,752,310.03
+Switzerland,756,292.72
+Syrian Arab Republic,760,138.57
+Tajikistan,762,91.72
+Thailand,764,154.36
+Togo,768,107.48
+Trinidad and Tobago,780,186.71
+United Arab Emirates,784,105.12
+Tunisia,788,135.35
+Türkiye,792,225.86
+Turkmenistan,795,122.73
+Uganda,800,154.35
+Ukraine,804,199.85
+North Macedonia,807,206.91
+Egypt,818,166.13
+United Kingdom,826,307.82
+"Tanzania, United Republic of",834,140.13
+United States of America,840,366.95
+Burkina Faso,854,125.18
+Uruguay,858,279.91
+Uzbekistan,860,112.67
+Venezuela,862,184.79
+Samoa,882,240.01
+Yemen,887,83.13
+Zambia,894,159.53

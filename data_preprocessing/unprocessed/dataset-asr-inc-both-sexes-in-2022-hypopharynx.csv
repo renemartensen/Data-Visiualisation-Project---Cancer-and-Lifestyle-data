@@ -1,0 +1,186 @@
+Label,Cancer code,Country code (ISO/UN),Alpha‑3 code,Sex,Type,ASR (World),Crude rate,Cumulative risk,Total
+Afghanistan,5,4,AFG,0,0,0.64,0.35,,141
+Albania,5,8,ALB,0,0,0.3,0.63,,18
+Algeria,5,12,DZA,0,0,0.17,0.17,,77
+Angola,5,24,AGO,0,0,0.05,0.01,,5
+Azerbaijan,5,31,AZE,0,0,0.26,0.36,,37
+Argentina,5,32,ARG,0,0,0.15,0.19,,86
+Australia,5,36,AUS,0,0,0.47,0.88,,230
+Austria,5,40,AUT,0,0,0.84,1.69,,153
+Bahamas,5,44,BHS,0,0,0,0,,0
+Bahrain,5,48,BHR,0,0,0,0,,0
+Bangladesh,5,50,BGD,0,0,5.48,5.06,,8491
+Armenia,5,51,ARM,0,0,0.22,0.37,,11
+Barbados,5,52,BRB,0,0,1.42,2.78,,8
+Belgium,5,56,BEL,0,0,1.1,2.2,,257
+Bhutan,5,64,BTN,0,0,1.98,1.78,,14
+Bolivia,5,68,BOL,0,0,0,0,,0
+Bosnia Herzegovina,5,70,BIH,0,0,0.78,1.48,,48
+Botswana,5,72,BWA,0,0,0.47,0.33,,8
+Brazil,5,76,BRA,0,0,0.52,0.68,,1474
+Belize,5,84,BLZ,0,0,0,0,,0
+Solomon Islands,5,90,SLB,0,0,0,0,,0
+Brunei Darussalam,5,96,BRN,0,0,0,0,,0
+Bulgaria,5,100,BGR,0,0,0.69,1.31,,90
+Myanmar,5,104,MMR,0,0,2.34,2.48,,1368
+Burundi,5,108,BDI,0,0,0.3,0.12,,15
+Belarus,5,112,BLR,0,0,2.43,4.03,,380
+Cambodia,5,116,KHM,0,0,0.67,0.52,,90
+Cameroon,5,120,CMR,0,0,0.94,0.55,,153
+Canada,5,124,CAN,0,0,0.29,0.63,,240
+Cape Verde,5,132,CPV,0,0,0.66,0.53,,3
+Central African Republic,5,140,CAF,0,0,0,0,,0
+Sri Lanka,5,144,LKA,0,0,1.36,2.01,,433
+Chad,5,148,TCD,0,0,0.16,0.06,,10
+Chile,5,152,CHL,0,0,0.19,0.33,,64
+China,5,160,CHN,0,0,0.39,0.68,,9549
+Colombia,5,170,COL,0,0,0.18,0.24,,126
+Comoros,5,174,COM,0,0,0,0,,0
+"Congo, Republic of",5,178,COG,0,0,0,0,,0
+"Congo, Democratic Republic of",5,180,COD,0,0,0.22,0.1,,100
+Costa Rica,5,188,CRI,0,0,0.23,0.42,,22
+Croatia,5,191,HRV,0,0,1.41,2.86,,116
+Cuba,5,192,CUB,0,0,0.82,1.59,,180
+Cyprus,5,196,CYP,0,0,0.11,0.16,,2
+Czechia,5,203,CZE,0,0,0.73,1.4,,150
+Benin,5,204,BEN,0,0,0.1,0.05,,7
+Denmark,5,208,DNK,0,0,0.98,2.06,,120
+Dominican Republic,5,214,DOM,0,0,0.26,0.25,,28
+Ecuador,5,218,ECU,0,0,0.08,0.09,,17
+El Salvador,5,222,SLV,0,0,0.05,0.08,,5
+Equatorial Guinea,5,226,GNQ,0,0,0,0,,0
+Ethiopia,5,231,ETH,0,0,0.09,0.05,,66
+Eritrea,5,232,ERI,0,0,0,0,,0
+Estonia,5,233,EST,0,0,1.49,2.72,,36
+Fiji,5,242,FJI,0,0,0,0,,0
+Finland,5,246,FIN,0,0,0.32,0.72,,40
+France (metropolitan),5,250,FRA,0,0,2,3.64,,2388
+French Guyana,5,254,GUF,0,0,0,0,,0
+French Polynesia,5,258,PYF,0,0,1.33,1.76,,5
+Djibouti,5,262,DJI,0,0,0,0,,0
+Gabon,5,266,GAB,0,0,0.15,0.09,,2
+Georgia,5,268,GEO,0,0,1.03,1.69,,67
+The Republic of the Gambia,5,270,GMB,0,0,0,0,,0
+Gaza Strip and West Bank,5,275,PSE,0,0,0,0,,0
+Germany,5,276,DEU,0,0,1.01,2.25,,1885
+Ghana,5,288,GHA,0,0,0.14,0.07,,24
+Greece,5,300,GRC,0,0,0.1,0.22,,23
+"France, Guadeloupe",5,312,GLP,0,0,1.36,2.5,,10
+Guam,5,316,GUM,0,0,0,0,,0
+Guatemala,5,320,GTM,0,0,0.04,0.03,,5
+Guinea,5,324,GIN,0,0,0.09,0.05,,7
+Guyana,5,328,GUY,0,0,0.23,0.25,,2
+Haiti,5,332,HTI,0,0,0.1,0.07,,8
+Honduras,5,340,HND,0,0,0.12,0.12,,12
+Hungary,5,348,HUN,0,0,3.47,5.94,,571
+Iceland,5,352,ISL,0,0,0,0,,0
+India,5,356,IND,0,0,2.14,2.17,,30510
+Indonesia,5,360,IDN,0,0,0.1,0.1,,292
+"Iran, Islamic Republic of",5,364,IRN,0,0,0.13,0.13,,115
+Iraq,5,368,IRQ,0,0,0.1,0.06,,27
+Ireland,5,372,IRL,0,0,0.64,1.14,,57
+Israel,5,376,ISR,0,0,0.12,0.17,,15
+Italy,5,380,ITA,0,0,0.46,0.98,,591
+"Côte d'Ivoire",5,384,CIV,0,0,0.13,0.06,,17
+Jamaica,5,388,JAM,0,0,0.13,0.17,,5
+Japan,5,392,JPN,0,0,1.42,3.7,,4646
+Kazakhstan,5,398,KAZ,0,0,0.36,0.41,,79
+Jordan,5,400,JOR,0,0,0.13,0.1,,10
+Kenya,5,404,KEN,0,0,0.5,0.25,,142
+"Korea, Democratic People Republic of",5,408,PRK,0,0,0.25,0.37,,96
+"Korea, Republic of",5,410,KOR,0,0,0.47,1.04,,532
+Kuwait,5,414,KWT,0,0,0.34,0.27,,12
+Kyrgyzstan,5,417,KGZ,0,0,0.84,0.73,,49
+"Lao People's Democratic Republic",5,418,LAO,0,0,0.99,0.78,,58
+Lebanon,5,422,LBN,0,0,0.02,0.03,,2
+Lesotho,5,426,LSO,0,0,0,0,,0
+Latvia,5,428,LVA,0,0,1.78,3.3,,61
+Liberia,5,430,LBR,0,0,0.03,0.02,,1
+Libya,5,434,LBY,0,0,0.09,0.1,,7
+Lithuania,5,440,LTU,0,0,2.34,4.55,,121
+Luxembourg,5,442,LUX,0,0,0.8,1.4,,9
+Madagascar,5,450,MDG,0,0,0.84,0.44,,127
+Malawi,5,454,MWI,0,0,0,0,,0
+Malaysia,5,458,MYS,0,0,0.4,0.43,,144
+Maldives,5,462,MDV,0,0,0,0,,0
+Mali,5,466,MLI,0,0,0.13,0.07,,15
+Malta,5,470,MLT,0,0,0.24,0.45,,2
+"France, Martinique",5,474,MTQ,0,0,0.54,1.34,,5
+Mauritania,5,478,MRT,0,0,0.03,0.02,,1
+Mauritius,5,480,MUS,0,0,0.39,0.63,,8
+Mexico,5,484,MEX,0,0,0.1,0.12,,154
+Mongolia,5,496,MNG,0,0,0.26,0.21,,7
+Moldova,5,498,MDA,0,0,1.87,2.87,,115
+Montenegro,5,499,MNE,0,0,0.85,1.43,,9
+Morocco,5,504,MAR,0,0,0.3,0.34,,129
+Mozambique,5,508,MOZ,0,0,0.05,0.03,,9
+Oman,5,512,OMN,0,0,0.27,0.21,,11
+Namibia,5,516,NAM,0,0,0.38,0.23,,6
+Nepal,5,524,NPL,0,0,0.46,0.39,,119
+The Netherlands,5,528,NLD,0,0,0.59,1.32,,227
+New Caledonia,5,540,NCL,0,0,0.45,0.69,,2
+Vanuatu,5,548,VUT,0,0,0,0,,0
+New Zealand,5,554,NZL,0,0,0.3,0.61,,30
+Nicaragua,5,558,NIC,0,0,0.12,0.12,,8
+Niger,5,562,NER,0,0,0.13,0.06,,15
+Nigeria,5,566,NGA,0,0,0.07,0.04,,92
+Norway,5,578,NOR,0,0,0.28,0.56,,31
+Pakistan,5,586,PAK,0,0,1.13,0.84,,1931
+Panama,5,591,PAN,0,0,0.25,0.34,,15
+Papua New Guinea,5,598,PNG,0,0,0.23,0.15,,14
+Paraguay,5,600,PRY,0,0,0.48,0.44,,32
+Peru,5,604,PER,0,0,0.25,0.34,,113
+Philippines,5,608,PHL,0,0,0.23,0.2,,226
+Poland,5,616,POL,0,0,1.71,2.92,,1102
+Portugal,5,620,PRT,0,0,2,3.65,,370
+Guinea-Bissau,5,624,GNB,0,0,0,0,,0
+Timor-Leste,5,626,TLS,0,0,0,0,,0
+Puerto Rico,5,630,PRI,0,0,0.35,0.85,,24
+Qatar,5,634,QAT,0,0,0.21,0.13,,4
+"France, La Réunion",5,638,REU,0,0,2.08,3.08,,28
+Romania,5,642,ROU,0,0,2.36,4.05,,770
+Russian Federation,5,643,RUS,0,0,1.17,1.93,,2809
+Rwanda,5,646,RWA,0,0,0.04,0.02,,3
+Saint Lucia,5,662,LCA,0,0,0,0,,0
+Sao Tome and Principe,5,678,STP,0,0,0,0,,0
+Saudi Arabia,5,682,SAU,0,0,0.19,0.16,,59
+Senegal,5,686,SEN,0,0,0.05,0.03,,6
+Serbia,5,688,SRB,0,0,1.21,2.1,,182
+Sierra Leone,5,694,SLE,0,0,0,0,,0
+Singapore,5,702,SGP,0,0,0.39,0.79,,47
+Slovakia,5,703,SVK,0,0,2.91,4.91,,268
+Viet Nam,5,704,VNM,0,0,1.95,2.4,,2374
+Slovenia,5,705,SVN,0,0,1.37,2.84,,59
+Somalia,5,706,SOM,0,0,0.23,0.11,,19
+South Africa,5,710,ZAF,0,0,0.35,0.3,,181
+Zimbabwe,5,716,ZWE,0,0,0.12,0.06,,9
+Spain,5,724,ESP,0,0,0.7,1.43,,670
+South Sudan,5,728,SSD,0,0,0.23,0.12,,14
+Sudan,5,729,SDN,0,0,0.29,0.18,,84
+Suriname,5,740,SUR,0,0,0,0,,0
+Eswatini,5,748,SWZ,0,0,0,0,,0
+Sweden,5,752,SWE,0,0,0.31,0.7,,72
+Switzerland,5,756,CHE,0,0,0.99,1.98,,174
+Syrian Arab Republic,5,760,SYR,0,0,0.04,0.04,,7
+Tajikistan,5,762,TJK,0,0,0.27,0.18,,18
+Thailand,5,764,THA,0,0,0.66,1.17,,823
+Togo,5,768,TGO,0,0,0.06,0.03,,3
+Trinidad and Tobago,5,780,TTO,0,0,0.3,0.5,,7
+United Arab Emirates,5,784,ARE,0,0,0.02,0.02,,2
+Tunisia,5,788,TUN,0,0,0.33,0.41,,49
+Türkiye,5,792,TUR,0,0,0.25,0.3,,255
+Turkmenistan,5,795,TKM,0,0,0.89,0.81,,50
+Uganda,5,800,UGA,0,0,0.41,0.15,,73
+Ukraine,5,804,UKR,0,0,1.71,2.84,,1226
+North Macedonia,5,807,MKD,0,0,0.23,0.43,,9
+Egypt,5,818,EGY,0,0,0.29,0.25,,264
+United Kingdom,5,826,GBR,0,0,0.59,1.16,,798
+"Tanzania, United Republic of",5,834,TZA,0,0,0.8,0.34,,216
+United States of America,5,840,USA,0,0,0.38,0.69,,2316
+Burkina Faso,5,854,BFA,0,0,0.21,0.11,,25
+Uruguay,5,858,URY,0,0,0.57,0.92,,32
+Uzbekistan,5,860,UZB,0,0,0.45,0.44,,151
+Venezuela,5,862,VEN,0,0,0.17,0.2,,58
+Samoa,5,882,WSM,0,0,0,0,,0
+Yemen,5,887,YEM,0,0,0.07,0.05,,15
+Zambia,5,894,ZMB,0,0,0.05,0.02,,4

@@ -36,7 +36,7 @@ let mainData;
 loadData()
   .then(data => {
     mainData = data;
-    console.log(mainData);
+    console.log("load_data:", mainData);
     updateMap("alcohol_2019", "all-cancers", "both");
     renderMatrix(mainData)
 });

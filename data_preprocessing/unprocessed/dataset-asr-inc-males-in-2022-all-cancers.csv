@@ -1,186 +1,186 @@
-Cancer id,Cancer label,Population code (ISO/UN),Population,Alpha‑3 code,Sex,Type,ASR (World) per 100 000
-39,All cancers,004,Afghanistan,AFG,1,0,103.6
-39,All cancers,008,Albania,ALB,1,0,176.87
-39,All cancers,012,Algeria,DZA,1,0,130.63
-39,All cancers,024,Angola,AGO,1,0,132.33
-39,All cancers,031,Azerbaijan,AZE,1,0,181.24
-39,All cancers,032,Argentina,ARG,1,0,231.79
-39,All cancers,036,Australia,AUS,1,0,514.3
-39,All cancers,040,Austria,AUT,1,0,287.62
-39,All cancers,044,Bahamas,BHS,1,0,214.38
-39,All cancers,048,Bahrain,BHR,1,0,105.47
-39,All cancers,050,Bangladesh,BGD,1,0,120.83
-39,All cancers,051,Armenia,ARM,1,0,257.5
-39,All cancers,052,Barbados,BRB,1,0,224.54
-39,All cancers,056,Belgium,BEL,1,0,350.82
-39,All cancers,064,Bhutan,BTN,1,0,90.46
-39,All cancers,068,Bolivia,BOL,1,0,129.56
-39,All cancers,070,Bosnia Herzegovina,BIH,1,0,251.7
-39,All cancers,072,Botswana,BWA,1,0,114.12
-39,All cancers,076,Brazil,BRA,1,0,240.09
-39,All cancers,084,Belize,BLZ,1,0,110.14
-39,All cancers,090,Solomon Islands,SLB,1,0,114.78
-39,All cancers,096,Brunei Darussalam,BRN,1,0,171.68
-39,All cancers,100,Bulgaria,BGR,1,0,253.92
-39,All cancers,104,Myanmar,MMR,1,0,147.15
-39,All cancers,108,Burundi,BDI,1,0,123.49
-39,All cancers,112,Belarus,BLR,1,0,360.45
-39,All cancers,116,Cambodia,KHM,1,0,152.93
-39,All cancers,120,Cameroon,CMR,1,0,113.29
-39,All cancers,124,Canada,CAN,1,0,365.85
-39,All cancers,132,Cape Verde,CPV,1,0,108.62
-39,All cancers,140,Central African Republic,CAF,1,0,96.65
-39,All cancers,144,Sri Lanka,LKA,1,0,110.6
-39,All cancers,148,Chad,TCD,1,0,147.39
-39,All cancers,152,Chile,CHL,1,0,221.67
-39,All cancers,156,China,CHN,1,0,209.61
-39,All cancers,170,Colombia,COL,1,0,183.28
-39,All cancers,174,Comoros,COM,1,0,92.94
-39,All cancers,178,"Congo, Republic of",COG,1,0,84.21
-39,All cancers,180,"Congo, Democratic Republic of",COD,1,0,100.1
-39,All cancers,188,Costa Rica,CRI,1,0,185.46
-39,All cancers,191,Croatia,HRV,1,0,367.33
-39,All cancers,192,Cuba,CUB,1,0,247.37
-39,All cancers,196,Cyprus,CYP,1,0,289.87
-39,All cancers,203,Czechia,CZE,1,0,317.52
-39,All cancers,204,Benin,BEN,1,0,108.18
-39,All cancers,208,Denmark,DNK,1,0,393.96
-39,All cancers,214,Dominican Republic,DOM,1,0,186.69
-39,All cancers,218,Ecuador,ECU,1,0,143.28
-39,All cancers,222,El Salvador,SLV,1,0,126.5
-39,All cancers,226,Equatorial Guinea,GNQ,1,0,93.74
-39,All cancers,231,Ethiopia,ETH,1,0,75.78
-39,All cancers,232,Eritrea,ERI,1,0,78.68
-39,All cancers,233,Estonia,EST,1,0,356.43
-39,All cancers,242,Fiji,FJI,1,0,150.27
-39,All cancers,246,Finland,FIN,1,0,294.85
-39,All cancers,250,France (metropolitan),FRA,1,0,386.38
-39,All cancers,254,French Guyana,GUF,1,0,250.52
-39,All cancers,258,French Polynesia,PYF,1,0,247.06
-39,All cancers,262,Djibouti,DJI,1,0,71.63
-39,All cancers,266,Gabon,GAB,1,0,96.38
-39,All cancers,268,Georgia,GEO,1,0,246.81
-39,All cancers,270,The Republic of the Gambia,GMB,1,0,74.73
-39,All cancers,275,Gaza Strip and West Bank,PSE,1,0,165.52
-39,All cancers,276,Germany,DEU,1,0,306.5
-39,All cancers,288,Ghana,GHA,1,0,106.17
-39,All cancers,300,Greece,GRC,1,0,294.98
-39,All cancers,312,"France, Guadeloupe",GLP,1,0,340.23
-39,All cancers,316,Guam,GUM,1,0,184.99
-39,All cancers,320,Guatemala,GTM,1,0,119.57
-39,All cancers,324,Guinea,GIN,1,0,108.89
-39,All cancers,328,Guyana,GUY,1,0,130.12
-39,All cancers,332,Haiti,HTI,1,0,161.28
-39,All cancers,340,Honduras,HND,1,0,131.17
-39,All cancers,348,Hungary,HUN,1,0,395.92
-39,All cancers,352,Iceland,ISL,1,0,271.68
-39,All cancers,356,India,IND,1,0,97.12
-39,All cancers,360,Indonesia,IDN,1,0,135.46
-39,All cancers,364,"Iran, Islamic Republic of",IRN,1,0,168.43
-39,All cancers,368,Iraq,IRQ,1,0,131.95
-39,All cancers,372,Ireland,IRL,1,0,386.31
-39,All cancers,376,Israel,ISR,1,0,250.27
-39,All cancers,380,Italy,ITA,1,0,312.05
-39,All cancers,384,"Côte d'Ivoire",CIV,1,0,129.97
-39,All cancers,388,Jamaica,JAM,1,0,202.5
-39,All cancers,392,Japan,JPN,1,0,309.84
-39,All cancers,398,Kazakhstan,KAZ,1,0,184.44
-39,All cancers,400,Jordan,JOR,1,0,149.92
-39,All cancers,404,Kenya,KEN,1,0,133.11
-39,All cancers,408,"Korea, Democratic People Republic of",PRK,1,0,187.53
-39,All cancers,410,"Korea, Republic of",KOR,1,0,252.52
-39,All cancers,414,Kuwait,KWT,1,0,97.78
-39,All cancers,417,Kyrgyzstan,KGZ,1,0,143.26
-39,All cancers,418,"Lao People's Democratic Republic",LAO,1,0,167.92
-39,All cancers,422,Lebanon,LBN,1,0,170.76
-39,All cancers,426,Lesotho,LSO,1,0,108.12
-39,All cancers,428,Latvia,LVA,1,0,363.98
-39,All cancers,430,Liberia,LBR,1,0,102.86
-39,All cancers,434,Libya,LBY,1,0,150.84
-39,All cancers,440,Lithuania,LTU,1,0,391.3
-39,All cancers,442,Luxembourg,LUX,1,0,285.83
-39,All cancers,450,Madagascar,MDG,1,0,104.94
-39,All cancers,454,Malawi,MWI,1,0,134.97
-39,All cancers,458,Malaysia,MYS,1,0,137.86
-39,All cancers,462,Maldives,MDV,1,0,107.14
-39,All cancers,466,Mali,MLI,1,0,113.9
-39,All cancers,470,Malta,MLT,1,0,299.75
-39,All cancers,474,"France, Martinique",MTQ,1,0,266.89
-39,All cancers,478,Mauritania,MRT,1,0,91.44
-39,All cancers,480,Mauritius,MUS,1,0,130
-39,All cancers,484,Mexico,MEX,1,0,141.3
-39,All cancers,496,Mongolia,MNG,1,0,280.37
-39,All cancers,498,Moldova,MDA,1,0,295.26
-39,All cancers,499,Montenegro,MNE,1,0,261.9
-39,All cancers,504,Morocco,MAR,1,0,150.81
-39,All cancers,508,Mozambique,MOZ,1,0,115.42
-39,All cancers,512,Oman,OMN,1,0,111.54
-39,All cancers,516,Namibia,NAM,1,0,221.42
-39,All cancers,524,Nepal,NPL,1,0,81.56
-39,All cancers,528,The Netherlands,NLD,1,0,350.76
-39,All cancers,540,New Caledonia,NCL,1,0,325.32
-39,All cancers,548,Vanuatu,VUT,1,0,93.95
-39,All cancers,554,New Zealand,NZL,1,0,473.37
-39,All cancers,558,Nicaragua,NIC,1,0,136.41
-39,All cancers,562,Niger,NER,1,0,74.16
-39,All cancers,566,Nigeria,NGA,1,0,93.93
-39,All cancers,578,Norway,NOR,1,0,383.6
-39,All cancers,586,Pakistan,PAK,1,0,99.51
-39,All cancers,591,Panama,PAN,1,0,158.27
-39,All cancers,598,Papua New Guinea,PNG,1,0,181.73
-39,All cancers,600,Paraguay,PRY,1,0,199.8
-39,All cancers,604,Peru,PER,1,0,164.64
-39,All cancers,608,Philippines,PHL,1,0,184.61
-39,All cancers,616,Poland,POL,1,0,306.96
-39,All cancers,620,Portugal,PRT,1,0,342.74
-39,All cancers,624,Guinea-Bissau,GNB,1,0,87.4
-39,All cancers,626,Timor-Leste,TLS,1,0,80.84
-39,All cancers,630,Puerto Rico,PRI,1,0,266.61
-39,All cancers,634,Qatar,QAT,1,0,70.72
-39,All cancers,638,"France, La Réunion",REU,1,0,248.74
-39,All cancers,642,Romania,ROU,1,0,330.79
-39,All cancers,643,Russian Federation,RUS,1,0,288.54
-39,All cancers,646,Rwanda,RWA,1,0,91.66
-39,All cancers,662,Saint Lucia,LCA,1,0,199.33
-39,All cancers,678,Sao Tome and Principe,STP,1,0,124.49
-39,All cancers,682,Saudi Arabia,SAU,1,0,80.99
-39,All cancers,686,Senegal,SEN,1,0,98.96
-39,All cancers,688,Serbia,SRB,1,0,289.86
-39,All cancers,694,Sierra Leone,SLE,1,0,39.3
-39,All cancers,702,Singapore,SGP,1,0,235.89
-39,All cancers,703,Slovakia,SVK,1,0,346.79
-39,All cancers,704,Viet Nam,VNM,1,0,177.14
-39,All cancers,705,Slovenia,SVN,1,0,343.67
-39,All cancers,706,Somalia,SOM,1,0,95.35
-39,All cancers,710,South Africa,ZAF,1,0,232.44
-39,All cancers,716,Zimbabwe,ZWE,1,0,202.45
-39,All cancers,724,Spain,ESP,1,0,319.93
-39,All cancers,728,South Sudan,SSD,1,0,89.79
-39,All cancers,729,Sudan,SDN,1,0,80.59
-39,All cancers,740,Suriname,SUR,1,0,195.03
-39,All cancers,748,Eswatini,SWZ,1,0,107.82
-39,All cancers,752,Sweden,SWE,1,0,334.82
-39,All cancers,756,Switzerland,CHE,1,0,329.9
-39,All cancers,760,Syrian Arab Republic,SYR,1,0,142.74
-39,All cancers,762,Tajikistan,TJK,1,0,92.7
-39,All cancers,764,Thailand,THA,1,0,161.55
-39,All cancers,768,Togo,TGO,1,0,105.4
-39,All cancers,780,Trinidad and Tobago,TTO,1,0,195.45
-39,All cancers,784,United Arab Emirates,ARE,1,0,86.43
-39,All cancers,788,Tunisia,TUN,1,0,159.42
-39,All cancers,792,Türkiye,TUR,1,0,273.7
-39,All cancers,795,Turkmenistan,TKM,1,0,128.76
-39,All cancers,800,Uganda,UGA,1,0,156.2
-39,All cancers,804,Ukraine,UKR,1,0,236.39
-39,All cancers,807,North Macedonia,MKD,1,0,239.8
-39,All cancers,818,Egypt,EGY,1,0,175.06
-39,All cancers,826,United Kingdom,GBR,1,0,327.71
-39,All cancers,834,"Tanzania, United Republic of",TZA,1,0,132.8
-39,All cancers,840,United States of America,USA,1,0,401.68
-39,All cancers,854,Burkina Faso,BFA,1,0,112.53
-39,All cancers,858,Uruguay,URY,1,0,322.27
-39,All cancers,860,Uzbekistan,UZB,1,0,112.94
-39,All cancers,862,Venezuela,VEN,1,0,201.61
-39,All cancers,882,Samoa,WSM,1,0,242.13
-39,All cancers,887,Yemen,YEM,1,0,77.81
-39,All cancers,894,Zambia,ZMB,1,0,162.59
+Label,Cancer code,Country code (ISO/UN),Alpha‑3 code,Sex,Type,ASR (World),Crude rate,Cumulative risk,Total
+Afghanistan,39,4,AFG,1,0,103.6,53.77,,11239
+Albania,39,8,ALB,1,0,176.87,314.48,,4587
+Algeria,39,12,DZA,1,0,130.63,128.26,,29387
+Angola,39,24,AGO,1,0,132.33,61.64,,10684
+Azerbaijan,39,31,AZE,1,0,181.24,192.25,,9901
+Argentina,39,32,ARG,1,0,231.79,289.61,,65040
+Australia,39,36,AUS,1,0,514.3,896.51,,116363
+Austria,39,40,AUT,1,0,287.62,610.38,,27321
+Bahamas,39,44,BHS,1,0,214.38,245,,477
+Bahrain,39,48,BHR,1,0,105.47,56.51,,654
+Bangladesh,39,50,BGD,1,0,120.83,111.95,,94922
+Armenia,39,51,ARM,1,0,257.5,361.01,,5046
+Barbados,39,52,BRB,1,0,224.54,414.02,,578
+Belgium,39,56,BEL,1,0,350.82,753.63,,43645
+Bhutan,39,64,BTN,1,0,90.46,84.84,,356
+Bolivia,39,68,BOL,1,0,129.56,127.89,,7692
+Bosnia Herzegovina,39,70,BIH,1,0,251.7,492.94,,7841
+Botswana,39,72,BWA,1,0,114.12,79.41,,941
+Brazil,39,76,BRA,1,0,240.09,302.38,,319711
+Belize,39,84,BLZ,1,0,110.14,91.82,,188
+Solomon Islands,39,90,SLB,1,0,114.78,76.08,,279
+Brunei Darussalam,39,96,BRN,1,0,171.68,171.54,,396
+Bulgaria,39,100,BGR,1,0,253.92,527.13,,17515
+Myanmar,39,104,MMR,1,0,147.15,134.59,,35822
+Burundi,39,108,BDI,1,0,123.49,53.76,,3370
+Belarus,39,112,BLR,1,0,360.45,567.3,,24933
+Cambodia,39,116,KHM,1,0,152.93,109.37,,9171
+Cameroon,39,120,CMR,1,0,113.29,57.19,,7986
+Canada,39,124,CAN,1,0,365.85,806.15,,153660
+Cape Verde,39,132,CPV,1,0,108.62,75.09,,214
+Central African Republic,39,140,CAF,1,0,96.65,43.22,,1075
+Sri Lanka,39,144,LKA,1,0,110.6,152.35,,15733
+Chad,39,148,TCD,1,0,147.39,64.47,,5605
+Chile,39,152,CHL,1,0,221.67,345.42,,32800
+China,39,160,CHN,1,0,209.61,351.44,,2533906
+Colombia,39,170,COL,1,0,183.28,222.35,,56224
+Comoros,39,174,COM,1,0,92.94,51.78,,237
+"Congo, Republic of",39,178,COG,1,0,84.21,40.41,,1171
+"Congo, Democratic Republic of",39,180,COD,1,0,100.1,48.43,,23033
+Costa Rica,39,188,CRI,1,0,185.46,263.08,,6808
+Croatia,39,191,HRV,1,0,367.33,796.47,,15607
+Cuba,39,192,CUB,1,0,247.37,479.27,,26892
+Cyprus,39,196,CYP,1,0,289.87,501.9,,3070
+Czechia,39,203,CZE,1,0,317.52,662.28,,35033
+Benin,39,204,BEN,1,0,108.18,54.28,,3468
+Denmark,39,208,DNK,1,0,393.96,890.58,,25826
+Dominican Republic,39,214,DOM,1,0,186.69,194.56,,10735
+Ecuador,39,218,ECU,1,0,143.28,153.37,,13890
+El Salvador,39,222,SLV,1,0,126.5,137.3,,4205
+Equatorial Guinea,39,226,GNQ,1,0,93.74,49.24,,410
+Ethiopia,39,231,ETH,1,0,75.78,45.85,,27713
+Eritrea,39,232,ERI,1,0,78.68,49.57,,910
+Estonia,39,233,EST,1,0,356.43,670.91,,4214
+Fiji,39,242,FJI,1,0,150.27,142.1,,654
+Finland,39,246,FIN,1,0,294.85,719.98,,19737
+France (metropolitan),39,250,FRA,1,0,386.38,829.62,,263339
+French Guyana,39,254,GUF,1,0,250.52,219.25,,341
+French Polynesia,39,258,PYF,1,0,247.06,331.77,,477
+Djibouti,39,262,DJI,1,0,71.63,58.4,,311
+Gabon,39,266,GAB,1,0,96.38,62.58,,742
+Georgia,39,268,GEO,1,0,246.81,383.71,,7253
+The Republic of the Gambia,39,270,GMB,1,0,74.73,40.98,,520
+Gaza Strip and West Bank,39,275,PSE,1,0,165.52,92.45,,2506
+Germany,39,276,DEU,1,0,306.5,779.41,,323545
+Ghana,39,288,GHA,1,0,106.17,69.4,,11398
+Greece,39,300,GRC,1,0,294.98,721.98,,36564
+"France, Guadeloupe",39,312,GLP,1,0,340.23,712.5,,1312
+Guam,39,316,GUM,1,0,184.99,255.7,,221
+Guatemala,39,320,GTM,1,0,119.57,84.96,,7783
+Guinea,39,324,GIN,1,0,108.89,46.87,,3155
+Guyana,39,328,GUY,1,0,130.12,134.25,,537
+Haiti,39,332,HTI,1,0,161.28,121.9,,7028
+Honduras,39,340,HND,1,0,131.17,98.88,,5051
+Hungary,39,348,HUN,1,0,395.92,748.45,,34250
+Iceland,39,352,ISL,1,0,271.68,523.72,,909
+India,39,356,IND,1,0,97.12,94.59,,691178
+Indonesia,39,360,IDN,1,0,135.46,134.08,,188395
+"Iran, Islamic Republic of",39,364,IRN,1,0,168.43,176.14,,76441
+Iraq,39,368,IRQ,1,0,131.95,74.12,,15824
+Ireland,39,372,IRL,1,0,386.31,691.84,,17252
+Israel,39,376,ISR,1,0,250.27,331.57,,14746
+Italy,39,380,ITA,1,0,312.05,790.19,,232150
+"Côte d'Ivoire",39,384,CIV,1,0,129.97,70.1,,9795
+Jamaica,39,388,JAM,1,0,202.5,250.82,,3713
+Japan,39,392,JPN,1,0,309.84,947.11,,580535
+Kazakhstan,39,398,KAZ,1,0,184.44,181.7,,16947
+Jordan,39,400,JOR,1,0,149.92,109.08,,5694
+Kenya,39,404,KEN,1,0,133.11,58.53,,16349
+"Korea, Democratic People Republic of",39,408,PRK,1,0,187.53,231.24,,29398
+"Korea, Republic of",39,410,KOR,1,0,252.52,498.5,,128045
+Kuwait,39,414,KWT,1,0,97.78,79.01,,2120
+Kyrgyzstan,39,417,KGZ,1,0,143.26,101.29,,3371
+"Lao People's Democratic Republic",39,418,LAO,1,0,167.92,121.94,,4579
+Lebanon,39,422,LBN,1,0,170.76,195.64,,6593
+Lesotho,39,426,LSO,1,0,108.12,67.44,,725
+Latvia,39,428,LVA,1,0,363.98,692.55,,5908
+Liberia,39,430,LBR,1,0,102.86,58,,1548
+Libya,39,434,LBY,1,0,150.84,114.62,,4070
+Lithuania,39,440,LTU,1,0,391.3,750.65,,9245
+Luxembourg,39,442,LUX,1,0,285.83,535.81,,1742
+Madagascar,39,450,MDG,1,0,104.94,58.38,,8500
+Malawi,39,454,MWI,1,0,134.97,74.48,,7415
+Malaysia,39,458,MYS,1,0,137.86,146.11,,24892
+Maldives,39,462,MDV,1,0,107.14,73.41,,248
+Mali,39,466,MLI,1,0,113.9,51.59,,5554
+Malta,39,470,MLT,1,0,299.75,686.15,,1529
+"France, Martinique",39,474,MTQ,1,0,266.89,684.19,,1175
+Mauritania,39,478,MRT,1,0,91.44,51.39,,1266
+Mauritius,39,480,MUS,1,0,130,202.08,,1269
+Mexico,39,484,MEX,1,0,141.3,149.08,,95954
+Mongolia,39,496,MNG,1,0,280.37,210.54,,3499
+Moldova,39,498,MDA,1,0,295.26,416.02,,7985
+Montenegro,39,499,MNE,1,0,261.9,455.6,,1415
+Morocco,39,504,MAR,1,0,150.81,163.82,,30737
+Mozambique,39,508,MOZ,1,0,115.42,63.47,,10219
+Oman,39,512,OMN,1,0,111.54,70.59,,2473
+Namibia,39,516,NAM,1,0,221.42,120.56,,1540
+Nepal,39,524,NPL,1,0,81.56,69.78,,9792
+The Netherlands,39,528,NLD,1,0,350.76,810.79,,69570
+New Caledonia,39,540,NCL,1,0,325.32,432.03,,631
+Vanuatu,39,548,VUT,1,0,93.95,64.4,,105
+New Zealand,39,554,NZL,1,0,473.37,854.19,,20562
+Nicaragua,39,558,NIC,1,0,136.41,112.63,,3763
+Niger,39,562,NER,1,0,74.16,37.41,,4910
+Nigeria,39,566,NGA,1,0,93.93,43.77,,48096
+Norway,39,578,NOR,1,0,383.6,779.25,,21733
+Pakistan,39,586,PAK,1,0,99.51,74.16,,87568
+Panama,39,591,PAN,1,0,158.27,186.82,,4156
+Papua New Guinea,39,598,PNG,1,0,181.73,113.56,,5389
+Paraguay,39,600,PRY,1,0,199.8,187.76,,6966
+Peru,39,604,PER,1,0,164.64,201.59,,33724
+Philippines,39,608,PHL,1,0,184.61,147.15,,83064
+Poland,39,616,POL,1,0,306.96,598.17,,109365
+Portugal,39,620,PRT,1,0,342.74,788.72,,37865
+Guinea-Bissau,39,624,GNB,1,0,87.4,42.34,,428
+Timor-Leste,39,626,TLS,1,0,80.84,53.91,,373
+Puerto Rico,39,630,PRI,1,0,266.61,558.66,,7486
+Qatar,39,634,QAT,1,0,70.72,49.06,,1093
+"France, La Réunion",39,638,REU,1,0,248.74,402.83,,1770
+Romania,39,642,ROU,1,0,330.79,619.44,,57311
+Russian Federation,39,643,RUS,1,0,288.54,446.02,,301496
+Rwanda,39,646,RWA,1,0,91.66,49.14,,3287
+Saint Lucia,39,662,LCA,1,0,199.33,290.79,,265
+Sao Tome and Principe,39,678,STP,1,0,124.49,67.58,,77
+Saudi Arabia,39,682,SAU,1,0,80.99,71.22,,14745
+Senegal,39,686,SEN,1,0,98.96,49.5,,4270
+Serbia,39,688,SRB,1,0,289.86,540.71,,22910
+Sierra Leone,39,694,SLE,1,0,39.3,21.07,,874
+Singapore,39,702,SGP,1,0,235.89,428.89,,13342
+Slovakia,39,703,SVK,1,0,346.79,627.99,,16698
+Viet Nam,39,704,VNM,1,0,177.14,192.99,,95358
+Slovenia,39,705,SVN,1,0,343.67,756.93,,7838
+Somalia,39,706,SOM,1,0,95.35,47.62,,3998
+South Africa,39,710,ZAF,1,0,232.44,175.16,,52379
+Zimbabwe,39,716,ZWE,1,0,202.45,88.84,,6505
+Spain,39,724,ESP,1,0,319.93,689.65,,158410
+South Sudan,39,728,SSD,1,0,89.79,49.12,,2857
+Sudan,39,729,SDN,1,0,80.59,49.28,,11326
+Suriname,39,740,SUR,1,0,195.03,190.5,,571
+Eswatini,39,748,SWZ,1,0,107.82,58.89,,344
+Sweden,39,752,SWE,1,0,334.82,739.28,,37869
+Switzerland,39,756,CHE,1,0,329.9,734.55,,31996
+Syrian Arab Republic,39,760,SYR,1,0,142.74,105.16,,10179
+Tajikistan,39,762,TJK,1,0,92.7,58.81,,2949
+Thailand,39,764,THA,1,0,161.55,265.24,,90333
+Togo,39,768,TGO,1,0,105.4,55.44,,2396
+Trinidad and Tobago,39,780,TTO,1,0,195.45,283.78,,1969
+United Arab Emirates,39,784,ARE,1,0,86.43,37.61,,2607
+Tunisia,39,788,TUN,1,0,159.42,191.48,,11441
+Türkiye,39,792,TUR,1,0,273.7,313.69,,132476
+Turkmenistan,39,795,TKM,1,0,128.76,99.82,,3047
+Uganda,39,800,UGA,1,0,156.2,64.69,,15459
+Ukraine,39,804,UKR,1,0,236.39,378.74,,75825
+North Macedonia,39,807,MKD,1,0,239.8,409.21,,4259
+Egypt,39,818,EGY,1,0,175.06,137.26,,73611
+United Kingdom,39,826,GBR,1,0,327.71,715.11,,242245
+"Tanzania, United Republic of",39,834,TZA,1,0,132.8,57.56,,18215
+United States of America,39,840,USA,1,0,401.68,775.03,,1283898
+Burkina Faso,39,854,BFA,1,0,112.53,50.25,,5556
+Uruguay,39,858,URY,1,0,322.27,507.49,,8579
+Uzbekistan,39,860,UZB,1,0,112.94,93.46,,16035
+Venezuela,39,862,VEN,1,0,201.61,218,,31374
+Samoa,39,882,WSM,1,0,242.13,182.41,,191
+Yemen,39,887,YEM,1,0,77.81,45.97,,7213
+Zambia,39,894,ZMB,1,0,162.59,66.71,,6433

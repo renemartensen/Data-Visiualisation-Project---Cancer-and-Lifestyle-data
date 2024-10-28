@@ -229,14 +229,14 @@ const createMatrix = (data) => {
     yAxis.selectAll("text")
         .attr("transform", "rotate(-45)")  // Rotate by 45 degrees
         .style("text-anchor", "start")       // Align text for readability
-        .style("font-size", `${Math.min(cellWidth, cellHeight) / 12}px`);
+        .style("font-size", `${Math.min(cellWidth, cellHeight) / 4}px`);
 
 
     // Rotate the x-axis labels to fit longer text
     xAxis.selectAll("text")
         .attr("transform", "rotate(-45)")  // Rotate by 45 degrees
         .style("text-anchor", "end")       // Adjust text-anchor for readability
-        .style("font-size", `${Math.min(cellWidth, cellHeight) / 12}px`);  // Adjust font size
+        .style("font-size", `${Math.min(cellWidth, cellHeight) / 4}px`);  // Adjust font size
 
         
 };

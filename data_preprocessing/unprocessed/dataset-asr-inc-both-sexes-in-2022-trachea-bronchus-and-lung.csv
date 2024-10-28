@@ -1,186 +1,186 @@
-Cancer id,Cancer label,Population code (ISO/UN),Population,Alpha‑3 code,Sex,Type,ASR (World) per 100 000
-15,"Trachea, bronchus and lung",004,Afghanistan,AFG,0,0,7.22
-15,"Trachea, bronchus and lung",008,Albania,ALB,0,0,25.28
-15,"Trachea, bronchus and lung",012,Algeria,DZA,0,0,11.32
-15,"Trachea, bronchus and lung",024,Angola,AGO,0,0,2.4
-15,"Trachea, bronchus and lung",031,Azerbaijan,AZE,0,0,19.35
-15,"Trachea, bronchus and lung",032,Argentina,ARG,0,0,19.87
-15,"Trachea, bronchus and lung",036,Australia,AUS,0,0,24.08
-15,"Trachea, bronchus and lung",040,Austria,AUT,0,0,27.16
-15,"Trachea, bronchus and lung",044,Bahamas,BHS,0,0,8.78
-15,"Trachea, bronchus and lung",048,Bahrain,BHR,0,0,10.05
-15,"Trachea, bronchus and lung",050,Bangladesh,BGD,0,0,8.8
-15,"Trachea, bronchus and lung",051,Armenia,ARM,0,0,28.95
-15,"Trachea, bronchus and lung",052,Barbados,BRB,0,0,9.42
-15,"Trachea, bronchus and lung",056,Belgium,BEL,0,0,32.69
-15,"Trachea, bronchus and lung",064,Bhutan,BTN,0,0,7.03
-15,"Trachea, bronchus and lung",068,Bolivia,BOL,0,0,8.48
-15,"Trachea, bronchus and lung",070,Bosnia Herzegovina,BIH,0,0,36.06
-15,"Trachea, bronchus and lung",072,Botswana,BWA,0,0,3.62
-15,"Trachea, bronchus and lung",076,Brazil,BRA,0,0,14.62
-15,"Trachea, bronchus and lung",084,Belize,BLZ,0,0,8.79
-15,"Trachea, bronchus and lung",090,Solomon Islands,SLB,0,0,6.18
-15,"Trachea, bronchus and lung",096,Brunei Darussalam,BRN,0,0,24.03
-15,"Trachea, bronchus and lung",100,Bulgaria,BGR,0,0,27.13
-15,"Trachea, bronchus and lung",104,Myanmar,MMR,0,0,16.07
-15,"Trachea, bronchus and lung",108,Burundi,BDI,0,0,3.41
-15,"Trachea, bronchus and lung",112,Belarus,BLR,0,0,26.03
-15,"Trachea, bronchus and lung",116,Cambodia,KHM,0,0,15.7
-15,"Trachea, bronchus and lung",120,Cameroon,CMR,0,0,3.06
-15,"Trachea, bronchus and lung",124,Canada,CAN,0,0,32.39
-15,"Trachea, bronchus and lung",132,Cape Verde,CPV,0,0,2.19
-15,"Trachea, bronchus and lung",140,Central African Republic,CAF,0,0,2.04
-15,"Trachea, bronchus and lung",144,Sri Lanka,LKA,0,0,6.66
-15,"Trachea, bronchus and lung",148,Chad,TCD,0,0,1.99
-15,"Trachea, bronchus and lung",152,Chile,CHL,0,0,12.7
-15,"Trachea, bronchus and lung",156,China,CHN,0,0,40.78
-15,"Trachea, bronchus and lung",170,Colombia,COL,0,0,10.08
-15,"Trachea, bronchus and lung",174,Comoros,COM,0,0,1.79
-15,"Trachea, bronchus and lung",178,"Congo, Republic of",COG,0,0,1.37
-15,"Trachea, bronchus and lung",180,"Congo, Democratic Republic of",COD,0,0,2.17
-15,"Trachea, bronchus and lung",188,Costa Rica,CRI,0,0,6.75
-15,"Trachea, bronchus and lung",191,Croatia,HRV,0,0,37.05
-15,"Trachea, bronchus and lung",192,Cuba,CUB,0,0,29.75
-15,"Trachea, bronchus and lung",196,Cyprus,CYP,0,0,27.04
-15,"Trachea, bronchus and lung",203,Czechia,CZE,0,0,23.72
-15,"Trachea, bronchus and lung",204,Benin,BEN,0,0,1.49
-15,"Trachea, bronchus and lung",208,Denmark,DNK,0,0,34.21
-15,"Trachea, bronchus and lung",214,Dominican Republic,DOM,0,0,12.81
-15,"Trachea, bronchus and lung",218,Ecuador,ECU,0,0,6.29
-15,"Trachea, bronchus and lung",222,El Salvador,SLV,0,0,4.66
-15,"Trachea, bronchus and lung",226,Equatorial Guinea,GNQ,0,0,2.72
-15,"Trachea, bronchus and lung",231,Ethiopia,ETH,0,0,3.69
-15,"Trachea, bronchus and lung",232,Eritrea,ERI,0,0,3.21
-15,"Trachea, bronchus and lung",233,Estonia,EST,0,0,25.84
-15,"Trachea, bronchus and lung",242,Fiji,FJI,0,0,6.79
-15,"Trachea, bronchus and lung",246,Finland,FIN,0,0,19.18
-15,"Trachea, bronchus and lung",250,France (metropolitan),FRA,0,0,35.91
-15,"Trachea, bronchus and lung",254,French Guyana,GUF,0,0,15.04
-15,"Trachea, bronchus and lung",258,French Polynesia,PYF,0,0,39.96
-15,"Trachea, bronchus and lung",262,Djibouti,DJI,0,0,3.08
-15,"Trachea, bronchus and lung",266,Gabon,GAB,0,0,3.11
-15,"Trachea, bronchus and lung",268,Georgia,GEO,0,0,21.98
-15,"Trachea, bronchus and lung",270,The Republic of the Gambia,GMB,0,0,5
-15,"Trachea, bronchus and lung",275,Gaza Strip and West Bank,PSE,0,0,20.42
-15,"Trachea, bronchus and lung",276,Germany,DEU,0,0,28.13
-15,"Trachea, bronchus and lung",288,Ghana,GHA,0,0,2.53
-15,"Trachea, bronchus and lung",300,Greece,GRC,0,0,31.34
-15,"Trachea, bronchus and lung",312,"France, Guadeloupe",GLP,0,0,12.28
-15,"Trachea, bronchus and lung",316,Guam,GUM,0,0,31.52
-15,"Trachea, bronchus and lung",320,Guatemala,GTM,0,0,3.76
-15,"Trachea, bronchus and lung",324,Guinea,GIN,0,0,3.22
-15,"Trachea, bronchus and lung",328,Guyana,GUY,0,0,4.26
-15,"Trachea, bronchus and lung",332,Haiti,HTI,0,0,6.07
-15,"Trachea, bronchus and lung",340,Honduras,HND,0,0,6.68
-15,"Trachea, bronchus and lung",348,Hungary,HUN,0,0,47.57
-15,"Trachea, bronchus and lung",352,Iceland,ISL,0,0,26.9
-15,"Trachea, bronchus and lung",356,India,IND,0,0,5.79
-15,"Trachea, bronchus and lung",360,Indonesia,IDN,0,0,13.38
-15,"Trachea, bronchus and lung",364,"Iran, Islamic Republic of",IRN,0,0,12.1
-15,"Trachea, bronchus and lung",368,Iraq,IRQ,0,0,12.52
-15,"Trachea, bronchus and lung",372,Ireland,IRL,0,0,31.39
-15,"Trachea, bronchus and lung",376,Israel,ISR,0,0,22.6
-15,"Trachea, bronchus and lung",380,Italy,ITA,0,0,24.64
-15,"Trachea, bronchus and lung",384,"Côte d'Ivoire",CIV,0,0,2.45
-15,"Trachea, bronchus and lung",388,Jamaica,JAM,0,0,14
-15,"Trachea, bronchus and lung",392,Japan,JPN,0,0,30.47
-15,"Trachea, bronchus and lung",398,Kazakhstan,KAZ,0,0,19.71
-15,"Trachea, bronchus and lung",400,Jordan,JOR,0,0,14.34
-15,"Trachea, bronchus and lung",404,Kenya,KEN,0,0,3.35
-15,"Trachea, bronchus and lung",408,"Korea, Democratic People Republic of",PRK,0,0,38.42
-15,"Trachea, bronchus and lung",410,"Korea, Republic of",KOR,0,0,26.21
-15,"Trachea, bronchus and lung",414,Kuwait,KWT,0,0,6.4
-15,"Trachea, bronchus and lung",417,Kyrgyzstan,KGZ,0,0,14.13
-15,"Trachea, bronchus and lung",418,"Lao People's Democratic Republic",LAO,0,0,17.55
-15,"Trachea, bronchus and lung",422,Lebanon,LBN,0,0,19.88
-15,"Trachea, bronchus and lung",426,Lesotho,LSO,0,0,4.23
-15,"Trachea, bronchus and lung",428,Latvia,LVA,0,0,23.51
-15,"Trachea, bronchus and lung",430,Liberia,LBR,0,0,2.68
-15,"Trachea, bronchus and lung",434,Libya,LBY,0,0,16.36
-15,"Trachea, bronchus and lung",440,Lithuania,LTU,0,0,24.22
-15,"Trachea, bronchus and lung",442,Luxembourg,LUX,0,0,25.69
-15,"Trachea, bronchus and lung",450,Madagascar,MDG,0,0,2.08
-15,"Trachea, bronchus and lung",454,Malawi,MWI,0,0,1.55
-15,"Trachea, bronchus and lung",458,Malaysia,MYS,0,0,15.13
-15,"Trachea, bronchus and lung",462,Maldives,MDV,0,0,12.39
-15,"Trachea, bronchus and lung",466,Mali,MLI,0,0,3.16
-15,"Trachea, bronchus and lung",470,Malta,MLT,0,0,19.19
-15,"Trachea, bronchus and lung",474,"France, Martinique",MTQ,0,0,9
-15,"Trachea, bronchus and lung",478,Mauritania,MRT,0,0,1.93
-15,"Trachea, bronchus and lung",480,Mauritius,MUS,0,0,8.42
-15,"Trachea, bronchus and lung",484,Mexico,MEX,0,0,5.4
-15,"Trachea, bronchus and lung",496,Mongolia,MNG,0,0,18.96
-15,"Trachea, bronchus and lung",498,Moldova,MDA,0,0,22.34
-15,"Trachea, bronchus and lung",499,Montenegro,MNE,0,0,36.71
-15,"Trachea, bronchus and lung",504,Morocco,MAR,0,0,20.44
-15,"Trachea, bronchus and lung",508,Mozambique,MOZ,0,0,1.32
-15,"Trachea, bronchus and lung",512,Oman,OMN,0,0,5.24
-15,"Trachea, bronchus and lung",516,Namibia,NAM,0,0,5.75
-15,"Trachea, bronchus and lung",524,Nepal,NPL,0,0,9.25
-15,"Trachea, bronchus and lung",528,The Netherlands,NLD,0,0,34.93
-15,"Trachea, bronchus and lung",540,New Caledonia,NCL,0,0,41.77
-15,"Trachea, bronchus and lung",548,Vanuatu,VUT,0,0,7.7
-15,"Trachea, bronchus and lung",554,New Zealand,NZL,0,0,27.29
-15,"Trachea, bronchus and lung",558,Nicaragua,NIC,0,0,5.43
-15,"Trachea, bronchus and lung",562,Niger,NER,0,0,0.95
-15,"Trachea, bronchus and lung",566,Nigeria,NGA,0,0,1.73
-15,"Trachea, bronchus and lung",578,Norway,NOR,0,0,27.97
-15,"Trachea, bronchus and lung",586,Pakistan,PAK,0,0,5.96
-15,"Trachea, bronchus and lung",591,Panama,PAN,0,0,6.35
-15,"Trachea, bronchus and lung",598,Papua New Guinea,PNG,0,0,10.66
-15,"Trachea, bronchus and lung",600,Paraguay,PRY,0,0,12.72
-15,"Trachea, bronchus and lung",604,Peru,PER,0,0,6.76
-15,"Trachea, bronchus and lung",608,Philippines,PHL,0,0,23.98
-15,"Trachea, bronchus and lung",616,Poland,POL,0,0,36.49
-15,"Trachea, bronchus and lung",620,Portugal,PRT,0,0,23.88
-15,"Trachea, bronchus and lung",624,Guinea-Bissau,GNB,0,0,2.12
-15,"Trachea, bronchus and lung",626,Timor-Leste,TLS,0,0,10.15
-15,"Trachea, bronchus and lung",630,Puerto Rico,PRI,0,0,10.23
-15,"Trachea, bronchus and lung",634,Qatar,QAT,0,0,5.78
-15,"Trachea, bronchus and lung",638,"France, La Réunion",REU,0,0,21.81
-15,"Trachea, bronchus and lung",642,Romania,ROU,0,0,30.27
-15,"Trachea, bronchus and lung",643,Russian Federation,RUS,0,0,26.02
-15,"Trachea, bronchus and lung",646,Rwanda,RWA,0,0,2.82
-15,"Trachea, bronchus and lung",662,Saint Lucia,LCA,0,0,9.74
-15,"Trachea, bronchus and lung",678,Sao Tome and Principe,STP,0,0,12.7
-15,"Trachea, bronchus and lung",682,Saudi Arabia,SAU,0,0,4.34
-15,"Trachea, bronchus and lung",686,Senegal,SEN,0,0,2.65
-15,"Trachea, bronchus and lung",688,Serbia,SRB,0,0,40.39
-15,"Trachea, bronchus and lung",694,Sierra Leone,SLE,0,0,1.25
-15,"Trachea, bronchus and lung",702,Singapore,SGP,0,0,24.31
-15,"Trachea, bronchus and lung",703,Slovakia,SVK,0,0,22.63
-15,"Trachea, bronchus and lung",704,Viet Nam,VNM,0,0,20.25
-15,"Trachea, bronchus and lung",705,Slovenia,SVN,0,0,34.22
-15,"Trachea, bronchus and lung",706,Somalia,SOM,0,0,3.5
-15,"Trachea, bronchus and lung",710,South Africa,ZAF,0,0,18.09
-15,"Trachea, bronchus and lung",716,Zimbabwe,ZWE,0,0,5.89
-15,"Trachea, bronchus and lung",724,Spain,ESP,0,0,27.78
-15,"Trachea, bronchus and lung",728,South Sudan,SSD,0,0,2.1
-15,"Trachea, bronchus and lung",729,Sudan,SDN,0,0,2.52
-15,"Trachea, bronchus and lung",740,Suriname,SUR,0,0,16.62
-15,"Trachea, bronchus and lung",748,Eswatini,SWZ,0,0,4.12
-15,"Trachea, bronchus and lung",752,Sweden,SWE,0,0,17.39
-15,"Trachea, bronchus and lung",756,Switzerland,CHE,0,0,24.07
-15,"Trachea, bronchus and lung",760,Syrian Arab Republic,SYR,0,0,17.82
-15,"Trachea, bronchus and lung",762,Tajikistan,TJK,0,0,5.35
-15,"Trachea, bronchus and lung",764,Thailand,THA,0,0,18.14
-15,"Trachea, bronchus and lung",768,Togo,TGO,0,0,1.9
-15,"Trachea, bronchus and lung",780,Trinidad and Tobago,TTO,0,0,11.66
-15,"Trachea, bronchus and lung",784,United Arab Emirates,ARE,0,0,6.22
-15,"Trachea, bronchus and lung",788,Tunisia,TUN,0,0,20.14
-15,"Trachea, bronchus and lung",792,Türkiye,TUR,0,0,37.88
-15,"Trachea, bronchus and lung",795,Turkmenistan,TKM,0,0,9.53
-15,"Trachea, bronchus and lung",800,Uganda,UGA,0,0,3
-15,"Trachea, bronchus and lung",804,Ukraine,UKR,0,0,20.57
-15,"Trachea, bronchus and lung",807,North Macedonia,MKD,0,0,31.07
-15,"Trachea, bronchus and lung",818,Egypt,EGY,0,0,8.8
-15,"Trachea, bronchus and lung",826,United Kingdom,GBR,0,0,30.05
-15,"Trachea, bronchus and lung",834,"Tanzania, United Republic of",TZA,0,0,2.48
-15,"Trachea, bronchus and lung",840,United States of America,USA,0,0,31.85
-15,"Trachea, bronchus and lung",854,Burkina Faso,BFA,0,0,3.76
-15,"Trachea, bronchus and lung",858,Uruguay,URY,0,0,29.7
-15,"Trachea, bronchus and lung",860,Uzbekistan,UZB,0,0,8.41
-15,"Trachea, bronchus and lung",862,Venezuela,VEN,0,0,15.86
-15,"Trachea, bronchus and lung",882,Samoa,WSM,0,0,33.34
-15,"Trachea, bronchus and lung",887,Yemen,YEM,0,0,4.05
-15,"Trachea, bronchus and lung",894,Zambia,ZMB,0,0,3.03
+Label,Cancer code,Country code (ISO/UN),Alpha‑3 code,Sex,Type,ASR (World),Crude rate,Cumulative risk,Total
+Afghanistan,15,4,AFG,0,0,7.22,3.42,,1393
+Albania,15,8,ALB,0,0,25.28,50.17,,1438
+Algeria,15,12,DZA,0,0,11.32,11.11,,5040
+Angola,15,24,AGO,0,0,2.4,0.96,,338
+Azerbaijan,15,31,AZE,0,0,19.35,22.82,,2350
+Argentina,15,32,ARG,0,0,19.87,28.29,,13016
+Australia,15,36,AUS,0,0,24.08,51.5,,13426
+Austria,15,40,AUT,0,0,27.16,59.67,,5410
+Bahamas,15,44,BHS,0,0,8.78,11.24,,45
+Bahrain,15,48,BHR,0,0,10.05,4.99,,89
+Bangladesh,15,50,BGD,0,0,8.8,7.74,,13000
+Armenia,15,51,ARM,0,0,28.95,48.05,,1428
+Barbados,15,52,BRB,0,0,9.42,19.79,,57
+Belgium,15,56,BEL,0,0,32.69,74.01,,8636
+Bhutan,15,64,BTN,0,0,7.03,6.47,,51
+Bolivia,15,68,BOL,0,0,8.48,9.7,,1163
+Bosnia Herzegovina,15,70,BIH,0,0,36.06,74.97,,2436
+Botswana,15,72,BWA,0,0,3.62,2.58,,63
+Brazil,15,76,BRA,0,0,14.62,20.53,,44213
+Belize,15,84,BLZ,0,0,8.79,6.79,,28
+Solomon Islands,15,90,SLB,0,0,6.18,3.88,,28
+Brunei Darussalam,15,96,BRN,0,0,24.03,24.25,,108
+Bulgaria,15,100,BGR,0,0,27.13,57.94,,3966
+Myanmar,15,104,MMR,0,0,16.07,16.06,,8868
+Burundi,15,108,BDI,0,0,3.41,1.44,,182
+Belarus,15,112,BLR,0,0,26.03,48.76,,4599
+Cambodia,15,116,KHM,0,0,15.7,12.59,,2161
+Cameroon,15,120,CMR,0,0,3.06,1.41,,393
+Canada,15,124,CAN,0,0,32.39,81.16,,31157
+Cape Verde,15,132,CPV,0,0,2.19,1.59,,9
+Central African Republic,15,140,CAF,0,0,2.04,0.92,,46
+Sri Lanka,15,144,LKA,0,0,6.66,10.33,,2229
+Chad,15,148,TCD,0,0,1.99,0.91,,159
+Chile,15,152,CHL,0,0,12.7,22.81,,4391
+China,15,160,CHN,0,0,40.78,75.13,,1060584
+Colombia,15,170,COL,0,0,10.08,13.97,,7196
+Comoros,15,174,COM,0,0,1.79,0.99,,9
+"Congo, Republic of",15,178,COG,0,0,1.37,0.69,,40
+"Congo, Democratic Republic of",15,180,COD,0,0,2.17,1.05,,998
+Costa Rica,15,188,CRI,0,0,6.75,10.17,,527
+Croatia,15,191,HRV,0,0,37.05,89.89,,3649
+Cuba,15,192,CUB,0,0,29.75,64.91,,7339
+Cyprus,15,196,CYP,0,0,27.04,51.09,,625
+Czechia,15,203,CZE,0,0,23.72,57.67,,6192
+Benin,15,204,BEN,0,0,1.49,0.81,,104
+Denmark,15,208,DNK,0,0,34.21,85.23,,4973
+Dominican Republic,15,214,DOM,0,0,12.81,14.65,,1620
+Ecuador,15,218,ECU,0,0,6.29,7.44,,1348
+El Salvador,15,222,SLV,0,0,4.66,5.89,,386
+Equatorial Guinea,15,226,GNQ,0,0,2.72,1.34,,20
+Ethiopia,15,231,ETH,0,0,3.69,2.06,,2486
+Eritrea,15,232,ERI,0,0,3.21,1.97,,72
+Estonia,15,233,EST,0,0,25.84,61.28,,810
+Fiji,15,242,FJI,0,0,6.79,6.6,,60
+Finland,15,246,FIN,0,0,19.18,55.23,,3068
+France (metropolitan),15,250,FRA,0,0,35.91,75.65,,49613
+French Guyana,15,254,GUF,0,0,15.04,13.69,,43
+French Polynesia,15,258,PYF,0,0,39.96,54.19,,154
+Djibouti,15,262,DJI,0,0,3.08,2.56,,26
+Gabon,15,266,GAB,0,0,3.11,1.93,,45
+Georgia,15,268,GEO,0,0,21.98,39.61,,1572
+The Republic of the Gambia,15,270,GMB,0,0,5,2.15,,55
+Gaza Strip and West Bank,15,275,PSE,0,0,20.42,10.96,,586
+Germany,15,276,DEU,0,0,28.13,73.94,,62025
+Ghana,15,288,GHA,0,0,2.53,1.6,,519
+Greece,15,300,GRC,0,0,31.34,83.2,,8583
+"France, Guadeloupe",15,312,GLP,0,0,12.28,26.51,,106
+Guam,15,316,GUM,0,0,31.52,48.97,,84
+Guatemala,15,320,GTM,0,0,3.76,2.93,,545
+Guinea,15,324,GIN,0,0,3.22,1.74,,241
+Guyana,15,328,GUY,0,0,4.26,4.66,,37
+Haiti,15,332,HTI,0,0,6.07,4.8,,561
+Honduras,15,340,HND,0,0,6.68,5.07,,518
+Hungary,15,348,HUN,0,0,47.57,103.17,,9911
+Iceland,15,352,ISL,0,0,26.9,56.75,,196
+India,15,356,IND,0,0,5.79,5.81,,81748
+Indonesia,15,360,IDN,0,0,13.38,13.94,,38904
+"Iran, Islamic Republic of",15,364,IRN,0,0,12.1,12.71,,10934
+Iraq,15,368,IRQ,0,0,12.52,6.67,,2814
+Ireland,15,372,IRL,0,0,31.39,61.47,,3086
+Israel,15,376,ISR,0,0,22.6,33.69,,3006
+Italy,15,380,ITA,0,0,24.64,72.69,,43808
+"Côte d'Ivoire",15,384,CIV,0,0,2.45,1.22,,338
+Jamaica,15,388,JAM,0,0,14,18.26,,545
+Japan,15,392,JPN,0,0,30.47,108.87,,136723
+Kazakhstan,15,398,KAZ,0,0,19.71,23.06,,4429
+Jordan,15,400,JOR,0,0,14.34,10.17,,1048
+Kenya,15,404,KEN,0,0,3.35,1.61,,903
+"Korea, Democratic People Republic of",15,408,PRK,0,0,38.42,56.84,,14773
+"Korea, Republic of",15,410,KOR,0,0,26.21,61.05,,31337
+Kuwait,15,414,KWT,0,0,6.4,4.73,,207
+Kyrgyzstan,15,417,KGZ,0,0,14.13,11.62,,782
+"Lao People's Democratic Republic",15,418,LAO,0,0,17.55,12.85,,961
+Lebanon,15,422,LBN,0,0,19.88,23.43,,1566
+Lesotho,15,426,LSO,0,0,4.23,3.13,,68
+Latvia,15,428,LVA,0,0,23.51,55.06,,1018
+Liberia,15,430,LBR,0,0,2.68,1.66,,88
+Libya,15,434,LBY,0,0,16.36,13.27,,934
+Lithuania,15,440,LTU,0,0,24.22,56.13,,1494
+Luxembourg,15,442,LUX,0,0,25.69,56.04,,360
+Madagascar,15,450,MDG,0,0,2.08,1.15,,335
+Malawi,15,454,MWI,0,0,1.55,0.68,,138
+Malaysia,15,458,MYS,0,0,15.13,16.58,,5503
+Maldives,15,462,MDV,0,0,12.39,8.69,,47
+Mali,15,466,MLI,0,0,3.16,1.37,,295
+Malta,15,470,MLT,0,0,19.19,51.12,,227
+"France, Martinique",15,474,MTQ,0,0,9,24.06,,90
+Mauritania,15,478,MRT,0,0,1.93,1.12,,55
+Mauritius,15,480,MUS,0,0,8.42,14.67,,187
+Mexico,15,484,MEX,0,0,5.4,6.28,,8257
+Mongolia,15,496,MNG,0,0,18.96,15.22,,514
+Moldova,15,498,MDA,0,0,22.34,36.48,,1464
+Montenegro,15,499,MNE,0,0,36.71,66.72,,419
+Morocco,15,504,MAR,0,0,20.44,23.36,,8825
+Mozambique,15,508,MOZ,0,0,1.32,0.63,,210
+Oman,15,512,OMN,0,0,5.24,2.95,,157
+Namibia,15,516,NAM,0,0,5.75,3.42,,90
+Nepal,15,524,NPL,0,0,9.25,8.04,,2431
+The Netherlands,15,528,NLD,0,0,34.93,86.02,,14806
+New Caledonia,15,540,NCL,0,0,41.77,58.43,,170
+Vanuatu,15,548,VUT,0,0,7.7,4.66,,15
+New Zealand,15,554,NZL,0,0,27.29,57.08,,2796
+Nicaragua,15,558,NIC,0,0,5.43,4.9,,332
+Niger,15,562,NER,0,0,0.95,0.39,,102
+Nigeria,15,566,NGA,0,0,1.73,0.77,,1675
+Norway,15,578,NOR,0,0,27.97,65.39,,3604
+Pakistan,15,586,PAK,0,0,5.96,4.12,,9464
+Panama,15,591,PAN,0,0,6.35,8.32,,370
+Papua New Guinea,15,598,PNG,0,0,10.66,6.68,,621
+Paraguay,15,600,PRY,0,0,12.72,12.46,,910
+Peru,15,604,PER,0,0,6.76,8.67,,2919
+Philippines,15,608,PHL,0,0,23.98,21.09,,23728
+Poland,15,616,POL,0,0,36.49,80.5,,30379
+Portugal,15,620,PRT,0,0,23.88,60.7,,6155
+Guinea-Bissau,15,624,GNB,0,0,2.12,1.11,,23
+Timor-Leste,15,626,TLS,0,0,10.15,6.65,,91
+Puerto Rico,15,630,PRI,0,0,10.23,26.89,,761
+Qatar,15,634,QAT,0,0,5.78,3.09,,92
+"France, La Réunion",15,638,REU,0,0,21.81,38.21,,347
+Romania,15,642,ROU,0,0,30.27,61.56,,11716
+Russian Federation,15,643,RUS,0,0,26.02,48.26,,70362
+Rwanda,15,646,RWA,0,0,2.82,1.65,,224
+Saint Lucia,15,662,LCA,0,0,9.74,14.05,,26
+Sao Tome and Principe,15,678,STP,0,0,12.7,7.03,,16
+Saudi Arabia,15,682,SAU,0,0,4.34,3.4,,1217
+Senegal,15,686,SEN,0,0,2.65,1.47,,259
+Serbia,15,688,SRB,0,0,40.39,79.5,,6879
+Sierra Leone,15,694,SLE,0,0,1.25,0.64,,53
+Singapore,15,702,SGP,0,0,24.31,49.47,,2940
+Slovakia,15,703,SVK,0,0,22.63,48.37,,2641
+Viet Nam,15,704,VNM,0,0,20.25,24.68,,24426
+Slovenia,15,705,SVN,0,0,34.22,83.2,,1729
+Somalia,15,706,SOM,0,0,3.5,1.61,,271
+South Africa,15,710,ZAF,0,0,18.09,15.55,,9446
+Zimbabwe,15,716,ZWE,0,0,5.89,2.81,,431
+Spain,15,724,ESP,0,0,27.78,64.3,,30041
+South Sudan,15,728,SSD,0,0,2.1,1.13,,131
+Sudan,15,729,SDN,0,0,2.52,1.46,,673
+Suriname,15,740,SUR,0,0,16.62,18.93,,113
+Eswatini,15,748,SWZ,0,0,4.12,2.45,,29
+Sweden,15,752,SWE,0,0,17.39,43.46,,4441
+Switzerland,15,756,CHE,0,0,24.07,57.31,,5028
+Syrian Arab Republic,15,760,SYR,0,0,17.82,13.62,,2638
+Tajikistan,15,762,TJK,0,0,5.35,3.47,,346
+Thailand,15,764,THA,0,0,18.14,33.53,,23494
+Togo,15,768,TGO,0,0,1.9,0.97,,84
+Trinidad and Tobago,15,780,TTO,0,0,11.66,18.77,,264
+United Arab Emirates,15,784,ARE,0,0,6.22,2.47,,249
+Tunisia,15,788,TUN,0,0,20.14,25.8,,3108
+Türkiye,15,792,TUR,0,0,37.88,47.96,,41032
+Turkmenistan,15,795,TKM,0,0,9.53,8.13,,504
+Uganda,15,800,UGA,0,0,3,1.16,,562
+Ukraine,15,804,UKR,0,0,20.57,39.17,,16917
+North Macedonia,15,807,MKD,0,0,31.07,55.25,,1150
+Egypt,15,818,EGY,0,0,8.8,7.2,,7643
+United Kingdom,15,826,GBR,0,0,30.05,74.02,,50700
+"Tanzania, United Republic of",15,834,TZA,0,0,2.48,1.26,,795
+United States of America,15,840,USA,0,0,31.85,67.51,,226033
+Burkina Faso,15,854,BFA,0,0,3.76,1.59,,351
+Uruguay,15,858,URY,0,0,29.7,50.11,,1752
+Uzbekistan,15,860,UZB,0,0,8.41,7.36,,2531
+Venezuela,15,862,VEN,0,0,15.86,18.7,,5474
+Samoa,15,882,WSM,0,0,33.34,26.7,,54
+Yemen,15,887,YEM,0,0,4.05,2.48,,774
+Zambia,15,894,ZMB,0,0,3.03,1.19,,231
