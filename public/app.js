@@ -49,7 +49,8 @@ const svg = d3.select("#correlationMatrix")
 
 
 svg.on("click", function(event) {
-  const id = event.target.id;
+  const id = event.target.getAttribute("value");
+  console.log(id)
   selectedCancer = id.split(",")[0]
   selectedLifestyle = id.split(",")[1]
   updateMap(selectedLifestyle, selectedCancer, selectedGender);

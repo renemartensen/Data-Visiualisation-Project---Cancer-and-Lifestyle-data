@@ -169,7 +169,7 @@ const createMatrix = (data) => {
     const margin = { top: 0, right: 0, bottom: 0, left: 0 };
 
     // Set fixed width and height for the entire table
-    const tableHeight = 150;  // Fixed height
+    const tableHeight = 100;  // Fixed height
     const parentDiv = document.querySelector("#correlationMatrix");
     const tableWidth = parentDiv.offsetWidth;   // Dynamic width based on parent div
 
@@ -201,21 +201,6 @@ const createMatrix = (data) => {
     const colorScale = d3.scaleLinear()
     .domain([-1,0,1])
     .range(["red", "white", "steelblue"]);
-    
-    
-    for(let i=0; i < lifeStyles.length; i++){
-        let lifeStyle = lifeStyles[i]
-        svg.selectAll(`.${lifeStyle}-cell`)
-        .data(cancerTypes)
-        .enter()
-        .append("rect")
-        .attr("id", cancerType => cancerType + "," + lifeStyle)
-        .attr("x", cancerType => xScale(cancerType))
-        .attr("y", yScale([lifeStyleNames[lifeStyle]]))
-        .attr("width", cellWidth)
-        .attr("height", cellHeight)
-        .style("fill", cancerType => colorScale(correlationCoeffs[`${cancerType},${lifeStyle}`]));
-    }
 
     // Separate g container for axes to simulate absolute positioning
     const axisGroup = svg.append("g").attr("class", "axis-group");
@@ -252,6 +237,67 @@ const createMatrix = (data) => {
         .style("stroke", "#ccc"); 
     yAxis.selectAll("line")
         .style("stroke", "#ccc");  
+    
+    
+    for(let i=0; i < lifeStyles.length; i++){
+        let lifeStyle = lifeStyles[i]
+        svg.selectAll(`.${lifeStyle}-cell`)
+        .data(cancerTypes)
+        .enter()
+        .append("rect")
+        .attr("class", "matrix-cell")
+        .attr("value", cancerType => cancerType + "," + lifeStyle)
+        .attr("id", (cancerType, j) => `${i}-${j}`)
+        .attr("x", cancerType => xScale(cancerType))
+        .attr("y", yScale([lifeStyleNames[lifeStyle]]))
+        .attr("width", cellWidth)
+        .attr("height", cellHeight)
+        .style("fill", cancerType => colorScale(correlationCoeffs[`${cancerType},${lifeStyle}`]))
+        .style("cursor", "pointer")
+        .on("mouseover", function(event) {
+            d3.select(this).style("stroke", "black").style("stroke-width", 2);
+
+            const id = event.target.getAttribute("id").split("-");
+            const i = parseInt(id[0]);
+            const j = parseInt(id[1]);
+            // Apply hover effect to the cells above and to the left
+            svg.selectAll(".matrix-cell")
+                .style("fill", function(d) {
+                    
+                    const new_id = d3.select(this).attr("id").split("-");
+                    const new_i = parseInt(new_id[0]);
+                    const new_j = parseInt(new_id[1]);
+
+                    const id = d3.select(this).attr("value").split(",")
+                    const cancerType = id[0]
+                    const lifeStyle = id[1]
+
+                    const OGColor = colorScale(correlationCoeffs[`${cancerType},${lifeStyle}`])
+
+                    if ((new_i == i && new_j <= j) || (new_i <= i && new_j == j)) {
+                        d3.select(this).style("stroke", "black").style("stroke-width", 2);
+                        return d3.color(OGColor).brighter(0.1);
+                    } else {
+                        d3.select(this).style("stroke", "none");
+                        return OGColor
+                    }
+                        
+
+                }
+            );
+        })
+        .on("mouseout", function() {
+            
+            // Reset colors on mouse out
+            svg.selectAll(".matrix-cell")
+                .style("fill", function() {
+                    const id = d3.select(this).attr("value").split(",")
+                    const cancerType = id[0]
+                    const lifeStyle = id[1]
+                    return colorScale(correlationCoeffs[`${cancerType},${lifeStyle}`])
+                })
+        });
+    }
 };
 
 
