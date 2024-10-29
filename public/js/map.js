@@ -1,3 +1,4 @@
+
 let dragging = false;
 let startX, startY;
 let selectedCountries =[];
@@ -17,8 +18,36 @@ export function renderBaseMap(updateSubPlots) {
 
     setupResetZoomButton(svg, zoom);
 
+    setupresetSelectedCountriesBtn(svg, updateSubPlots)
+
     loadMapData(svg, path, projection, tooltip, zoom, width, height, updateSubPlots);
     
+}
+
+function setupresetSelectedCountriesBtn(svg, updateSubPlots) {
+    const resetSelectedCountriesBtn = document.querySelector("#resetSelectedCountriesBtn");
+
+    // Function to update button visibility
+    function updateButtonVisibility() {
+        if (selectedCountries.length > 0) {
+            resetSelectedCountriesBtn.classList.remove("hidden");
+        } else {
+            resetSelectedCountriesBtn.classList.add("hidden");
+        }
+    }
+
+    // Set up the button click event
+    resetSelectedCountriesBtn.addEventListener("click", () => {
+        selectedCountries.forEach(country => {
+            deselectCountryBorder(country);
+        });
+        selectedCountries = [];
+        updateSubPlots(selectedCountries);
+        updateButtonVisibility(); // Update visibility after clearing selection
+    });
+
+    // Call it initially to set the correct visibility when the page loads
+    updateButtonVisibility();
 }
 
 function setupResetZoomButton(svg, zoom) {
@@ -67,6 +96,11 @@ function toggleResetZoomButton(show) {
     resetZoomBtn.classList.toggle("hidden", !show);
 }
 
+function toggleResetSelectedCountriesButton(show) {
+    const resetSelectedCountriesBtn = document.querySelector("#resetSelectedCountriesBtn");
+    resetSelectedCountriesBtn.classList.toggle("hidden", !show);
+}
+
 // loads initial map data and adds the button/zoom/range selection rectangle
 function loadMapData(svg, path, projection, tooltip, zoom, width, height, updateSubPlots) {
     Promise.all([
@@ -97,7 +131,7 @@ function loadMapData(svg, path, projection, tooltip, zoom, width, height, update
                 .on("mouseover", (event, d) => handleMouseOver(event,d, tooltip))
                 .on("mousemove", (event) => handleMouseMove(event, tooltip))
                 .on("mouseout", (event, d) => handleMouseOut(event,d, tooltip))
-                .on("click", (event,d) => {handleCountrySelect(event, d,updateSubPlots)})
+                .on("click", (event,d) => {handleCountrySelect(d.properties.name ,updateSubPlots)})
                 initRangeSelectionRect(svg, zoom, projection, countryData, width, height, updateSubPlots);
             }).catch(error => {
             console.error("Error loading or processing the data:", error);
@@ -106,38 +140,48 @@ function loadMapData(svg, path, projection, tooltip, zoom, width, height, update
 
 }
 
-function handleCountrySelect(event,d, updateSubPlots) {
-    const country = d.properties.name;
-    selectedCountries.push(country);
-    console.log("added country", country);
-    selectCountryBorder(event);
-    //updateSubPlots(country);
-}
+function handleCountrySelect(country, updateSubPlots) {
+    const isSelected = selectedCountries.includes(country)
 
-function hoverCountryBorder(event) {
-    d3.select(event.currentTarget)
-        .style("stroke", "black")
-        .style("stroke-width", "1px"); 
-}
-
-function unhoverCountryBorder(event, country) {
-    console.log(selectedCountries, country)
-    if (selectedCountries.includes(country)) {
-        return;
+    if (isSelected) {
+        selectedCountries = selectedCountries.filter(c => c !== country);
+        toggleResetSelectedCountriesButton(selectedCountries.length > 0);
+        deselectCountryBorder(country);
+        updateSubPlots(selectedCountries);
+    } else {
+        selectedCountries.push(country);
+        toggleResetSelectedCountriesButton(true);
+        selectCountryBorder(country);
+        updateSubPlots(selectedCountries);
     }
-    d3.select(event.currentTarget)
-        .style("stroke", "black")
-        .style("stroke-width", "0.2px"); 
 }
 
-function selectCountryBorder(event) {
-    d3.select(event.currentTarget)
+function hoverCountryBorder(country) {
+    const stroke_width = selectedCountries.includes(country) ? 4 : 1;
+
+    d3.select(`[value="${country}"]`)
+        .style("stroke", "black")
+        .style("stroke-width", stroke_width + "px"); 
+}
+
+function unhoverCountryBorder(country) {
+
+    const stroke_width = selectedCountries.includes(country) ? 3 : 0.2;
+    d3.select(`[value="${country}"]`)
+        .style("stroke", "black")
+        .style("stroke-width", stroke_width+"px"); 
+}
+
+function selectCountryBorder(country) {
+    d3.select(`[value="${country}"]`)
         .style("stroke", "black")
         .style("stroke-width", "3px")
 }
 
-function deselectCountryBorder(event) {
-
+function deselectCountryBorder(country) {
+    d3.select(`[value="${country}"]`)
+        .style("stroke", "black")
+        .style("stroke-width", "0.2px")
 }
 
 // Event handler for mouseover
@@ -146,7 +190,7 @@ function handleMouseOver(event, d, tooltip) {
     tooltip.style("display", "block")
         .html(`${d.properties.name}`)
     positionTooltip(event, tooltip);
-    hoverCountryBorder(event)
+    hoverCountryBorder(d.properties.name);
 }
 
 // Event handler for mousemove
@@ -160,7 +204,7 @@ function handleMouseOut(event,d, tooltip) {
     if (dragging) return;
     tooltip.style("display", "none");
 
-    unhoverCountryBorder(event,d.properties.name);
+    unhoverCountryBorder(d.properties.name);
 }
 
 // Utility function to position the tooltip
@@ -228,7 +272,6 @@ function initRangeSelectionRect(svg, zoom, projection, countryData,  width, heig
                     const xMax = Math.max(startX, endX);
                     const yMax = Math.max(startY, endY);
     
-                    console.log(`Selection coordinates: xMin: ${xMin}, yMin: ${yMin}, xMax: ${xMax}, yMax: ${yMax}`);
     
                     // Find countries that intersect with the selection rectangle
                     const selectedCountries = countryData.filter(d => {
@@ -249,8 +292,9 @@ function initRangeSelectionRect(svg, zoom, projection, countryData,  width, heig
                         return false;  // No intersection found for this country
                     }).map(d => d.properties.name);
 
-                    updateSubPlots(selectedCountries);
-                    console.log("Selected Countries:", selectedCountries);
+                    selectedCountries.forEach(country => {
+                        handleCountrySelect(country, updateSubPlots);
+                    });
 
                     // Calculate the scale and translation for the zoom
                     const scaleX = width / (xMax - xMin);

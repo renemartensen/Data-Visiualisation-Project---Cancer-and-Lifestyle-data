@@ -22,9 +22,16 @@
         <div id="mapContainer" class="relative">
             <div id="map"></div>
             <div id="tooltip" class="tooltip"></div>
-            <button id="resetZoomBtn" class="hidden absolute top-4 right-4 bg-blue-500 text-white px-4 py-2 rounded shadow-lg">
-              Zoom to Default
-          </button>
+            <div class=" absolute top-4 right-4 flex flex-col space-y-2">
+              <button id="resetSelectedCountriesBtn" class="bg-blue-500 text-white px-4 py-2 rounded shadow-lg">
+                Deselect Countries
+              </button>
+                <button id="resetZoomBtn" class=" hidden bg-blue-500 text-white px-4 py-2 rounded shadow-lg">
+                  Zoom to Default
+              </button>
+              
+            </div>
+            
         </div>
     </div>
 
