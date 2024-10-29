@@ -6,7 +6,6 @@ let selectedCountries =[];
 // hahhah
 // ererererere
 
-// ererererere
 
 export function renderBaseMap(updateSubPlots) {
 
