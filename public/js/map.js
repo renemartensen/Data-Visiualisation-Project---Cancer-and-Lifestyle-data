@@ -3,6 +3,8 @@ let dragging = false;
 let startX, startY;
 let selectedCountries =[];
 
+// ererererere
+
 export function renderBaseMap(updateSubPlots) {
 
     console.log("render base map")
