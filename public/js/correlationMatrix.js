@@ -3,7 +3,6 @@ export function renderMatrix(data) {
     createMatrix(data)
 }
 
-// Test branching
 
 
 // Calculate correlations between cancer rate and lifestyle rates
@@ -178,8 +177,11 @@ const createMatrix = (data) => {
     const svg = d3.select("#correlationMatrix")
     .append("svg")
         .attr("viewBox", `0 0 ${tableWidth + margin.left + margin.right} ${tableHeight + margin.top + margin.bottom}`)
+        .style("overflow", "visible") // Set overflow to visible to prevent clipping
         .append("g")
-        .attr("transform", `translate(${margin.left}, ${margin.top})`);
+        .attr("transform", `translate(${margin.left}, ${margin.top})`)
+        
+
 
 
     // Dynamically calculate the size of each cell based on the number of rows and columns
@@ -215,29 +217,43 @@ const createMatrix = (data) => {
         .style("fill", cancerType => colorScale(correlationCoeffs[`${cancerType},${lifeStyle}`]));
     }
 
+    // Separate g container for axes to simulate absolute positioning
+    const axisGroup = svg.append("g").attr("class", "axis-group");
+
     // X axis for Cancer Types (below the matrix)
-    const xAxis = svg.append("g")
+    const xAxis = axisGroup.append("g")
         .attr("class", "x-axis")
         .attr("transform", `translate(0, 0)`)
-        .call(d3.axisBottom(xScale));
+        .call(d3.axisTop(xScale).tickSize(5).tickSizeOuter(0)); // Remove tick lines
 
-
-    const yAxis = svg.append("g")
-    .attr("class", "y-axis")
-    .attr("transform", `translate(0, 0)`)
-    .call(d3.axisRight(yScale));
-
-    yAxis.selectAll("text")
-        .attr("transform", "rotate(-45)")  // Rotate by 45 degrees
-        .style("text-anchor", "start")       // Align text for readability
+    xAxis.selectAll("text")
+        .attr("transform", "translate(0,0) rotate(-45)")  // Shift down further to be outside
+        .style("text-anchor", "start")
         .style("font-size", `${Math.min(cellWidth, cellHeight) / 4}px`);
 
+    xAxis.selectAll("path")
+        .style("stroke", "#ccc"); 
+    xAxis.selectAll("line")
+        .style("stroke", "#ccc");
 
-    // Rotate the x-axis labels to fit longer text
-    xAxis.selectAll("text")
-        .attr("transform", "rotate(-45)")  // Rotate by 45 degrees
-        .style("text-anchor", "end")       // Adjust text-anchor for readability
-        .style("font-size", `${Math.min(cellWidth, cellHeight) / 4}px`);  // Adjust font size
+    // Y axis for Life Styles (left of the matrix)
+    const yAxis = axisGroup.append("g")
+        .attr("class", "y-axis")
+        .attr("transform", `translate(0, 0)`)
+        .call(d3.axisLeft(yScale).tickSize(5).tickSizeOuter(0)); // Remove tick lines
+
+    yAxis.selectAll("text")
+        .attr("transform", "translate(-5, -10) rotate(-45)")  // Shift left further to be outside
+        .style("text-anchor", "end")
+        .style("font-size", `${Math.min(cellWidth, cellHeight) / 4}px`);
+
+        // Customize Y-axis tick and line color
+    yAxis.selectAll("path")
+        .style("stroke", "#ccc"); 
+    yAxis.selectAll("line")
+        .style("stroke", "#ccc");  
+};
+
+
 
         
-};
