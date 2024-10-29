@@ -260,9 +260,11 @@ const createMatrix = (data) => {
             svg.selectAll(".x-axis text")
                     .filter(function(d) { return d === cancerType; })  // Select the specific x-axis label
                     .transition()
-                    .duration(200)
+                    .duration(100)
                     .style("font-size", `${(Math.min(cellWidth, cellHeight) / 4)*2}px`)
                     .attr("transform", "translate(-10,-25) rotate(0)")
+                    .text(cancerType)
+                    
 
             const id = event.target.getAttribute("id").split("-");
             const i = parseInt(id[0]);
@@ -292,13 +294,15 @@ const createMatrix = (data) => {
                 }
             );
         })
-        .on("mouseout", function() {
+        .on("mouseout", function(d, cancerType) {
             d3.select(this).style("stroke", "none");
             svg.selectAll(".x-axis text")
-            .transition()
-            .duration(200)
-            .style("font-size", `${Math.min(cellWidth, cellHeight) / 4}px`)
-            .attr("transform", "translate(0,0) rotate(-45)")
+                .filter(function(d) { return d === cancerType; })  // Select the specific x-axis label
+                .transition()
+                .duration(100)
+                .style("font-size", `${Math.min(cellWidth, cellHeight) / 4}px`)
+                .attr("transform", "translate(0,0) rotate(-45)")
+                .text(cancerNameMap[cancerType] || cancerType);
             // Reset colors on mouse out
             svg.selectAll(".matrix-cell")
                 .style("fill", function() {
