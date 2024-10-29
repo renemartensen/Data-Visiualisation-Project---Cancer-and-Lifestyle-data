@@ -257,13 +257,14 @@ const createMatrix = (data) => {
         .on("mouseover", function(event, cancerType) {
             d3.select(this).style("stroke", "black").style("stroke-width", 2);
 
+
             svg.selectAll(".x-axis text")
                     .filter(function(d) { return d === cancerType; })  // Select the specific x-axis label
                     .transition()
                     .duration(100)
                     .style("font-size", `${(Math.min(cellWidth, cellHeight) / 4)*2}px`)
                     .attr("transform", "translate(-10,-25) rotate(0)")
-                    .text(cancerType)
+                    .text(cancerLongNameMap[cancerType] || cancerType)
                     
 
             const id = event.target.getAttribute("id").split("-");
@@ -355,6 +356,48 @@ const cancerNameMap = {
     "vagina": "Vagina",
     "vulva": "Vulva"
 };
+
+const cancerLongNameMap = {
+    "all-cancers": "All Types of Cancer",
+    "anus": "Anus Cancer",
+    "bladder": "Bladder Cancer",
+    "brain-central-nervous-system": "Brain and Central Nervous System Cancer",
+    "breast": "Breast Cancer",
+    "cervix-uteri": "Cervical Cancer (Cervix Uteri)",
+    "colon": "Colon Cancer",
+    "colorectum": "Colorectal Cancer",
+    "corpus-uteri": "Uterine Corpus Cancer",
+    "gallbladder": "Gallbladder Cancer",
+    "hodgkin-lymphoma": "Hodgkin Lymphoma",
+    "hypopharynx": "Hypopharyngeal Cancer",
+    "kaposi-sarcoma": "Kaposi Sarcoma",
+    "kidney": "Kidney Cancer",
+    "larynx": "Laryngeal Cancer",
+    "leukaemia": "Leukemia",
+    "lip-oral-cavity": "Lip and Oral Cavity Cancer",
+    "liver-and-intrahepatic-bile-ducts": "Liver and Intrahepatic Bile Duct Cancer",
+    "melanoma-of-skin": "Melanoma of the Skin",
+    "mesothelioma": "Mesothelioma",
+    "multiple-myeloma": "Multiple Myeloma",
+    "nasopharynx": "Nasopharyngeal Cancer",
+    "non-hodgkin-lymphoma": "Non-Hodgkin Lymphoma",
+    "non-melanoma-skin-cancer": "Non-Melanoma Skin Cancer",
+    "oesophagus": "Esophageal Cancer",
+    "oropharynx": "Oropharyngeal Cancer",
+    "ovary": "Ovarian Cancer",
+    "pancreas": "Pancreatic Cancer",
+    "penis": "Penile Cancer",
+    "prostate": "Prostate Cancer",
+    "rectum": "Rectal Cancer",
+    "salivary-glands": "Salivary Gland Cancer",
+    "testis": "Testicular Cancer",
+    "thyroid": "Thyroid Cancer",
+    "trachea-bronchus-and-lung": "Trachea, Bronchus, and Lung Cancer",
+    "vagina": "Vaginal Cancer",
+    "vulva": "Vulvar Cancer"
+};
+
+
 
 
 
