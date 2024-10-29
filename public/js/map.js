@@ -2,6 +2,7 @@
 let dragging = false;
 let startX, startY;
 let selectedCountries =[];
+// change
 
 // ererererere
 
