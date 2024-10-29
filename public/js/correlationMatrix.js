@@ -190,7 +190,7 @@ const createMatrix = (data) => {
 
     // Scales adjusted based on the fixed table size
     const xScale = d3.scaleBand()
-        .domain(cancerTypes)
+        .domain(cancerTypes)    // change this with names!!!!
         .range([0, tableWidth])
 
     const yScale = d3.scaleBand()
@@ -209,7 +209,7 @@ const createMatrix = (data) => {
     const xAxis = axisGroup.append("g")
         .attr("class", "x-axis")
         .attr("transform", `translate(0, 0)`)
-        .call(d3.axisTop(xScale).tickSize(5).tickSizeOuter(0)); // Remove tick lines
+        .call(d3.axisTop(xScale).tickSize(5).tickSizeOuter(0).tickFormat(cancerType => cancerNameMap[cancerType] || cancerType)); // Remove tick lines
 
     xAxis.selectAll("text")
         .attr("transform", "translate(0,0) rotate(-45)")  // Shift down further to be outside
@@ -254,8 +254,15 @@ const createMatrix = (data) => {
         .attr("height", cellHeight)
         .style("fill", cancerType => colorScale(correlationCoeffs[`${cancerType},${lifeStyle}`]))
         .style("cursor", "pointer")
-        .on("mouseover", function(event) {
+        .on("mouseover", function(event, cancerType) {
             d3.select(this).style("stroke", "black").style("stroke-width", 2);
+
+            svg.selectAll(".x-axis text")
+                    .filter(function(d) { return d === cancerType; })  // Select the specific x-axis label
+                    .transition()
+                    .duration(200)
+                    .style("font-size", `${(Math.min(cellWidth, cellHeight) / 4)*2}px`)
+                    .attr("transform", "translate(-10,-25) rotate(0)")
 
             const id = event.target.getAttribute("id").split("-");
             const i = parseInt(id[0]);
@@ -263,7 +270,6 @@ const createMatrix = (data) => {
             // Apply hover effect to the cells above and to the left
             svg.selectAll(".matrix-cell")
                 .style("fill", function(d) {
-                    
                     const new_id = d3.select(this).attr("id").split("-");
                     const new_i = parseInt(new_id[0]);
                     const new_j = parseInt(new_id[1]);
@@ -287,7 +293,12 @@ const createMatrix = (data) => {
             );
         })
         .on("mouseout", function() {
-            
+            d3.select(this).style("stroke", "none");
+            svg.selectAll(".x-axis text")
+            .transition()
+            .duration(200)
+            .style("font-size", `${Math.min(cellWidth, cellHeight) / 4}px`)
+            .attr("transform", "translate(0,0) rotate(-45)")
             // Reset colors on mouse out
             svg.selectAll(".matrix-cell")
                 .style("fill", function() {
@@ -296,9 +307,52 @@ const createMatrix = (data) => {
                     const lifeStyle = id[1]
                     return colorScale(correlationCoeffs[`${cancerType},${lifeStyle}`])
                 })
+                .style("stroke", "none");
         });
     }
 };
+
+const cancerNameMap = {
+    "all-cancers": "AllCancers",
+    "anus": "Anus",
+    "bladder": "Bladder",
+    "brain-central-nervous-system": "BrainCNS",
+    "breast": "Breast",
+    "cervix-uteri": "Cervix",
+    "colon": "Colon",
+    "colorectum": "ColRectum",
+    "corpus-uteri": "Corpus",
+    "gallbladder": "Gallblad",
+    "hodgkin-lymphoma": "Hodgkin",
+    "hypopharynx": "HypoPhar",
+    "kaposi-sarcoma": "Kaposi",
+    "kidney": "Kidney",
+    "larynx": "Larynx",
+    "leukaemia": "Leukemia",
+    "lip-oral-cavity": "LipOral",
+    "liver-and-intrahepatic-bile-ducts": "LiverIBD",
+    "melanoma-of-skin": "MelSkin",
+    "mesothelioma": "Mesothlm",
+    "multiple-myeloma": "MultMyel",
+    "nasopharynx": "NasoPhar",
+    "non-hodgkin-lymphoma": "NonHodgk",
+    "non-melanoma-skin-cancer": "NonMelSk",
+    "oesophagus": "Oesoph",
+    "oropharynx": "OroPhar",
+    "ovary": "Ovary",
+    "pancreas": "Pancreas",
+    "penis": "Penis",
+    "prostate": "Prostate",
+    "rectum": "Rectum",
+    "salivary-glands": "Salivary",
+    "testis": "Testis",
+    "thyroid": "Thyroid",
+    "trachea-bronchus-and-lung": "Lung",
+    "vagina": "Vagina",
+    "vulva": "Vulva"
+};
+
+
 
 
 
