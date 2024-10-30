@@ -1,6 +1,7 @@
 import { loadData } from './js/data_loading.js';
 import { renderMap, renderBaseMap, renderBivariateMap } from './js/map.js';
 import { renderMatrix } from './js/correlationMatrix.js';
+import { renderSubPlot } from './js/subPlot.js';
 
 
 
@@ -18,15 +19,9 @@ const updateMap = (selectedLifestyle, selectedCancer, selectedGender) => {
 }
 
 const updateSubPlots = (selectedCountries) => {
-  console.log(selectedCountries)
-  const subplotsDiv = document.getElementById('ul');
-  subplotsDiv.innerHTML = '';
-
-  selectedCountries.forEach(country => {
-    const countryElement = document.createElement('li');
-    countryElement.textContent = country;
-    subplotsDiv.appendChild(countryElement);
-  });
+  selectedCountries = selectedCountries;
+  console.log("selectedCountries:", selectedCountries)
+  renderSubPlot(mainData, selectedCountries, selectedGender)
 }
 
 renderBaseMap(updateSubPlots);
@@ -39,22 +34,32 @@ loadData()
     console.log("load_data:", mainData);
     updateMap("alcohol_2019", "all-cancers", "both");
     renderMatrix(mainData)
+    renderSubPlot(mainData, selectedCountries)
 });
 
 
 
 
 // evetn handlers
-const svg = d3.select("#correlationMatrix")
+const svgMatrix = d3.select("#correlationMatrix")
 
 
-svg.on("click", function(event) {
+svgMatrix.on("click", function(event) {
   const id = event.target.getAttribute("value");
   console.log(id)
   selectedCancer = id.split(",")[0]
   selectedLifestyle = id.split(",")[1]
   updateMap(selectedLifestyle, selectedCancer, selectedGender);
 })
+
+const svgMap = d3.select("#map")
+  
+svgMap.selectAll(".country")
+  .on("dblclick", function(event) {
+    console.log("dblclicked on map from mainm", event.target.value)
+  })
+
+
 
 
 

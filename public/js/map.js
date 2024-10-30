@@ -1,7 +1,8 @@
-
+import { showOverlay } from "./overlayPlots.js";
 let dragging = false;
 let startX, startY;
 let selectedCountries =[];
+let selectedIso = []
 
 
 export function renderBaseMap(updateSubPlots) {
@@ -42,8 +43,9 @@ function setupresetSelectedCountriesBtn(svg, updateSubPlots) {
         selectedCountries.forEach(country => {
             deselectCountryBorder(country);
         });
+        selectedIso = [];
         selectedCountries = [];
-        updateSubPlots(selectedCountries);
+        updateSubPlots(selectedIso);
         updateButtonVisibility(); // Update visibility after clearing selection
     });
 
@@ -68,6 +70,7 @@ function setupSVG() {
     const svg = d3.select("#map")
         .append("svg")
         .attr("viewBox", `0 0 ${width} ${height}`)
+        .attr("preserveAspectRatio", "xMidYMid meet")
         .classed("svg-content-responsive", true);
 
     return { width, height, svg };
@@ -83,6 +86,10 @@ function setupZoom(svg, width, height) {
     const zoom = d3.zoom()
         .scaleExtent([1, 8])
         .translateExtent([[0, 0], [width, height]])
+        .filter(event => {
+            // Only zoom on wheel and single click; ignore double-click
+            return !event.ctrlKey && !event.button && event.type !== 'dblclick';
+        })
         .on("zoom", (event) => {
             svg.selectAll("path").attr("transform", event.transform);
             toggleResetZoomButton(event.transform.k > 1);
@@ -90,6 +97,7 @@ function setupZoom(svg, width, height) {
 
     return zoom;
 }
+
 
 // Function to toggle the visibility of the reset zoom button
 function toggleResetZoomButton(show) {
@@ -123,16 +131,16 @@ function loadMapData(svg, path, projection, tooltip, zoom, width, height, update
                 .enter()
                 .append("path")
                 .attr("class", "country")
-                .attr("value", d => {
-                    return d.properties.name;
-                })
+                .attr("value", d => {return d.properties.name;})
+                .attr("id", d => {return d.id;})
                 .attr("d", path)
                 .style("stroke", "black")
                 .style("stroke-width", "0.2px") 
                 .on("mouseover", (event, d) => handleMouseOver(event,d, tooltip))
                 .on("mousemove", (event) => handleMouseMove(event, tooltip))
                 .on("mouseout", (event, d) => handleMouseOut(event,d, tooltip))
-                .on("click", (event,d) => {handleCountrySelect(d.properties.name ,updateSubPlots)})
+                .on("click", (event,d) => {handleCountrySelect(d.id,d.properties.name ,updateSubPlots)})
+                .on("dblclick", (event,d) => showOverlay(`dblclicked on map", ${d.properties.name}`))
                 initRangeSelectionRect(svg, zoom, projection, countryData, width, height, updateSubPlots);
             }).catch(error => {
             console.error("Error loading or processing the data:", error);
@@ -141,19 +149,23 @@ function loadMapData(svg, path, projection, tooltip, zoom, width, height, update
 
 }
 
-function handleCountrySelect(country, updateSubPlots) {
+function handleCountrySelect(iso, country, updateSubPlots = null) {
     const isSelected = selectedCountries.includes(country)
 
     if (isSelected) {
         selectedCountries = selectedCountries.filter(c => c !== country);
+        selectedIso = selectedIso.filter(c => c !== iso);
         toggleResetSelectedCountriesButton(selectedCountries.length > 0);
         deselectCountryBorder(country);
-        updateSubPlots(selectedCountries);
     } else {
         selectedCountries.push(country);
+        selectedIso.push(iso)
         toggleResetSelectedCountriesButton(true);
         selectCountryBorder(country);
-        updateSubPlots(selectedCountries);
+    }
+
+    if (updateSubPlots) {
+        updateSubPlots(selectedIso);
     }
 }
 
@@ -275,10 +287,10 @@ function initRangeSelectionRect(svg, zoom, projection, countryData,  width, heig
     
     
                     // Find countries that intersect with the selection rectangle
-                    const selectedCountries = countryData.filter(d => {
+                    const selectedCountriesAndIso = countryData.filter(d => {
                         const type = d.geometry.type;
                         const coordinates = d.geometry.coordinates;
-    
+                    
                         if (type === "Polygon") {
                             return checkPolygonIntersection(coordinates, xMin, xMax, yMin, yMax);
                         } else if (type === "MultiPolygon") {
@@ -289,13 +301,18 @@ function initRangeSelectionRect(svg, zoom, projection, countryData,  width, heig
                                 }
                             }
                         }
-    
+                    
                         return false;  // No intersection found for this country
-                    }).map(d => d.properties.name);
-
-                    selectedCountries.forEach(country => {
-                        handleCountrySelect(country, updateSubPlots);
+                    }).map(d => ({
+                        country: d.properties.name,
+                        iso: d.id
+                    }));
+                    
+                    // Loop through selected countries and call handleCountrySelect with destructured values
+                    selectedCountriesAndIso.forEach(({ country, iso }) => {
+                        handleCountrySelect(iso, country);
                     });
+                    updateSubPlots(selectedIso);
 
                     // Calculate the scale and translation for the zoom
                     const scaleX = width / (xMax - xMin);
@@ -374,10 +391,14 @@ export function renderBivariateMap(cancerData, lifestyleData, gender) {
     // Create the SVG canvas
     const svg = d3.select("#map").select("svg");
 
+    const parentDiv = document.querySelector("#mapContainer");
+    const height = parentDiv.offsetHeight;
+    console.log("height", height);
+
     
     // Append legend to the SVG
     svg.append(() => legend())
-       .attr("transform", "translate(70,370)");
+       .attr("transform", `translate(70,${0.8 * height})`);
   
 
     const cancerRateMap = {};

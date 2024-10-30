@@ -8,13 +8,14 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body class="bg-gray-100 text-center">
-  <h1 class="text-3xl font-bold text-grey">DataVis Project</h1>
+  <h1 class="text-3xl font-bold text-grey">Cancer Data of the World</h1>
   
-  <div class="flex flex-col md:flex-row justify-between m-6 ml-8 mt-10">
+  <div class="flex flex-col md:flex-row justify-between m-10 mt-14">
     <!-- Left section: Correlation Matrix + Map (2/3 width) -->
     <div class="w-full md:w-2/3">
         <!-- Correlation Matrix (fills width of 2/3 section) -->
         <div id="correlationMatrix">
+          <div id="tooltipMatrix" class="tooltip"></div>
             <!-- Correlation Matrix content goes here -->
         </div>
 
@@ -37,10 +38,7 @@
 
     <!-- Right section: Subplots (1/3 width) -->
     <div id="subplots" class="w-full md:w-1/3 md:ml-[10px]">
-        We are going to have subplot here. Selected countries:
-        <ul id="ul">
-
-        </ul>
+      <div id="barchartContainer" class="h-full w-full"></div>
         <!-- Subplots content goes here -->
     </div>
 </div>
