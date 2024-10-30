@@ -140,7 +140,7 @@ function loadMapData(svg, path, projection, tooltip, zoom, width, height, update
                 .on("mousemove", (event) => handleMouseMove(event, tooltip))
                 .on("mouseout", (event, d) => handleMouseOut(event,d, tooltip))
                 .on("click", (event,d) => {handleCountrySelect(d.id,d.properties.name ,updateSubPlots)})
-                .on("dblclick", (event,d) => showOverlay(`dblclicked on map", ${d.properties.name}`))
+                .on("dblclick", (event,d) => showOverlay(d.id, d.properties.name))
                 initRangeSelectionRect(svg, zoom, projection, countryData, width, height, updateSubPlots);
             }).catch(error => {
             console.error("Error loading or processing the data:", error);

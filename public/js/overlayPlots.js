@@ -1,4 +1,6 @@
-export function showOverlay(content = "This is an overlay") {
+
+export function showOverlay(iso, countryName) {
+    
     // Check if overlay already exists
     if (document.getElementById("custom-overlay")) return;
 
@@ -34,6 +36,7 @@ export function showOverlay(content = "This is an overlay") {
     document.addEventListener("keydown", handleKeyDown);
 
     // Create overlay content box
+    
     const contentBox = document.createElement("div");
     contentBox.style.backgroundColor = "#fff";
     contentBox.style.padding = "20px";
@@ -42,7 +45,10 @@ export function showOverlay(content = "This is an overlay") {
     contentBox.style.maxWidth = "80%";
     contentBox.style.maxHeight = "80%";
     contentBox.style.overflow = "auto";
-    contentBox.innerHTML = `<p>${content}</p>`;
+    const title = document.createElement("h1");
+    title.classList.add("text-2xl", "font-bold", "text-grey");
+    title.innerText = `Country: ${countryName} (${iso})`;
+    contentBox.appendChild(title);
 
     // Close button
     const closeButton = document.createElement("button");
@@ -56,8 +62,19 @@ export function showOverlay(content = "This is an overlay") {
     closeButton.style.color = "#fff";
     closeButton.onclick = closeOverlay;
 
+    const main = createContent(iso, countryName);
+
     // Append elements
+    contentBox.appendChild(main);
     contentBox.appendChild(closeButton);
     overlay.appendChild(contentBox);
+    
+    
     document.body.appendChild(overlay);
+}
+
+function createContent(iso, countryName) {
+    const main = document.createElement("div");
+    main.innerHTML = `hej, her kommer der til at være grafer om ${countryName} (${iso})`;
+    return main
 }
