@@ -1,5 +1,4 @@
 export function renderSubPlot(mainData, selectedCountries, gender) {
-    console.log('Subplot rendered');
     gender = "both";
     const chartData = prepareDataForChart(mainData, selectedCountries, gender);
 
@@ -93,7 +92,7 @@ export function renderSubPlot(mainData, selectedCountries, gender) {
         .style("text-anchor", "middle")
         .style("font-size", "12px")
         .style("fill", "black")
-        .text("Avg. ASR. in the world");  // Replace with the actual label text
+        .text("Avg. ASR. of selected countries");  // Replace with the actual label text
 
     // Update y-axis with labels
     svg.append("g")

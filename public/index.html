@@ -10,7 +10,7 @@
 <body class="bg-gray-100 text-center">
   <h1 class="text-3xl font-bold text-grey">Cancer Data of the World</h1>
   
-  <div class="flex flex-col md:flex-row justify-between m-10 mt-14">
+  <div class="flex flex-col md:flex-row justify-between h-full m-10 mt-14">
     <!-- Left section: Correlation Matrix + Map (2/3 width) -->
     <div class="w-full md:w-2/3">
         <!-- Correlation Matrix (fills width of 2/3 section) -->
@@ -42,6 +42,15 @@
         <!-- Subplots content goes here -->
     </div>
 </div>
+
+<div id="custom-overlay" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+  <div class="bg-white p-6 rounded-lg shadow-lg max-w-3xl max-h-3xl overflow-auto">
+      <h1 id="overlay-title" class="text-2xl font-bold text-gray-800"></h1>
+      <div id="overlay-content" class="flex flex-row"></div>
+      <button id="close-overlay" class="mt-4 px-4 py-2 bg-gray-800 text-white rounded">Close</button>
+  </div>
+</div>
+
   
 
   

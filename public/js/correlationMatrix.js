@@ -1,3 +1,7 @@
+
+let selectedCell = "cell-0-0";
+let selectedCancer = "all-cancers";
+
 export function renderMatrix(data) {
 
     createMatrix(data)
@@ -156,10 +160,10 @@ const pearsonCorrelationCoeff = (data) => {
 
 const createMatrix = (data) => {
     
-    let lifeStyleNames = data.lifeStyleNames;
+    
 
-    const cancerTypes = Object.keys(data.cancerTypes);
-    const lifeStyles = Object.keys(data.lifeStyleChoices);
+    const cancerTypes = Object.keys(data.cancerTypes).sort();
+    const lifeStyles = Object.keys(data.lifeStyleChoices).sort();
 
     let correlationCoeffs = pearsonCorrelationCoeff(data)
     
@@ -179,7 +183,7 @@ const createMatrix = (data) => {
         .style("overflow", "visible") // Set overflow to visible to prevent clipping
         .append("g")
         .attr("transform", `translate(${margin.left}, ${margin.top})`)
-        
+        .on("mouseleave", () => { toggleCategoryHighlightOn(selectedCancer) });
 
 
 
@@ -213,7 +217,7 @@ const createMatrix = (data) => {
     xAxis.selectAll("text")
         .attr("transform", "translate(0,0) rotate(-45)")
         .style("text-anchor", "start")
-        .style("font-size", `${(Math.min(cellWidth, cellHeight)  / 4)*1.2}px`);
+        .style("font-size", `${8}px`);
 
     xAxis.selectAll("path")
         .style("stroke", "#ccc"); 
@@ -229,7 +233,7 @@ const createMatrix = (data) => {
     yAxis.selectAll("text")
         .attr("transform", "translate(-5, -10) rotate(-45)")  // Shift left further to be outside
         .style("text-anchor", "end")
-        .style("font-size", `${(Math.min(cellWidth, cellHeight)  / 4)*1.1}px`);
+        .style("font-size", `${8}px`);
 
         // Customize Y-axis tick and line color
     yAxis.selectAll("path")
@@ -247,7 +251,7 @@ const createMatrix = (data) => {
         .append("rect")
         .attr("class", "matrix-cell")
         .attr("value", cancerType => cancerType + "," + lifeStyle)
-        .attr("id", (cancerType, j) => `${i}-${j}`)
+        .attr("id", (cancerType, j) => `cell-${i}-${j}`)
         .attr("x", cancerType => xScale(cancerType))
         .attr("y", yScale([lifeStyleNames[lifeStyle]]))
         .attr("width", cellWidth)
@@ -255,38 +259,64 @@ const createMatrix = (data) => {
         .style("fill", cancerType => colorScale(correlationCoeffs[`${cancerType},${lifeStyle}`]))
         .style("cursor", "pointer")
         .on("mouseover", (event, cancerType) => handleMouseOver(event, cancerType, lifeStyle, svg, cellWidth, cellHeight, correlationCoeffs, colorScale, tooltip))
-        .on("mouseout", (event, cancerType) => handleMouseOut(event, cancerType, svg, cellWidth, cellHeight, correlationCoeffs, colorScale, tooltip));
+        .on("mouseout", (event, cancerType) => handleMouseOut(event, cancerType, svg, cellWidth, cellHeight, correlationCoeffs, colorScale, tooltip))
+        .on("click", (event, cancerType) => {
+            handleCellClick(event.target.getAttribute("id"), true);
+        } );
     }
+
+    // as default we need the matrix to be higlighted
+    toggleCategoryHighlightOn(selectedCancer)
+    handleCellClick(selectedCell);
 };
+
+function handleCellClick(cellId, isClick = false) {
+
+    // deselect the previous cell
+    d3.select(`#${selectedCell}`).style("stroke", "none");
+
+    // select the new cell
+    selectedCell = cellId
+    const svg = d3.select(`#${selectedCell}`)
+    svg.style("stroke", "grey")
+        .style("stroke-width", 1.5)
+        .style("stroke-dasharray", "5,5")
+        .raise();
+
+    const cancerType = d3.select(`#${selectedCell}`).attr("value").split(",")[0]
+    if (isClick) {
+        selectedCancer = cancerType;
+    }
+    
+}
 
 
 function handleMouseOver(event, cancerType, lifeStyle, svg, cellWidth, cellHeight, correlationCoeffs, colorScale, tooltip) {
 
     // Handle Tooltip
+    
+    const cell = event.target;
+    const cellRect = cell.getBoundingClientRect(); // Get the cell's position in page coordinates
+
     tooltip.style("display", "block")
         .html(`Pearson Correlation Coeff.: ${correlationCoeffs[`${cancerType},${lifeStyle}`].toFixed(2)}`)
-        .style("left", `${event.pageX + 10}px`)
-        .style("top", `${event.pageY - 10}px`);
+        .style("left", `${cellRect.left + window.scrollX + cellRect.width + 10}px`) // Position to the right of the cell
+        .style("top", `${cellRect.top + window.scrollY }px`);
 
 
-    svg.selectAll(".x-axis text")
-            .filter(function(d) { return d === cancerType; })  // Select the specific x-axis label
-            .transition()
-            .duration(100)
-            .style("font-size", `${(Math.min(cellWidth, cellHeight) / 4)*2}px`)
-            .attr("transform", "translate(-10,-25) rotate(0)")
-            .text(cancerLongNameMap[cancerType] || cancerType)
+    toggleCategoryHighlightOff(selectedCancer)
+    toggleCategoryHighlightOn(cancerType)
             
 
     const id = event.target.getAttribute("id").split("-");
-    const i = parseInt(id[0]);
-    const j = parseInt(id[1]);
+    const i = parseInt(id[1]);
+    const j = parseInt(id[2]);
     // Apply hover effect to the cells above and to the left
     svg.selectAll(".matrix-cell")
         .style("fill", function(d) {
             const new_id = d3.select(this).attr("id").split("-");
-            const new_i = parseInt(new_id[0]);
-            const new_j = parseInt(new_id[1]);
+            const new_i = parseInt(new_id[1]);
+            const new_j = parseInt(new_id[2]);
 
             const id = d3.select(this).attr("value").split(",")
             const cancerType = id[0]
@@ -301,23 +331,41 @@ function handleMouseOver(event, cancerType, lifeStyle, svg, cellWidth, cellHeigh
                 }
                 return d3.color(OGColor).darker(0.5);
             } else {
-                d3.select(this).style("stroke", "none");
+                
                 return OGColor
             }
         }
     );
 }
 
+function toggleCategoryHighlightOn(cancerType) {
+    d3.selectAll(".x-axis text")
+            .filter(function(d) { return d === cancerType; })  // Select the specific x-axis label
+            .transition()
+            .duration(100)
+            .style("font-size", `${12}px`)
+            .attr("transform", "translate(-10,-35) rotate(0)")
+            .text(cancerLongNameMap[cancerType] || cancerType)
+}
+
+function toggleCategoryHighlightOff(cancerType) {
+    d3.selectAll(".x-axis text")
+            .filter(function(d) { return d === cancerType; })  // Select the specific x-axis label
+            .transition()
+            .duration(100)
+            .style("font-size", `${8}px`)
+            .attr("transform", "translate(0,0) rotate(-45)")
+            .text(d => cancerNameMap[d] || d)
+}
+
+
+
 function handleMouseOut(event, cancerType, svg, cellWidth, cellHeight, correlationCoeffs, colorScale, tooltip) {
     tooltip.style("display", "none");
-    d3.select(this).style("stroke", "none");
-    svg.selectAll(".x-axis text")
-        .filter(function(d) { return d === cancerType; })  // Select the specific x-axis label
-        .transition()
-        .duration(100)
-        .style("font-size", `${Math.min(cellWidth, cellHeight) / 4}px`)
-        .attr("transform", "translate(0,0) rotate(-45)")
-        .text(cancerNameMap[cancerType] || cancerType);
+    
+
+    toggleCategoryHighlightOff(cancerType)
+
     // Reset colors on mouse out
     svg.selectAll(".matrix-cell")
         .style("fill", function() {
@@ -326,7 +374,7 @@ function handleMouseOut(event, cancerType, svg, cellWidth, cellHeight, correlati
             const lifeStyle = id[1]
             return colorScale(correlationCoeffs[`${cancerType},${lifeStyle}`])
         })
-        .style("stroke", "none");
+        
 }
 
 const cancerNameMap = {
@@ -408,6 +456,9 @@ const cancerLongNameMap = {
     "vagina": "Vaginal Cancer",
     "vulva": "Vulvar Cancer"
 };
+
+
+let lifeStyleNames = {"tobacco_2005": "Tobacco", "alcohol_2019": "Alcohol", "sun_data": "Sun Hours"}
 
 
 

@@ -70,7 +70,6 @@ function setupSVG() {
     const svg = d3.select("#map")
         .append("svg")
         .attr("viewBox", `0 0 ${width} ${height}`)
-        .attr("preserveAspectRatio", "xMidYMid meet")
         .classed("svg-content-responsive", true);
 
     return { width, height, svg };

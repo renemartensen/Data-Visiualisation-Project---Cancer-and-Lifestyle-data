@@ -9,6 +9,18 @@
     display: none;
 }
 
+
+#tooltipMatrix {
+    font-size: 12px; /* Small font size */
+    background-color: rgba(0, 0, 0, 0.4); /* Semi-transparent background */
+    color: #fff; /* White text color for contrast */
+    padding: 8px; /* Padding around text */
+    border-radius: 4px; /* Rounded corners for a cleaner look */
+    pointer-events: none; /* Prevent tooltip from interfering with mouse events */
+    position: absolute; /* Ensure tooltip can be positioned freely */
+
+}
+
 .country {
     cursor: pointer;
     fill: gray;
@@ -40,7 +52,6 @@
 }
 .svg-content-responsive {
     width: 100%;   /* Make SVG take full width of its parent */
-    height: auto;  /* Maintain aspect ratio */
-    display: block; /* Prevent inline SVG spacing issues */
+    height: 100%;  /* Maintain aspect ratio */
 }
 

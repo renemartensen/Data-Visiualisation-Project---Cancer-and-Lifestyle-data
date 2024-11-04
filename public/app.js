@@ -20,7 +20,6 @@ const updateMap = (selectedLifestyle, selectedCancer, selectedGender) => {
 
 const updateSubPlots = (selectedCountries) => {
   selectedCountries = selectedCountries;
-  console.log("selectedCountries:", selectedCountries)
   renderSubPlot(mainData, selectedCountries, selectedGender)
 }
 
@@ -52,12 +51,7 @@ svgMatrix.on("click", function(event) {
   updateMap(selectedLifestyle, selectedCancer, selectedGender);
 })
 
-const svgMap = d3.select("#map")
-  
-svgMap.selectAll(".country")
-  .on("dblclick", function(event) {
-    console.log("dblclicked on map from mainm", event.target.value)
-  })
+
 
 
 
