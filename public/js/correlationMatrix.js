@@ -183,7 +183,7 @@ const createMatrix = (data) => {
         .style("overflow", "visible") // Set overflow to visible to prevent clipping
         .append("g")
         .attr("transform", `translate(${margin.left}, ${margin.top})`)
-        .on("mouseleave", () => { toggleCategoryHighlightOn(selectedCancer) });
+        .on("mouseout", () => { toggleCategoryHighlightOn(selectedCancer) });
 
 
 
@@ -231,8 +231,8 @@ const createMatrix = (data) => {
         .call(d3.axisLeft(yScale).tickSize(5).tickSizeOuter(0)); // Remove tick lines
 
     yAxis.selectAll("text")
-        .attr("transform", "translate(-5, -10) rotate(-45)")  // Shift left further to be outside
-        .style("text-anchor", "end")
+        .attr("transform", "translate(-20, -10) rotate(-45)")  // Shift left further to be outside
+        .style("text-anchor", "middle")
         .style("font-size", `${8}px`);
 
         // Customize Y-axis tick and line color
@@ -304,8 +304,8 @@ function handleMouseOver(event, cancerType, lifeStyle, svg, cellWidth, cellHeigh
         .style("top", `${cellRect.top + window.scrollY }px`);
 
 
-    toggleCategoryHighlightOff(selectedCancer)
-    toggleCategoryHighlightOn(cancerType)
+    toggleCategoryHighlightOff(selectedCancer, lifeStyle)
+    toggleCategoryHighlightOn(cancerType, lifeStyle)
             
 
     const id = event.target.getAttribute("id").split("-");
@@ -338,24 +338,35 @@ function handleMouseOver(event, cancerType, lifeStyle, svg, cellWidth, cellHeigh
     );
 }
 
-function toggleCategoryHighlightOn(cancerType) {
+function toggleCategoryHighlightOn(cancerType, lifeStyle) {
     d3.selectAll(".x-axis text")
-            .filter(function(d) { return d === cancerType; })  // Select the specific x-axis label
-            .transition()
-            .duration(100)
-            .style("font-size", `${12}px`)
+            .filter(function(d) { return d === cancerType; }) 
             .attr("transform", "translate(-10,-35) rotate(0)")
+            
+            .style("font-size", `${12}px`)
             .text(cancerLongNameMap[cancerType] || cancerType)
+
+    d3.selectAll(".y-axis text")
+        .filter(function(d) {return d === lifeStyleNames[lifeStyle];})
+
+        .style("font-size", `${12}px`)
 }
 
-function toggleCategoryHighlightOff(cancerType) {
+function toggleCategoryHighlightOff(cancerType, lifeStyle) {
     d3.selectAll(".x-axis text")
             .filter(function(d) { return d === cancerType; })  // Select the specific x-axis label
-            .transition()
-            .duration(100)
+
             .style("font-size", `${8}px`)
             .attr("transform", "translate(0,0) rotate(-45)")
             .text(d => cancerNameMap[d] || d)
+
+    d3.selectAll(".y-axis text")
+        .filter(function(d) {
+            return d === lifeStyleNames[lifeStyle];
+        })
+
+        .style("font-size", `${8}px`)
+        
 }
 
 
@@ -363,8 +374,9 @@ function toggleCategoryHighlightOff(cancerType) {
 function handleMouseOut(event, cancerType, svg, cellWidth, cellHeight, correlationCoeffs, colorScale, tooltip) {
     tooltip.style("display", "none");
     
+    const lifeStyle = d3.select(event.target).attr("value").split(",")[1]
 
-    toggleCategoryHighlightOff(cancerType)
+    toggleCategoryHighlightOff(cancerType, lifeStyle)
 
     // Reset colors on mouse out
     svg.selectAll(".matrix-cell")

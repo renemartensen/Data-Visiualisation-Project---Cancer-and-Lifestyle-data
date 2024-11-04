@@ -5,7 +5,7 @@ let selectedCountries =[];
 let selectedIso = []
 
 
-export function renderBaseMap(updateSubPlots) {
+export function renderBaseMap(updateSubPlots, callback) {
 
     console.log("render base map")
     const { width, height, svg } = setupSVG();
@@ -22,7 +22,7 @@ export function renderBaseMap(updateSubPlots) {
 
     setupresetSelectedCountriesBtn(svg, updateSubPlots)
 
-    loadMapData(svg, path, projection, tooltip, zoom, width, height, updateSubPlots);
+    loadMapData(svg, path, projection, tooltip, zoom, width, height, updateSubPlots, callback);
     
 }
 
@@ -110,7 +110,7 @@ function toggleResetSelectedCountriesButton(show) {
 }
 
 // loads initial map data and adds the button/zoom/range selection rectangle
-function loadMapData(svg, path, projection, tooltip, zoom, width, height, updateSubPlots) {
+function loadMapData(svg, path, projection, tooltip, zoom, width, height, updateSubPlots, callback) {
     Promise.all([
         d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json"),
         ]).then(([world]) => {
@@ -141,6 +141,9 @@ function loadMapData(svg, path, projection, tooltip, zoom, width, height, update
                 .on("click", (event,d) => {handleCountrySelect(d.id,d.properties.name ,updateSubPlots)})
                 .on("dblclick", (event,d) => showOverlay(d.id, d.properties.name))
                 initRangeSelectionRect(svg, zoom, projection, countryData, width, height, updateSubPlots);
+                if (callback) {
+                    callback();
+                }
             }).catch(error => {
             console.error("Error loading or processing the data:", error);
         });
@@ -440,15 +443,16 @@ export function renderBivariateMap(cancerData, lifestyleData, gender) {
     };
     // Add paths to the SVG for each geographical region (counties in this case)
     svg.selectAll("path")
+        .transition()
+        .duration(200)
         .style("fill", d => {
             if (d == undefined || !cancerRateMap[d.id] || !lifestyleRateMap[d.id]) {
                 return "#ccc"; // Gray for missing data
             } else {
                 return color(cancerRateMap[d.id], lifestyleRateMap[d.id]);
             }
-            
         }) 
-        .append("title") // Tooltip with formatted data
+        
 
 }
 
@@ -481,7 +485,7 @@ function legend() {
   
     const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
     path.setAttribute("d", "M0,0L9,3L0,6Z");
-    path.setAttribute("fill", "black")
+    path.setAttribute("fill", "#ccc")
     marker.appendChild(path);
     legendSvg.appendChild(marker);
   
@@ -505,7 +509,7 @@ function legend() {
     xLine.setAttribute("x2", n * k);
     xLine.setAttribute("y1", n * k);
     xLine.setAttribute("y2", n * k);
-    xLine.setAttribute("stroke", "black");
+    xLine.setAttribute("stroke", "#ccc");
     xLine.setAttribute("stroke-width", 1.5);
     legendGroup.appendChild(xLine);
   
@@ -514,7 +518,7 @@ function legend() {
     yLine.setAttribute("x1", 0);
     yLine.setAttribute("y1", n * k);
     yLine.setAttribute("y2", 0);
-    yLine.setAttribute("stroke", "black");
+    yLine.setAttribute("stroke", "#ccc");
     yLine.setAttribute("stroke-width", 1.5);
     legendGroup.appendChild(yLine);
   

@@ -1,4 +1,4 @@
-export function renderSubPlot(mainData, selectedCountries, gender) {
+export function renderSubPlot(mainData, selectedCountries, gender, cancerType) {
     gender = "both";
     const chartData = prepareDataForChart(mainData, selectedCountries, gender);
 
@@ -45,17 +45,18 @@ export function renderSubPlot(mainData, selectedCountries, gender) {
         .attr("y", d => yScale(d.cancerType))
         .attr("width", width)
         .attr("height", yScale.bandwidth())
-        .style("fill", "transparent")
+        .style("fill", d => d.cancerType === cancerType ? "#ddd" : "transparent")
         .style("cursor", "pointer")
+        .on("click", d => handleRowClick(d.cancerType))
         .on("mouseover", function(event, d) {
             d3.select(this).style("fill", "#ddd");
             d3.select(`.bar-${d.cancerType.replace(/\s+/g, '-')}`).style("fill", "darkgrey");
             d3.select(`.y-axis-label-${d.cancerType.replace(/\s+/g, '-')}`).style("fill", "black");
         })
         .on("mouseout", function(event, d) {
-            d3.select(this).style("fill", "transparent");
+            d3.select(this).style("fill", d.cancerType === cancerType ? "#ddd" : "transparent");
             d3.select(`.bar-${d.cancerType.replace(/\s+/g, '-')}`).style("fill", "steelblue");
-            d3.select(`.y-axis-label-${d.cancerType.replace(/\s+/g, '-')}`).style("fill", "#ccc");
+            d3.select(`.y-axis-label-${d.cancerType.replace(/\s+/g, '-')}`).style("fill", c => c === cancerType ? "black" : "#ccc");
         });
 
     rowBackgrounds.exit().remove();  // Remove any old elements
@@ -67,13 +68,17 @@ export function renderSubPlot(mainData, selectedCountries, gender) {
     bars.enter()
         .append("rect")
         .attr("class", d => `bar bar-${d.cancerType.replace(/\s+/g, '-')}`)
-        .merge(bars)  // Combine enter and update selections
-        .attr("x", d => xScale(d.value))
         .attr("y", d => yScale(d.cancerType))
-        .attr("width", d => width - xScale(d.value))
         .attr("height", yScale.bandwidth())
-        .style("fill", "steelblue")
-        .style("pointer-events", "none");
+        .attr("x", width)  // Start from the right edge
+        .attr("width", 0)  // Start width at 0
+        .style("fill", d => d.cancerType === cancerType ? "darkgrey" : "steelblue")
+        .style("pointer-events", "none")
+        .merge(bars)  // Combine enter and update selections
+        .transition()  // Apply transition for animation
+        .duration(500)  // Animation duration in milliseconds
+        .attr("x", d => xScale(d.value))  // Target x position based on value
+        .attr("width", d => width - xScale(d.value)); 
 
     bars.exit().remove();  // Remove any old elements
 
@@ -99,10 +104,12 @@ export function renderSubPlot(mainData, selectedCountries, gender) {
         .attr("class", "y-axis")
         .call(d3.axisRight(yScale).tickSize(5).tickSizeOuter(0).tickFormat(cancerType => `${cancerLongNameMap[cancerType] || cancerType}: ${chartData.find(d => d.cancerType === cancerType).value.toFixed(2)}`))
         .style("color", "#ccc")
+        .transition()  // Apply transition for animation
+        .duration(500)  // Animation duration in milliseconds
         .selectAll("text")
         .attr("class", d => `y-axis-label-${d.replace(/\s+/g, '-')}`)
         .style("font-size", "10px")
-        .style("color", "#ccc")
+        .style("fill", (c => c === cancerType ? "black" : "#ccc"))
         .style("pointer-events", "none");
 
     // Add y-axis label
@@ -117,6 +124,13 @@ export function renderSubPlot(mainData, selectedCountries, gender) {
         .attr("transform", `rotate(90 ${width + margin.right / 2}, ${height / 2})`)
         .text("Cancer Types");  // Replace with the actual label text
 }
+
+
+function handleRowClick(cancerType) {
+    
+}
+
+
 
 
 function prepareDataForChart(data, selectedCountries, gender) {

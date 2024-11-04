@@ -20,10 +20,14 @@ const updateMap = (selectedLifestyle, selectedCancer, selectedGender) => {
 
 const updateSubPlots = (selectedCountries) => {
   selectedCountries = selectedCountries;
-  renderSubPlot(mainData, selectedCountries, selectedGender)
+  renderSubPlot(mainData, selectedCountries, selectedGender, selectedCancer)
 }
 
-renderBaseMap(updateSubPlots);
+const updateMatrix = (selectedCancer, selectedLifestyle) => {
+  renderMatrix(mainData, selectedCancer, selectedLifestyle)
+}
+
+//renderBaseMap(updateSubPlots);
 
 let mainData;
 
@@ -31,9 +35,11 @@ loadData()
   .then(data => {
     mainData = data;
     console.log("load_data:", mainData);
-    updateMap("alcohol_2019", "all-cancers", "both");
-    renderMatrix(mainData)
-    renderSubPlot(mainData, selectedCountries)
+    renderBaseMap(updateSubPlots, () => {
+      updateMap("alcohol_2019", "all-cancers", "both");  // Run updateMap as a callback
+      renderMatrix(mainData);
+      renderSubPlot(mainData, selectedCountries, selectedGender, selectedCancer);
+  });
 });
 
 
@@ -48,6 +54,7 @@ svgMatrix.on("click", function(event) {
   console.log(id)
   selectedCancer = id.split(",")[0]
   selectedLifestyle = id.split(",")[1]
+  renderSubPlot(mainData, selectedCountries, selectedGender, selectedCancer)
   updateMap(selectedLifestyle, selectedCancer, selectedGender);
 })
 
