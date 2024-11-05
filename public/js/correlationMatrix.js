@@ -102,6 +102,7 @@ function createMatrix(data) {
         .on("mouseover", (event, cancerType) => handleMouseOver(event, cancerType, lifeStyle, svg, cellWidth, cellHeight, correlationCoeffs, colorScale, tooltip))
         .on("mouseout", (event, cancerType) => handleMouseOut(event, cancerType, svg, cellWidth, cellHeight, correlationCoeffs, colorScale, tooltip))
         .on("click", (event, cancerType) => {
+            console.log("clicked: ", event.target.getAttribute("id"))
             handleCellClick(event.target.getAttribute("id"), true);
         } );
     }
@@ -112,12 +113,13 @@ function createMatrix(data) {
 };
 
 function handleCellClick(cellId, isClick = false) {
+    console.log("2: ","selectedCell", selectedCell, "cellId", cellId)
 
     // deselect the previous cell
     d3.select(`#${selectedCell}`).style("stroke", "none");
 
     // select the new cell
-    selectedCell = cellId
+    selectedCell = cellId;
     const svg = d3.select(`#${selectedCell}`)
     svg.style("stroke", "grey")
         .style("stroke-width", 1.5)
@@ -128,8 +130,8 @@ function handleCellClick(cellId, isClick = false) {
     const lifeStyle = d3.select(`#${selectedCell}`).attr("value").split(",")[1]
 
     if (isClick) {
+        setState("selectedLifestyle", lifeStyle); // the order of this is imporant as it will trigger the stateChange event
         setState("selectedCancer", cancerType);
-        setState("selectedLifestyle", lifeStyle);
     }
     
 }
@@ -239,7 +241,9 @@ function updateMatrix(data) {
 
     
 
-    const cellId = getCellIdFromCancerAndLifestyle(data, state.selectedCancer, state.selectedLifestyle);
+    const cellId = getCellIdFromCancerAndLifestyle(data,state.selectedCancer, state.selectedLifestyle);
+
+    console.log("cellId1", cellId, state.selectedCancer, state.selectedLifestyle)
     handleCellClick(cellId);
 }
 

@@ -7,28 +7,22 @@ import { state, setState } from './js/state.js';
 
 
 
-let selectedLifestyle= "alcohol_2019"
-let selectedCancer= "all-cancers"
-let selectedGender= "both"
-let selectedCountries = []
 
 const updateMap = (selectedLifestyle, selectedCancer, selectedGender) => {
-  const cancerData = mainData.cancerTypes[selectedCancer];
-  const lifestyleData = mainData.lifeStyleChoices[selectedLifestyle];
+  const cancerData = state.data.cancerTypes[selectedCancer];
+  const lifestyleData = state.data.lifeStyleChoices[selectedLifestyle];
   //renderMap(lifestyleData, selectedGender)
   renderBivariateMap(cancerData, lifestyleData, selectedGender)
 }
 
 
+let mainData
 
-//renderBaseMap(updateSubPlots);
-
-let mainData;
 
 loadData()
   .then(data => {
-    mainData = data;
-    console.log("load_data:", mainData);
+    mainData = data
+    setState("data", data);
     renderBaseMap(() => {
       updateMap("alcohol_2019", "all-cancers", "both");  // Run updateMap as a callback
       renderMatrix(mainData);
@@ -39,17 +33,6 @@ loadData()
 
 
 
-// evetn handlers
-const svgMatrix = d3.select("#correlationMatrix")
-
-
-svgMatrix.on("click", function(event) {
-  const id = event.target.getAttribute("value");
-  selectedCancer = id.split(",")[0]
-  selectedLifestyle = id.split(",")[1]
-  renderSubPlot(mainData, selectedCountries, selectedGender, selectedCancer, renderMatrix)
-  updateMap(selectedLifestyle, selectedCancer, selectedGender);
-})
 
 
 document.addEventListener('stateChange', (event) => {
@@ -68,32 +51,5 @@ document.addEventListener('stateChange', (event) => {
   if (key === 'selectedCancer' && key === 'selectedLifestyle') renderSubPlot(mainData);
   
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
