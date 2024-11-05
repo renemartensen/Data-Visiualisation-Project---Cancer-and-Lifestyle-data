@@ -1,7 +1,8 @@
 import { loadData } from './js/data_loading.js';
 import { renderMap, renderBaseMap, renderBivariateMap } from './js/map.js';
-import { renderMatrix, updateMatrix } from './js/correlationMatrix.js';
+import { renderMatrix } from './js/correlationMatrix.js';
 import { renderSubPlot } from './js/subPlot.js';
+import { state, setState } from './js/state.js';
 
 
 
@@ -18,11 +19,6 @@ const updateMap = (selectedLifestyle, selectedCancer, selectedGender) => {
   renderBivariateMap(cancerData, lifestyleData, selectedGender)
 }
 
-const updateSubPlots = (selectedCountries) => {
-  selectedCountries = selectedCountries;
-  renderSubPlot(mainData, selectedCountries, selectedGender, selectedCancer, updateMatrix)
-}
-
 
 
 //renderBaseMap(updateSubPlots);
@@ -33,10 +29,10 @@ loadData()
   .then(data => {
     mainData = data;
     console.log("load_data:", mainData);
-    renderBaseMap(updateSubPlots, () => {
+    renderBaseMap(() => {
       updateMap("alcohol_2019", "all-cancers", "both");  // Run updateMap as a callback
-      renderMatrix(mainData, selectedCancer);
-      renderSubPlot(mainData, selectedCountries, selectedGender, selectedCancer, updateMatrix);
+      renderMatrix(mainData);
+      renderSubPlot(mainData);
   });
 });
 
@@ -49,13 +45,29 @@ const svgMatrix = d3.select("#correlationMatrix")
 
 svgMatrix.on("click", function(event) {
   const id = event.target.getAttribute("value");
-  console.log(id)
   selectedCancer = id.split(",")[0]
   selectedLifestyle = id.split(",")[1]
   renderSubPlot(mainData, selectedCountries, selectedGender, selectedCancer, renderMatrix)
   updateMap(selectedLifestyle, selectedCancer, selectedGender);
 })
 
+
+document.addEventListener('stateChange', (event) => {
+  const { key, value } = event.detail;
+  if (key === 'selectedCountriesISO') {
+    renderSubPlot(mainData);
+  } 
+
+  if (key === "selectedCancer") {
+    renderMatrix(mainData)
+    renderSubPlot(mainData);
+  }
+
+  if (key === 'selectedCancer' || key === 'selectedLifestyle') updateMap(state.selectedLifestyle, state.selectedCancer, state.selectedGender);
+
+  if (key === 'selectedCancer' && key === 'selectedLifestyle') renderSubPlot(mainData);
+  
+});
 
 
 

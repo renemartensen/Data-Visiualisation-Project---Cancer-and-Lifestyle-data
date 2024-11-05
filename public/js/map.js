@@ -1,13 +1,14 @@
+
 import { showOverlay } from "./overlayPlots.js";
+import { state, setState } from "./state.js";
 let dragging = false;
 let startX, startY;
 let selectedCountries =[];
 let selectedIso = []
 
 
-export function renderBaseMap(updateSubPlots, callback) {
+export function renderBaseMap(callback) {
 
-    console.log("render base map")
     const { width, height, svg } = setupSVG();
 
     const projection = setupProjection(width, height);
@@ -20,13 +21,13 @@ export function renderBaseMap(updateSubPlots, callback) {
 
     setupResetZoomButton(svg, zoom);
 
-    setupresetSelectedCountriesBtn(svg, updateSubPlots)
+    setupresetSelectedCountriesBtn(svg)
 
-    loadMapData(svg, path, projection, tooltip, zoom, width, height, updateSubPlots, callback);
+    loadMapData(svg, path, projection, tooltip, zoom, width, height, callback);
     
 }
 
-function setupresetSelectedCountriesBtn(svg, updateSubPlots) {
+function setupresetSelectedCountriesBtn(svg) {
     const resetSelectedCountriesBtn = document.querySelector("#resetSelectedCountriesBtn");
 
     // Function to update button visibility
@@ -40,12 +41,11 @@ function setupresetSelectedCountriesBtn(svg, updateSubPlots) {
 
     // Set up the button click event
     resetSelectedCountriesBtn.addEventListener("click", () => {
-        selectedCountries.forEach(country => {
+        state.selectedCountriesISO.forEach(country => {
             deselectCountryBorder(country);
         });
-        selectedIso = [];
         selectedCountries = [];
-        updateSubPlots(selectedIso);
+        setState("selectedCountriesISO", []);
         updateButtonVisibility(); // Update visibility after clearing selection
     });
 
@@ -110,7 +110,7 @@ function toggleResetSelectedCountriesButton(show) {
 }
 
 // loads initial map data and adds the button/zoom/range selection rectangle
-function loadMapData(svg, path, projection, tooltip, zoom, width, height, updateSubPlots, callback) {
+function loadMapData(svg, path, projection, tooltip, zoom, width, height, callback) {
     Promise.all([
         d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json"),
         ]).then(([world]) => {
@@ -138,9 +138,9 @@ function loadMapData(svg, path, projection, tooltip, zoom, width, height, update
                 .on("mouseover", (event, d) => handleMouseOver(event,d, tooltip))
                 .on("mousemove", (event) => handleMouseMove(event, tooltip))
                 .on("mouseout", (event, d) => handleMouseOut(event,d, tooltip))
-                .on("click", (event,d) => {handleCountrySelect(d.id,d.properties.name ,updateSubPlots)})
+                .on("click", (event,d) => {handleCountrySelect(d.id,d.properties.name)})
                 .on("dblclick", (event,d) => showOverlay(d.id, d.properties.name))
-                initRangeSelectionRect(svg, zoom, projection, countryData, width, height, updateSubPlots);
+                initRangeSelectionRect(svg, zoom, projection, countryData, width, height);
                 if (callback) {
                     callback();
                 }
@@ -151,50 +151,56 @@ function loadMapData(svg, path, projection, tooltip, zoom, width, height, update
 
 }
 
-function handleCountrySelect(iso, country, updateSubPlots = null) {
-    const isSelected = selectedCountries.includes(country)
-
-    if (isSelected) {
-        selectedCountries = selectedCountries.filter(c => c !== country);
-        selectedIso = selectedIso.filter(c => c !== iso);
-        toggleResetSelectedCountriesButton(selectedCountries.length > 0);
-        deselectCountryBorder(country);
-    } else {
-        selectedCountries.push(country);
-        selectedIso.push(iso)
-        toggleResetSelectedCountriesButton(true);
-        selectCountryBorder(country);
+function handleCountrySelect(iso) {
+    
+    if (Array.isArray(iso)) {
+        iso.forEach(i => {
+            selectedIso.push(i)
+            toggleResetSelectedCountriesButton(true);
+            selectCountryBorder(i);
+        });
+        setState("selectedCountriesISO", [...state.selectedCountriesISO, ...iso]);
+        return
     }
 
-    if (updateSubPlots) {
-        updateSubPlots(selectedIso);
+    const isSelected = state.selectedCountriesISO.includes(iso)
+    if (isSelected) {
+        setState("selectedCountriesISO", state.selectedCountriesISO.filter(c => c !== iso));
+        selectedIso = selectedIso.filter(c => c !== iso);
+        toggleResetSelectedCountriesButton(state.selectedCountriesISO.length > 0);
+        deselectCountryBorder(iso);
+    } else {
+        setState("selectedCountriesISO", [...state.selectedCountriesISO, iso]);
+        selectedIso.push(iso)
+        toggleResetSelectedCountriesButton(true);
+        selectCountryBorder(iso);
     }
 }
 
-function hoverCountryBorder(country) {
-    const stroke_width = selectedCountries.includes(country) ? 4 : 1;
+function hoverCountryBorder(iso) {
+    const stroke_width = state.selectedCountriesISO.includes(iso) ? 4 : 1;
 
-    d3.select(`[value="${country}"]`)
+    d3.select(`[id="${iso}"]`)
         .style("stroke", "black")
         .style("stroke-width", stroke_width + "px"); 
 }
 
-function unhoverCountryBorder(country) {
+function unhoverCountryBorder(iso) {
 
-    const stroke_width = selectedCountries.includes(country) ? 3 : 0.2;
-    d3.select(`[value="${country}"]`)
+    const stroke_width = state.selectedCountriesISO.includes(iso) ? 3 : 0.2;
+    d3.select(`[id="${iso}"]`)
         .style("stroke", "black")
         .style("stroke-width", stroke_width+"px"); 
 }
 
-function selectCountryBorder(country) {
-    d3.select(`[value="${country}"]`)
+function selectCountryBorder(iso) {
+    d3.select(`[id="${iso}"]`)
         .style("stroke", "black")
         .style("stroke-width", "3px")
 }
 
-function deselectCountryBorder(country) {
-    d3.select(`[value="${country}"]`)
+function deselectCountryBorder(iso) {
+    d3.select(`[id="${iso}"]`)
         .style("stroke", "black")
         .style("stroke-width", "0.2px")
 }
@@ -205,7 +211,7 @@ function handleMouseOver(event, d, tooltip) {
     tooltip.style("display", "block")
         .html(`${d.properties.name}`)
     positionTooltip(event, tooltip);
-    hoverCountryBorder(d.properties.name);
+    hoverCountryBorder(d.id);
 }
 
 // Event handler for mousemove
@@ -219,7 +225,7 @@ function handleMouseOut(event,d, tooltip) {
     if (dragging) return;
     tooltip.style("display", "none");
 
-    unhoverCountryBorder(d.properties.name);
+    unhoverCountryBorder(d.id);
 }
 
 // Utility function to position the tooltip
@@ -305,16 +311,9 @@ function initRangeSelectionRect(svg, zoom, projection, countryData,  width, heig
                         }
                     
                         return false;  // No intersection found for this country
-                    }).map(d => ({
-                        country: d.properties.name,
-                        iso: d.id
-                    }));
+                    }).map(d => d.id);
                     
-                    // Loop through selected countries and call handleCountrySelect with destructured values
-                    selectedCountriesAndIso.forEach(({ country, iso }) => {
-                        handleCountrySelect(iso, country);
-                    });
-                    updateSubPlots(selectedIso);
+                    handleCountrySelect(selectedCountriesAndIso);
 
                     // Calculate the scale and translation for the zoom
                     const scaleX = width / (xMax - xMin);
@@ -389,13 +388,11 @@ function initRangeSelectionRect(svg, zoom, projection, countryData,  width, heig
 
 export function renderBivariateMap(cancerData, lifestyleData, gender) {
 
-    console.log("render bivariate map", cancerData, lifestyleData)
     // Create the SVG canvas
     const svg = d3.select("#map").select("svg");
 
     const parentDiv = document.querySelector("#mapContainer");
     const height = parentDiv.offsetHeight;
-    console.log("height", height);
 
     
     // Append legend to the SVG
@@ -582,11 +579,9 @@ function legend() {
 
 
 export function renderMap(data, gender) {
-    console.log("render map", data);
     
     const svg = d3.select("#map").select("svg");
     const tooltip = d3.select("#tooltip");
-    console.log("data",data);
 
 
     const cancerData = data;

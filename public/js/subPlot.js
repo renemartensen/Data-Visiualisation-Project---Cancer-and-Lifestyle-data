@@ -1,9 +1,9 @@
-export function renderSubPlot(mainData, selectedCountries, gender, cancerType, updateMatrix) {
-    console.log(updateMatrix)
-    gender = "both";
-    const chartData = prepareDataForChart(mainData, selectedCountries, gender);
+import { state , setState } from './state.js';
 
-    // Select the div and get its dimensions
+
+export function renderSubPlot(mainData) {
+    const chartData = prepareDataForChart(mainData, state.selectedCountriesISO, state.selectedGender);
+
     const margin = { top: 0, right:0, bottom: 0, left: 0};
     const div = d3.select("#barchartContainer");
     const width = div.node().clientWidth;
@@ -19,7 +19,6 @@ export function renderSubPlot(mainData, selectedCountries, gender, cancerType, u
             .style("width", "100%")
             .style("height", "auto");
     } else {
-        // Clear previous elements if they exist
         svg.selectAll(".row-background, .bar, .x-axis, .y-axis").remove();
     }
 
@@ -31,13 +30,12 @@ export function renderSubPlot(mainData, selectedCountries, gender, cancerType, u
 
     const xScale = d3.scaleLinear()
         .domain([0, d3.max(chartData, d => d.value)])
-        .range([width, 0]); // Reverse range to go from right to left
+        .range([width, 0]); 
 
     // Add row backgrounds for hover effect
     const rowBackgrounds = svg.selectAll(".row-background")
         .data(chartData);
 
-    // Enter, update, and exit row backgrounds
     rowBackgrounds.enter()
         .append("rect")
         .attr("class", "row-background")
@@ -46,21 +44,18 @@ export function renderSubPlot(mainData, selectedCountries, gender, cancerType, u
         .attr("y", d => yScale(d.cancerType))
         .attr("width", width)
         .attr("height", yScale.bandwidth())
-        .style("fill", d => d.cancerType === cancerType ? "#ddd" : "transparent")
+        .style("fill", d => d.cancerType === state.selectedCancer ? "#ddd" : "transparent")
         .style("cursor", "pointer")
-        .on("click", d => {
-            console.log(d)
-            updateMatrix(d.cancerType) // just missing the cancertype here than we should be done
-        })
+        .on("click", event => setState( "selectedCancer", event.target.__data__.cancerType))
         .on("mouseover", function(event, d) {
             d3.select(this).style("fill", "#ddd");
             d3.select(`.bar-${d.cancerType.replace(/\s+/g, '-')}`).style("fill", "darkgrey");
             d3.select(`.y-axis-label-${d.cancerType.replace(/\s+/g, '-')}`).style("fill", "black");
         })
         .on("mouseout", function(event, d) {
-            d3.select(this).style("fill", d.cancerType === cancerType ? "#ddd" : "transparent");
+            d3.select(this).style("fill", d.cancerType === state.selectedCancer ? "#ddd" : "transparent");
             d3.select(`.bar-${d.cancerType.replace(/\s+/g, '-')}`).style("fill", "steelblue");
-            d3.select(`.y-axis-label-${d.cancerType.replace(/\s+/g, '-')}`).style("fill", c => c === cancerType ? "black" : "#ccc");
+            d3.select(`.y-axis-label-${d.cancerType.replace(/\s+/g, '-')}`).style("fill", c => c === state.selectedCancer ? "black" : "#ccc");
         });
 
     rowBackgrounds.exit().remove();  // Remove any old elements
@@ -76,7 +71,7 @@ export function renderSubPlot(mainData, selectedCountries, gender, cancerType, u
         .attr("height", yScale.bandwidth())
         .attr("x", width)  // Start from the right edge
         .attr("width", 0)  // Start width at 0
-        .style("fill", d => d.cancerType === cancerType ? "darkgrey" : "steelblue")
+        .style("fill", d => d.cancerType === state.selectedCancer ? "darkgrey" : "steelblue")
         .style("pointer-events", "none")
         .merge(bars)  // Combine enter and update selections
         .transition()  // Apply transition for animation
@@ -113,7 +108,7 @@ export function renderSubPlot(mainData, selectedCountries, gender, cancerType, u
         .selectAll("text")
         .attr("class", d => `y-axis-label-${d.replace(/\s+/g, '-')}`)
         .style("font-size", "10px")
-        .style("fill", (c => c === cancerType ? "black" : "#ccc"))
+        .style("fill", (c => c === state.selectedCancer ? "black" : "#ccc"))
         .style("pointer-events", "none");
 
     // Add y-axis label
@@ -138,6 +133,7 @@ function handleRowClick(cancerType) {
 
 
 function prepareDataForChart(data, selectedCountries, gender) {
+    console.log(selectedCountries)
     return Object.keys(data.cancerTypes)
         .filter(cancerType => cancerType !== "all-cancers")
         .map(cancerType => {
