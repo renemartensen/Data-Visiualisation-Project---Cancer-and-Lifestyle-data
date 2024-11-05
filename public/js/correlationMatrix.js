@@ -1,8 +1,10 @@
 
 let selectedCell = "cell-0-0";
 let selectedCancer = "all-cancers";
+let selectedLifestyle = "tobacco_2005";
 
-export function renderMatrix(data) {
+export function renderMatrix(data, cancer) {
+    selectedCancer = cancer;
 
     createMatrix(data)
 }
@@ -158,12 +160,12 @@ const pearsonCorrelationCoeff = (data) => {
 
 }
 
-const createMatrix = (data) => {
+function createMatrix(data) {
     
     
 
-    const cancerTypes = Object.keys(data.cancerTypes).sort();
-    const lifeStyles = Object.keys(data.lifeStyleChoices).sort();
+    const cancerTypes = Object.keys(data.cancerTypes);
+    const lifeStyles = Object.keys(data.lifeStyleChoices);
 
     let correlationCoeffs = pearsonCorrelationCoeff(data)
     
@@ -283,9 +285,12 @@ function handleCellClick(cellId, isClick = false) {
         .style("stroke-dasharray", "5,5")
         .raise();
 
+    console.log("selectedCell", selectedCell)
     const cancerType = d3.select(`#${selectedCell}`).attr("value").split(",")[0]
+    const lifeStyle = d3.select(`#${selectedCell}`).attr("value").split(",")[1]
     if (isClick) {
         selectedCancer = cancerType;
+        selectedLifestyle = lifeStyle;
     }
     
 }
@@ -387,6 +392,19 @@ function handleMouseOut(event, cancerType, svg, cellWidth, cellHeight, correlati
             return colorScale(correlationCoeffs[`${cancerType},${lifeStyle}`])
         })
         
+}
+
+
+export function updateMatrix(cancer) {
+    console.log("ddsds",selectedCancer, selectedLifestyle)
+    //selectedCancer = cancer;
+    
+    // get index of selectedCancer
+    const cellId = d3.selectAll("rect.matrix-cell")
+        .filter(function(d) { 
+            return d3.select(this).attr("value") === `${selectedCancer},${selectedLifestyle}`; 
+        })
+    handleCellClick(cellId.attr("id"), true);
 }
 
 const cancerNameMap = {

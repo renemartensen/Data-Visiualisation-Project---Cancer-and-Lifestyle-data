@@ -1,4 +1,5 @@
-export function renderSubPlot(mainData, selectedCountries, gender, cancerType) {
+export function renderSubPlot(mainData, selectedCountries, gender, cancerType, updateMatrix) {
+    console.log(updateMatrix)
     gender = "both";
     const chartData = prepareDataForChart(mainData, selectedCountries, gender);
 
@@ -47,7 +48,10 @@ export function renderSubPlot(mainData, selectedCountries, gender, cancerType) {
         .attr("height", yScale.bandwidth())
         .style("fill", d => d.cancerType === cancerType ? "#ddd" : "transparent")
         .style("cursor", "pointer")
-        .on("click", d => handleRowClick(d.cancerType))
+        .on("click", d => {
+            console.log(d)
+            updateMatrix(d.cancerType) // just missing the cancertype here than we should be done
+        })
         .on("mouseover", function(event, d) {
             d3.select(this).style("fill", "#ddd");
             d3.select(`.bar-${d.cancerType.replace(/\s+/g, '-')}`).style("fill", "darkgrey");
@@ -127,7 +131,7 @@ export function renderSubPlot(mainData, selectedCountries, gender, cancerType) {
 
 
 function handleRowClick(cancerType) {
-    
+
 }
 
 

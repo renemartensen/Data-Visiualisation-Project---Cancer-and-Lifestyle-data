@@ -30,7 +30,7 @@ export async function loadData() {
                     female: row["female"]
                 }));
                 
-                mainData.cancerTypes[type] = filteredData;
+                mainData.cancerTypes[type] = filteredData.sort();
             })
         )
     );
@@ -50,7 +50,7 @@ export async function loadData() {
                     male: type==="tobacco_2005" ? row.male.split(" ")[0] : row.male,
                     female: type==="tobacco_2005" ? row.female.split(" ")[0] : row.female
                 }));
-                mainData.lifeStyleChoices[type] = filteredData;
+                mainData.lifeStyleChoices[type] = filteredData.sort();
             })
         )
     );

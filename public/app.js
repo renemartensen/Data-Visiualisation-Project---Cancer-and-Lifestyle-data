@@ -1,6 +1,6 @@
 import { loadData } from './js/data_loading.js';
 import { renderMap, renderBaseMap, renderBivariateMap } from './js/map.js';
-import { renderMatrix } from './js/correlationMatrix.js';
+import { renderMatrix, updateMatrix } from './js/correlationMatrix.js';
 import { renderSubPlot } from './js/subPlot.js';
 
 
@@ -20,12 +20,10 @@ const updateMap = (selectedLifestyle, selectedCancer, selectedGender) => {
 
 const updateSubPlots = (selectedCountries) => {
   selectedCountries = selectedCountries;
-  renderSubPlot(mainData, selectedCountries, selectedGender, selectedCancer)
+  renderSubPlot(mainData, selectedCountries, selectedGender, selectedCancer, updateMatrix)
 }
 
-const updateMatrix = (selectedCancer, selectedLifestyle) => {
-  renderMatrix(mainData, selectedCancer, selectedLifestyle)
-}
+
 
 //renderBaseMap(updateSubPlots);
 
@@ -37,8 +35,8 @@ loadData()
     console.log("load_data:", mainData);
     renderBaseMap(updateSubPlots, () => {
       updateMap("alcohol_2019", "all-cancers", "both");  // Run updateMap as a callback
-      renderMatrix(mainData);
-      renderSubPlot(mainData, selectedCountries, selectedGender, selectedCancer);
+      renderMatrix(mainData, selectedCancer);
+      renderSubPlot(mainData, selectedCountries, selectedGender, selectedCancer, updateMatrix);
   });
 });
 
@@ -54,7 +52,7 @@ svgMatrix.on("click", function(event) {
   console.log(id)
   selectedCancer = id.split(",")[0]
   selectedLifestyle = id.split(",")[1]
-  renderSubPlot(mainData, selectedCountries, selectedGender, selectedCancer)
+  renderSubPlot(mainData, selectedCountries, selectedGender, selectedCancer, renderMatrix)
   updateMap(selectedLifestyle, selectedCancer, selectedGender);
 })
 
