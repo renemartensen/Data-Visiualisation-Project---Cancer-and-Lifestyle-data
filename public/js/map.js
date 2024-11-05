@@ -387,6 +387,7 @@ function initRangeSelectionRect(svg, zoom, projection, countryData,  width, heig
 }
 
 export function renderBivariateMap(cancerData, lifestyleData, gender) {
+    console.log(gender)
 
     // Create the SVG canvas
     const svg = d3.select("#map").select("svg");
@@ -396,8 +397,9 @@ export function renderBivariateMap(cancerData, lifestyleData, gender) {
 
     
     // Append legend to the SVG
-    svg.append(() => legend())
+    svg.append(() => legend(height))
        .attr("transform", `translate(70,${0.8 * height})`);
+       
   
 
     const cancerRateMap = {};
@@ -409,6 +411,7 @@ export function renderBivariateMap(cancerData, lifestyleData, gender) {
         lifestyleRateMap[d["iso"]] =+ d[gender]
     });
     // Define the number of quantiles (3 categories: low, medium, high)
+    console.log(cancerRateMap, lifestyleRateMap)
     const n = 3;
 
   
@@ -449,8 +452,6 @@ export function renderBivariateMap(cancerData, lifestyleData, gender) {
                 return color(cancerRateMap[d.id], lifestyleRateMap[d.id]);
             }
         }) 
-        
-
 }
 
 
@@ -460,13 +461,14 @@ export function renderBivariateMap(cancerData, lifestyleData, gender) {
 
   
   // Legend for the bivariate map
-function legend() {
-    const k = 24; // Size of each square in the legend grid
+function legend(height) {
+    console.log(height)
+    const k = height/16; // Size of each square in the legend grid
     const n = 3
     const arrowId = "legend-arrow"; // Unique ID for arrow markers
     const legendSvg = document.createElementNS("http://www.w3.org/2000/svg", "g");
     legendSvg.setAttribute("font-family", "sans-serif");
-    legendSvg.setAttribute("font-size", "10");
+    legendSvg.setAttribute("font-size", `${height/38}`);
   
     const legendGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
     legendGroup.setAttribute("transform", `translate(${-k * n / 2},${-k * n / 2}) rotate(-45 ${k * n / 2},${k * n / 2})`);

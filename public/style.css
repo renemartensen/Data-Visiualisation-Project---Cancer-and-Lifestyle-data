@@ -55,3 +55,25 @@
     height: 100%;  /* Maintain aspect ratio */
 }
 
+.dropdown {
+    padding-right: 2rem; /* Space for arrow */
+    position: relative;
+}
+
+/* Custom arrow */
+.dropdown::after {
+    content: "▼";
+    position: absolute;
+    right: 0.75rem; /* Adjusts the arrow to the right */
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.75rem;
+    color: #888;
+    pointer-events: none;
+}
+
+/* Hover effect with thicker border */
+.dropdown:hover {
+    border-color: #666;
+}
+

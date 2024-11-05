@@ -113,7 +113,6 @@ function createMatrix(data) {
 };
 
 function handleCellClick(cellId, isClick = false) {
-    console.log("2: ","selectedCell", selectedCell, "cellId", cellId)
 
     // deselect the previous cell
     d3.select(`#${selectedCell}`).style("stroke", "none");
@@ -235,7 +234,6 @@ function handleMouseOut(event, cancerType, svg, cellWidth, cellHeight, correlati
 
 
 function updateMatrix(data) {
-    console.log("updateMatrix")
     toggleCategoryHighlightOff()
     toggleCategoryHighlightOn(state.selectedCancer)
 
@@ -243,7 +241,6 @@ function updateMatrix(data) {
 
     const cellId = getCellIdFromCancerAndLifestyle(data,state.selectedCancer, state.selectedLifestyle);
 
-    console.log("cellId1", cellId, state.selectedCancer, state.selectedLifestyle)
     handleCellClick(cellId);
 }
 

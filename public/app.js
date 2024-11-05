@@ -49,7 +49,19 @@ document.addEventListener('stateChange', (event) => {
   if (key === 'selectedCancer' || key === 'selectedLifestyle') updateMap(state.selectedLifestyle, state.selectedCancer, state.selectedGender);
 
   if (key === 'selectedCancer' && key === 'selectedLifestyle') renderSubPlot(mainData);
+
+  if (key === 'selectedGender') {
+    console.log("selectedGender", state.selectedGender)
+    updateMap(state.selectedLifestyle, state.selectedCancer, state.selectedGender);
+    renderSubPlot(mainData);
+    renderMatrix(mainData);
+  }
   
+});
+
+
+document.getElementById("gender").addEventListener("change", (event) => {
+  setState("selectedGender", event.target.value);
 });
 
 
