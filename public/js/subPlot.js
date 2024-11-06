@@ -3,9 +3,6 @@ import { state , setState } from './state.js';
 
 export function renderSubPlot(mainData) {
     const chartData = prepareDataForChart(mainData, state.selectedCountriesISO, state.selectedGender);
-    console.log(chartData);
-
-
 
     const margin = { top: 0, right:0, bottom: 0, left: 0};
     const div = d3.select("#barchartContainer");

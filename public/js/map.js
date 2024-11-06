@@ -1,5 +1,5 @@
 
-import { showOverlay } from "./overlayPlots.js";
+import { showOverlay } from "./overlayElement.js";
 import { state, setState } from "./state.js";
 import { showToast } from "./toast.js";
 let dragging = false;
@@ -136,9 +136,6 @@ function loadMapData(svg, path, projection, tooltip, zoom, width, height, callba
                 .attr("d", path)
                 .style("stroke", "black")
                 .style("stroke-width", "0.2px") 
-                .on("mouseover", (event, d) => handleMouseOver(event,d, tooltip))
-                .on("mousemove", (event) => handleMouseMove(event, tooltip))
-                .on("mouseout", (event, d) => handleMouseOut(event,d, tooltip))
                 .on("click", (event,d) => {handleCountrySelect(d.id,d.properties.name)})
                 .on("dblclick", (event,d) => showOverlay(d.id, d.properties.name))
                 initRangeSelectionRect(svg, zoom, projection, countryData, width, height);
@@ -207,10 +204,26 @@ function deselectCountryBorder(iso) {
 }
 
 // Event handler for mouseover
-function handleMouseOver(event, d, tooltip) {
+function handleMouseOver(event, d, tooltip, cancerRateMap, lifestyleRateMap) {
     if (dragging) return;
+
+    const countryName = d.properties.name;
+    const countryISO = d.id;
+
     tooltip.style("display", "block")
-        .html(`${d.properties.name}`)
+        .style("width", "250px")
+        .html(`
+            <div class="font-bold text-lg mb-1 text-xl text-left">
+                ${countryName}
+            </div>
+            <div class="text-left" style="margin-bottom: 5px;">
+                <strong>${lifeStyleNames[state.selectedLifestyle]}:</strong> ${lifestyleRateMap[countryISO]}
+            </div>
+            <div class="text-left">
+                <strong>${cancerNames[state.selectedCancer]} (ASR):</strong> ${cancerRateMap[countryISO]}
+            </div>
+        `);
+
     positionTooltip(event, tooltip);
     hoverCountryBorder(d.id);
 }
@@ -231,8 +244,8 @@ function handleMouseOut(event,d, tooltip) {
 
 // Utility function to position the tooltip
 function positionTooltip(event, tooltip) {
-    tooltip.style("left", `${event.pageX + 10}px`)
-            .style("top", `${event.pageY - 200}px`);
+    tooltip.style("left", `${event.pageX + 5}px`)
+            .style("top", `${event.pageY - 250}px`);
 }
 
 
@@ -444,8 +457,12 @@ export function renderBivariateMap(cancerData, lifestyleData, gender) {
         return `${a}% Cancer Rate ${labels[x(a)] && `(${labels[x(a)]})`}
         ${b}% Lifestyle Rate ${labels[y(b)] && `(${labels[y(b)]})`}`;
     };
+    const tooltip = d3.select("#tooltip");
     // Add paths to the SVG for each geographical region (counties in this case)
     svg.selectAll("path")
+        .on("mouseover", (event, d) => handleMouseOver(event,d, tooltip, cancerRateMap, lifestyleRateMap))
+        .on("mousemove", (event) => handleMouseMove(event, tooltip))
+        .on("mouseout", (event, d) => handleMouseOut(event,d, tooltip))
         .transition()
         .duration(200)
         .style("fill", d => {
@@ -455,6 +472,8 @@ export function renderBivariateMap(cancerData, lifestyleData, gender) {
                 return color(cancerRateMap[d.id], lifestyleRateMap[d.id]);
             }
         }) 
+        
+       
 }
 
 
@@ -639,3 +658,42 @@ export function renderMap(data, gender) {
 
 const lifeStyleNames = {"tobacco_2005": "Tobacco", "alcohol_2019": "Alcohol", "uv_radiation": "UV Radiation", "physical_activity": "Physical Activity"}
 
+const cancerNames = {
+    "all-cancers": "All Types of Cancer",
+    "anus": "Anus Cancer",
+    "bladder": "Bladder Cancer",
+    "brain-central-nervous-system": "Brain and Central Nervous System Cancer",
+    "breast": "Breast Cancer",
+    "cervix-uteri": "Cervical Cancer (Cervix Uteri)",
+    "colon": "Colon Cancer",
+    "colorectum": "Colorectal Cancer",
+    "corpus-uteri": "Uterine Corpus Cancer",
+    "gallbladder": "Gallbladder Cancer",
+    "hodgkin-lymphoma": "Hodgkin Lymphoma",
+    "hypopharynx": "Hypopharyngeal Cancer",
+    "kaposi-sarcoma": "Kaposi Sarcoma",
+    "kidney": "Kidney Cancer",
+    "larynx": "Laryngeal Cancer",
+    "leukaemia": "Leukemia",
+    "lip-oral-cavity": "Lip and Oral Cavity Cancer",
+    "liver-and-intrahepatic-bile-ducts": "Liver and Intrahepatic Bile Duct Cancer",
+    "melanoma-of-skin": "Melanoma of the Skin",
+    "mesothelioma": "Mesothelioma",
+    "multiple-myeloma": "Multiple Myeloma",
+    "nasopharynx": "Nasopharyngeal Cancer",
+    "non-hodgkin-lymphoma": "Non-Hodgkin Lymphoma",
+    "non-melanoma-skin-cancer": "Non-Melanoma Skin Cancer",
+    "oesophagus": "Esophageal Cancer",
+    "oropharynx": "Oropharyngeal Cancer",
+    "ovary": "Ovarian Cancer",
+    "pancreas": "Pancreatic Cancer",
+    "penis": "Penile Cancer",
+    "prostate": "Prostate Cancer",
+    "rectum": "Rectal Cancer",
+    "salivary-glands": "Salivary Gland Cancer",
+    "testis": "Testicular Cancer",
+    "thyroid": "Thyroid Cancer",
+    "trachea-bronchus-and-lung": "Trachea, Bronchus, and Lung Cancer",
+    "vagina": "Vaginal Cancer",
+    "vulva": "Vulvar Cancer"
+};

@@ -4,6 +4,7 @@ import { renderMatrix } from './js/correlationMatrix.js';
 import { renderSubPlot } from './js/subPlot.js';
 import { state, setState } from './js/state.js';
 import { showToast } from './js/toast.js';
+import { showHelpOverlay } from './js/overlayElement.js';
 
 
 
@@ -64,6 +65,10 @@ document.addEventListener('stateChange', (event) => {
 
 document.getElementById("gender").addEventListener("change", (event) => {
   setState("selectedGender", event.target.value);
+});
+
+document.getElementById("helpButton").addEventListener("click", () => {
+  showHelpOverlay()
 });
 
 

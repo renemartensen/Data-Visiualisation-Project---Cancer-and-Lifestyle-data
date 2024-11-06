@@ -99,13 +99,12 @@ function createMatrix(data) {
             .on("mouseover", (event, cancerType) => handleMouseOver(event, cancerType, lifeStyle, svg, cellWidth, cellHeight, correlationCoeffs, colorScale, tooltip))
             .on("mouseout", (event, cancerType) => handleMouseOut(event, cancerType, svg, cellWidth, cellHeight, correlationCoeffs, colorScale, tooltip))
             .on("click", (event, cancerType) => {
-                console.log("clicked: ", event.target.getAttribute("id"));
                 handleCellClick(event.target.getAttribute("id"), true);
             });
     }
 
     toggleCategoryHighlightOn(state.selectedCancer);
-    handleCellClick(selectedCell);
+    handleCellClick(getCellIdFromCancerAndLifestyle(data, state.selectedCancer, state.selectedLifestyle));
 };
 
 

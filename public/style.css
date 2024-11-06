@@ -1,12 +1,11 @@
 .tooltip {
-    position: absolute;
-    background-color: white;
-    padding: 5px;
-    border: 1px solid #999;
-    border-radius: 4px;
-    pointer-events: none;
-    opacity: 0.9;
-    display: none;
+    font-size: 12px; /* Small font size */
+    background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
+    color: #fff; /* White text color for contrast */
+    padding: 8px; /* Padding around text */
+    border-radius: 4px; /* Rounded corners for a cleaner look */
+    pointer-events: none; /* Prevent tooltip from interfering with mouse events */
+    position: absolute; /* Ensure tooltip can be positioned freely */
 }
 
 
