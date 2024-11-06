@@ -9,8 +9,8 @@ export function renderMatrix(data) {
     if (d3.select("#correlationMatrix svg").empty()) {
         createMatrix(data)
     } else {
-        updateMatrix(data)
-        //createMatrix(data)
+        //updateMatrix(data)
+        createMatrix(data)
     }
 }
 
@@ -94,7 +94,7 @@ function createMatrix(data) {
             .attr("y", yScale([lifeStyleNames[lifeStyle]]))
             .attr("width", cellWidth)
             .attr("height", cellHeight)
-            .style("fill", cancerType => colorScale(correlationCoeffs[`${cancerType},${lifeStyle}`]))
+            .style("fill", cancerType => correlationCoeffs[`${cancerType},${lifeStyle}`] ?  colorScale(correlationCoeffs[`${cancerType},${lifeStyle}`]): "#ccc")
             .style("cursor", "pointer")
             .on("mouseover", (event, cancerType) => handleMouseOver(event, cancerType, lifeStyle, svg, cellWidth, cellHeight, correlationCoeffs, colorScale, tooltip))
             .on("mouseout", (event, cancerType) => handleMouseOut(event, cancerType, svg, cellWidth, cellHeight, correlationCoeffs, colorScale, tooltip))
@@ -164,7 +164,7 @@ function handleMouseOver(event, cancerType, lifeStyle, svg, cellWidth, cellHeigh
             const cancerType = id[0]
             const lifeStyle = id[1]
 
-            const OGColor = colorScale(correlationCoeffs[`${cancerType},${lifeStyle}`])
+            const OGColor = correlationCoeffs[`${cancerType},${lifeStyle}`] ?  colorScale(correlationCoeffs[`${cancerType},${lifeStyle}`]): "#ccc"
 
             if ((new_i == i && new_j <= j) || (new_i <= i && new_j == j)) {
                 //d3.select(this).style("stroke", "black").style("stroke-width", 2);
@@ -224,7 +224,7 @@ function handleMouseOut(event, cancerType, svg, cellWidth, cellHeight, correlati
             const id = d3.select(this).attr("value").split(",")
             const cancerType = id[0]
             const lifeStyle = id[1]
-            return colorScale(correlationCoeffs[`${cancerType},${lifeStyle}`])
+            return correlationCoeffs[`${cancerType},${lifeStyle}`] ?  colorScale(correlationCoeffs[`${cancerType},${lifeStyle}`]): "#ccc"
         })
         
 }
@@ -369,7 +369,7 @@ const calculateMeans = (data) => {
 // Function to calculate the average value of "both"
 const calculateAverage = (dataArray, gender) => {
     const sum = dataArray.reduce((acc, obj) => {
-      const value = parseFloat(obj[gender].split(" ")[0]);
+      const value = parseFloat(obj[gender]);
       return acc + value; // Sum the values
     }, 0);
   
