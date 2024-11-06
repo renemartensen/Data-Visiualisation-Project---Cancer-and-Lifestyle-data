@@ -336,7 +336,8 @@ const cancerLongNameMap = {
 };
 
 
-let lifeStyleNames = {"tobacco_2005": "Tobacco", "alcohol_2019": "Alcohol", "sun_data": "Sun Hours"}
+let lifeStyleNames = {"tobacco_2005": "Tobacco", "alcohol_2019": "Alcohol", "uv_radiation": "UV", "physical_activity": "Inactivity" }
+
 
 
 
