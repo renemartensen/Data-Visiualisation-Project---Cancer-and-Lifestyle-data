@@ -1,7 +1,7 @@
 let mainData = {
     cancerTypes: {},
     lifeStyleChoices: {},
-    lifeStyleNames: {"tobacco_2005": "Tobacco", "alcohol_2019": "Alcohol", "sun_data": "Annual Sun Hours"}
+    lifeStyleNames: {"tobacco_2005": "Tobacco", "alcohol_2019": "Alcohol", "uv_radiation": "UV Radiation", "physical_activity": "Physical Activity"}
 };
 
 
@@ -10,12 +10,13 @@ const cancerTypes = ["all-cancers", "anus", "bladder", "brain-central-nervous-sy
                     "melanoma-of-skin", "mesothelioma", "multiple-myeloma", "nasopharynx", "non-hodgkin-lymphoma", "non-melanoma-skin-cancer", "oesophagus", "oropharynx", 
                     "ovary", "pancreas", "penis", "prostate", "rectum", "salivary-glands", "testis", "thyroid", "trachea-bronchus-and-lung", "vagina", "vulva"];
 
-const lifeStyleChoices = ["tobacco_2005", "alcohol_2019", "sun_data"];
+const lifeStyleChoices = ["tobacco_2005", "alcohol_2019", "uv_radiation", "physical_activity"];
 
 function getWhaIWant(string) {
 
     return string.split(" ")[0];
 }
+
 
 export async function loadData() {
     // Load cancer types

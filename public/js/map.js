@@ -424,8 +424,6 @@ export function renderBivariateMap(cancerData, lifestyleData, gender) {
     const x = d3.scaleQuantile(Array.from(cancerData, d => d[gender]), d3.range(n));
     const y = d3.scaleQuantile(Array.from(lifestyleData, d => d[gender]), d3.range(n));
 
-
-  
     // Create a color index combining both variables
     const color = (a,b) => {
         if (!a || !b) return "#ccc"; // Gray for missing data
