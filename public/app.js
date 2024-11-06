@@ -3,6 +3,7 @@ import { renderMap, renderBaseMap, renderBivariateMap } from './js/map.js';
 import { renderMatrix } from './js/correlationMatrix.js';
 import { renderSubPlot } from './js/subPlot.js';
 import { state, setState } from './js/state.js';
+import { showToast } from './js/toast.js';
 
 
 
@@ -22,6 +23,7 @@ let mainData
 loadData()
   .then(data => {
     mainData = data
+    console.log("mainData", mainData)
     setState("data", data);
     renderBaseMap(() => {
       updateMap("alcohol_2019", "all-cancers", "both");  // Run updateMap as a callback

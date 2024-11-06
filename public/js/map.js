@@ -1,6 +1,7 @@
 
 import { showOverlay } from "./overlayPlots.js";
 import { state, setState } from "./state.js";
+import { showToast } from "./toast.js";
 let dragging = false;
 let startX, startY;
 let selectedCountries =[];
@@ -387,7 +388,6 @@ function initRangeSelectionRect(svg, zoom, projection, countryData,  width, heig
 }
 
 export function renderBivariateMap(cancerData, lifestyleData, gender) {
-    console.log(gender)
 
     // Create the SVG canvas
     const svg = d3.select("#map").select("svg");
@@ -410,8 +410,13 @@ export function renderBivariateMap(cancerData, lifestyleData, gender) {
     lifestyleData.forEach(d => {
         lifestyleRateMap[d["iso"]] =+ d[gender]
     });
-    // Define the number of quantiles (3 categories: low, medium, high)
-    console.log(cancerRateMap, lifestyleRateMap)
+
+
+    // check if the data is there - if not show toast
+    if (isNaN(lifestyleRateMap[Object.keys(lifestyleRateMap)[0]])) {
+        showToast(`No ${lifeStyleNames[state.selectedLifestyle]} data available for gender: ${state.selectedGender}`, 4000)
+    }
+
     const n = 3;
 
   
@@ -460,7 +465,6 @@ export function renderBivariateMap(cancerData, lifestyleData, gender) {
   
   // Legend for the bivariate map
 function legend(height) {
-    console.log(height)
     const k = height/16; // Size of each square in the legend grid
     const n = 3
     const arrowId = "legend-arrow"; // Unique ID for arrow markers
@@ -630,4 +634,8 @@ export function renderMap(data, gender) {
 
 
 }
+
+
+
+const lifeStyleNames = {"tobacco_2005": "Tobacco", "alcohol_2019": "Alcohol", "uv_radiation": "UV Radiation", "physical_activity": "Physical Activity"}
 

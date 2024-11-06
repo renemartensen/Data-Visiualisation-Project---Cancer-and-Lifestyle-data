@@ -3,6 +3,9 @@ import { state , setState } from './state.js';
 
 export function renderSubPlot(mainData) {
     const chartData = prepareDataForChart(mainData, state.selectedCountriesISO, state.selectedGender);
+    console.log(chartData);
+
+
 
     const margin = { top: 0, right:0, bottom: 0, left: 0};
     const div = d3.select("#barchartContainer");
@@ -133,7 +136,7 @@ function handleRowClick(cancerType) {
 
 
 function prepareDataForChart(data, selectedCountries, gender) {
-    console.log(selectedCountries)
+    
     return Object.keys(data.cancerTypes)
         .filter(cancerType => cancerType !== "all-cancers")
         .map(cancerType => {
@@ -145,15 +148,16 @@ function prepareDataForChart(data, selectedCountries, gender) {
                 : data.cancerTypes[cancerType];
 
             // Calculate the total and average for the specified gender
-            const total = entries.reduce((acc, entry) => {
+            const validEntries = entries.filter(entry => !isNaN(parseFloat(entry[gender])));
+            const total = validEntries.reduce((acc, entry) => {
                 return acc + parseFloat(entry[gender]);
             }, 0);
 
             // Calculate the average, accounting for the case of no entries
             const avg = entries.length > 0 ? total / entries.length : 0;
-            return { cancerType, value: avg }; // Return the result for each cancer type
+            return { cancerType, value: avg };
         })
-        .sort((a, b) => a.value - b.value);
+        .sort((a, b) =>  b.value - a.value );
 }
 
 

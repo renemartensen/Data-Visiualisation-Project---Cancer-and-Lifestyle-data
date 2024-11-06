@@ -10,108 +10,104 @@ export function renderMatrix(data) {
         createMatrix(data)
     } else {
         updateMatrix(data)
+        //createMatrix(data)
     }
 }
 
 
 function createMatrix(data) {
+    // Clear any existing SVG elements in #correlationMatrix
+    d3.select("#correlationMatrix").select("svg").remove();
     
     const cancerTypes = Object.keys(data.cancerTypes).sort();
     const lifeStyles = Object.keys(data.lifeStyleChoices).sort();
-    let correlationCoeffs = pearsonCorrelationCoeff(data)
+    let correlationCoeffs = pearsonCorrelationCoeff(data);
     
     const margin = { top: 0, right: 0, bottom: 0, left: 0 };
-    const tableHeight = 150;  // Fixed height
+    const tableHeight = 130;  // Fixed height
     const parentDiv = document.querySelector("#correlationMatrix");
     const tableWidth = parentDiv.offsetWidth;   // Dynamic width based on parent div
 
     const svg = d3.select("#correlationMatrix")
         .append("svg")
         .attr("viewBox", `0 0 ${tableWidth + margin.left + margin.right} ${tableHeight + margin.top + margin.bottom}`)
-        .style("overflow", "visible") // Set overflow to visible to prevent clipping
+        .style("overflow", "visible")
         .append("g")
         .attr("transform", `translate(${margin.left}, ${margin.top})`)
         .classed("svg-content-responsive", true)
         .on("mouseout", () => { toggleCategoryHighlightOn(state.selectedCancer) });
 
-    // Dynamically calculate the size of each cell based on the number of rows and columns
+    // Calculate the size of each cell
     const cellWidth = tableWidth / cancerTypes.length;  
-    const cellHeight = tableHeight / lifeStyles.length; 
+    const cellHeight = tableHeight / lifeStyles.length;
 
     const xScale = d3.scaleBand()
-        .domain(cancerTypes)    // change this with names!!!!
-        .range([0, tableWidth])
+        .domain(cancerTypes)
+        .range([0, tableWidth]);
 
     const yScale = d3.scaleBand()
         .domain(lifeStyles.map(d => lifeStyleNames[d]))
-        .range([0, tableHeight])
+        .range([0, tableHeight]);
 
     const colorScale = d3.scaleLinear()
-        .domain([-1,0,1])
+        .domain([-1, 0, 1])
         .range(["red", "white", "steelblue"]);
 
-    // Separate g container for axes to simulate absolute positioning
     const axisGroup = svg.append("g").attr("class", "axis-group");
 
-    // X axis for Cancer Types (top of the matrix)
     const xAxis = axisGroup.append("g")
         .attr("class", "x-axis")
         .attr("transform", `translate(0, 0)`)
-        .call(d3.axisTop(xScale).tickSize(5).tickSizeOuter(0).tickFormat(cancerType => cancerNameMap[cancerType] || cancerType)); 
+        .call(d3.axisTop(xScale).tickSize(5).tickSizeOuter(0).tickFormat(cancerType => cancerNameMap[cancerType] || cancerType));
 
     xAxis.selectAll("text")
         .attr("transform", "translate(0,0) rotate(-45)")
         .style("text-anchor", "start")
         .style("font-size", `${8}px`);
-    xAxis.selectAll("path")
-        .style("stroke", "#ccc"); 
-    xAxis.selectAll("line")
-        .style("stroke", "#ccc");
+    xAxis.selectAll("path").style("stroke", "#ccc");
+    xAxis.selectAll("line").style("stroke", "#ccc");
 
-    // Y axis for Life Styles (left of the matrix)
     const yAxis = axisGroup.append("g")
         .attr("class", "y-axis")
         .attr("transform", `translate(0, 0)`)
-        .call(d3.axisLeft(yScale).tickSize(5).tickSizeOuter(0)); // Remove tick lines
+        .call(d3.axisLeft(yScale).tickSize(5).tickSizeOuter(0));
 
     yAxis.selectAll("text")
-        .attr("transform", "translate(-20, -10) rotate(-45)")  // Shift left further to be outside
+        .attr("transform", "translate(-20, -10) rotate(-45)")
         .style("text-anchor", "middle")
         .style("font-size", `${8}px`);
-    yAxis.selectAll("path")
-        .style("stroke", "#ccc"); 
-    yAxis.selectAll("line")
-        .style("stroke", "#ccc");  
-    
+    yAxis.selectAll("path").style("stroke", "#ccc");
+    yAxis.selectAll("line").style("stroke", "#ccc");
+
     const tooltip = d3.select("#tooltipMatrix");
-    
-    for(let i=0; i < lifeStyles.length; i++){
-        let lifeStyle = lifeStyles[i]
+
+    for (let i = 0; i < lifeStyles.length; i++) {
+        let lifeStyle = lifeStyles[i];
         svg.selectAll(`.${lifeStyle}-cell`)
-        .data(cancerTypes)
-        .enter()
-        .append("rect")
-        .attr("class", "matrix-cell")
-        .attr("value", cancerType => cancerType + "," + lifeStyle)
-        .attr("id", (cancerType, j) => `cell-${i}-${j}`)
-        .attr("x", cancerType => xScale(cancerType))
-        .attr("y", yScale([lifeStyleNames[lifeStyle]]))
-        .attr("width", cellWidth)
-        .attr("height", cellHeight)
-        .style("fill", cancerType => colorScale(correlationCoeffs[`${cancerType},${lifeStyle}`]))
-        .style("cursor", "pointer")
-        .on("mouseover", (event, cancerType) => handleMouseOver(event, cancerType, lifeStyle, svg, cellWidth, cellHeight, correlationCoeffs, colorScale, tooltip))
-        .on("mouseout", (event, cancerType) => handleMouseOut(event, cancerType, svg, cellWidth, cellHeight, correlationCoeffs, colorScale, tooltip))
-        .on("click", (event, cancerType) => {
-            console.log("clicked: ", event.target.getAttribute("id"))
-            handleCellClick(event.target.getAttribute("id"), true);
-        } );
+            .data(cancerTypes)
+            .enter()
+            .append("rect")
+            .attr("class", "matrix-cell")
+            .attr("value", cancerType => cancerType + "," + lifeStyle)
+            .attr("id", (cancerType, j) => `cell-${i}-${j}`)
+            .attr("x", cancerType => xScale(cancerType))
+            .attr("y", yScale([lifeStyleNames[lifeStyle]]))
+            .attr("width", cellWidth)
+            .attr("height", cellHeight)
+            .style("fill", cancerType => colorScale(correlationCoeffs[`${cancerType},${lifeStyle}`]))
+            .style("cursor", "pointer")
+            .on("mouseover", (event, cancerType) => handleMouseOver(event, cancerType, lifeStyle, svg, cellWidth, cellHeight, correlationCoeffs, colorScale, tooltip))
+            .on("mouseout", (event, cancerType) => handleMouseOut(event, cancerType, svg, cellWidth, cellHeight, correlationCoeffs, colorScale, tooltip))
+            .on("click", (event, cancerType) => {
+                console.log("clicked: ", event.target.getAttribute("id"));
+                handleCellClick(event.target.getAttribute("id"), true);
+            });
     }
 
-    // as default we need the matrix to be higlighted
-    toggleCategoryHighlightOn(state.selectedCancer)
+    toggleCategoryHighlightOn(state.selectedCancer);
     handleCellClick(selectedCell);
 };
+
 
 function handleCellClick(cellId, isClick = false) {
 
@@ -352,7 +348,7 @@ const calculateMeans = (data) => {
     let keysLifeStyle = Object.keys(lifeStyleData)
     for(let i=0; i < keysLifeStyle.length; i++){
         let key = keysLifeStyle[i]
-        let avg = calculateAverage(lifeStyleData[key], "both")
+        let avg = calculateAverage(lifeStyleData[key], state.selectedGender)
         lifeStyleAverages.push({lifeStyleType: key, lifeStyleRate: avg})
     }
 
@@ -363,7 +359,7 @@ const calculateMeans = (data) => {
     for(let i=0; i < keys.length; i++){
         let key = keys[i]
         let cancerTypeArray = cancerData[key]
-        let avg = calculateAverage(cancerTypeArray, "both")
+        let avg = calculateAverage(cancerTypeArray, state.selectedGender)
         cancerTypesAverages.push({cancerType: key, cancerRate: avg})
     }
     return [cancerTypesAverages, lifeStyleAverages]
@@ -373,7 +369,7 @@ const calculateMeans = (data) => {
 // Function to calculate the average value of "both"
 const calculateAverage = (dataArray, gender) => {
     const sum = dataArray.reduce((acc, obj) => {
-      const value = parseFloat(obj[gender].split(" ")[0]); // Extract the number before the interval
+      const value = parseFloat(obj[gender].split(" ")[0]);
       return acc + value; // Sum the values
     }, 0);
   
@@ -391,7 +387,7 @@ const calculateDifferencesFromMean = (data, meansCancer, meansLifeStyle) => {
         let diffs = {}
         let avg = d.cancerRate
         let currData = cancerData[d.cancerType]
-        let values = currData.map(entry => [entry["iso"], parseFloat(entry["both"])])
+        let values = currData.map(entry => [entry["iso"], parseFloat(entry[state.selectedGender])])
         values.forEach(entry => diffs[entry[0]] = entry[1] - avg)
         diffsFromMeanCancer[d.cancerType] = diffs
     })
@@ -401,7 +397,7 @@ const calculateDifferencesFromMean = (data, meansCancer, meansLifeStyle) => {
         let diffs = {}
         let avg = d.lifeStyleRate
         let currData = lifeStyleData[d.lifeStyleType]
-        let values = currData.map(entry => [entry["iso"], parseFloat(entry["both"])])
+        let values = currData.map(entry => [entry["iso"], parseFloat(entry[state.selectedGender])])
         values.forEach(entry => diffs[entry[0]] = entry[1] -avg)
         diffsFromMeanLifeStyle[d.lifeStyleType] = diffs
     })
