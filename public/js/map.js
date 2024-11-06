@@ -65,7 +65,7 @@ function setupResetZoomButton(svg, zoom) {
 function setupSVG() {
     const parentDiv = document.querySelector("#mapContainer");
     const width = parentDiv.offsetWidth;
-    const height = width / 2;
+    const height = width/2;
 
     const svg = d3.select("#map")
         .append("svg")

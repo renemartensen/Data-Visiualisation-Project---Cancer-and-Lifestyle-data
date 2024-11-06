@@ -31,6 +31,7 @@ function createMatrix(data) {
         .style("overflow", "visible") // Set overflow to visible to prevent clipping
         .append("g")
         .attr("transform", `translate(${margin.left}, ${margin.top})`)
+        .classed("svg-content-responsive", true)
         .on("mouseout", () => { toggleCategoryHighlightOn(state.selectedCancer) });
 
     // Dynamically calculate the size of each cell based on the number of rows and columns
