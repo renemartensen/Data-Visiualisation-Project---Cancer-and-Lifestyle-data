@@ -4,7 +4,8 @@ export const state = {
     selectedCancer: "all-cancers",
     selectedGender: "both",
     selectedCountriesISO: [],
-    data: null
+    data: null,
+    countryNames: null
 };
   
 export const setState = (key, value, triggerEvent = true) => {

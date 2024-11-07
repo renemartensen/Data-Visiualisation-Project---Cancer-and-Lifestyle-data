@@ -1,9 +1,9 @@
+import { setState, state } from "./state.js";
 let mainData = {
     cancerTypes: {},
     lifeStyleChoices: {},
     lifeStyleNames: {"tobacco_2005": "Tobacco", "alcohol_2019": "Alcohol", "uv_radiation": "UV Radiation", "physical_activity": "Physical Activity"}
 };
-
 
 const cancerTypes = ["all-cancers", "anus", "bladder", "brain-central-nervous-system", "breast", "cervix-uteri", "colon", "colorectum", "corpus-uteri", "gallbladder",
                     "hodgkin-lymphoma", "hypopharynx", "kaposi-sarcoma", "kidney", "larynx", "leukaemia", "lip-oral-cavity", "liver-and-intrahepatic-bile-ducts",
@@ -11,11 +11,6 @@ const cancerTypes = ["all-cancers", "anus", "bladder", "brain-central-nervous-sy
                     "ovary", "pancreas", "penis", "prostate", "rectum", "salivary-glands", "testis", "thyroid", "trachea-bronchus-and-lung", "vagina", "vulva"];
 
 const lifeStyleChoices = ["tobacco_2005", "alcohol_2019", "uv_radiation", "physical_activity"];
-
-function getWhaIWant(string) {
-
-    return string.split(" ")[0];
-}
 
 
 export async function loadData() {
@@ -30,8 +25,13 @@ export async function loadData() {
                     male: row["male"],
                     female: row["female"]
                 }));
-                
-                mainData.cancerTypes[type] = filteredData.sort();
+
+                if (type == "vagina") {
+                    const countryNames = cancerTypeData.map(item => item.country)
+                    setState("countryNames", countryNames, false)
+                    console.log(countryNames)
+                }
+                mainData.cancerTypes[type] = filteredData.sort();                
             })
         )
     );
@@ -57,7 +57,6 @@ export async function loadData() {
     );
     
 
-    
     return Promise.all([cancerPromises, lifestylePromises]).then(() => {
         return mainData; 
     });

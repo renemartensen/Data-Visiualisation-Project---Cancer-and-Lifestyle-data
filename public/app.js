@@ -5,6 +5,7 @@ import { renderSubPlot } from './js/subPlot.js';
 import { state, setState } from './js/state.js';
 import { showToast } from './js/toast.js';
 import { showHelpOverlay } from './js/overlayElement.js';
+import { renderBarGraphCancerPerCountry } from './js/barGraphCancerPerCountry.js';
 
 
 
@@ -28,6 +29,7 @@ loadData()
       updateMap("alcohol_2019", "all-cancers", "both");  // Run updateMap as a callback
       renderMatrix(mainData);
       renderSubPlot(mainData);
+      renderBarGraphCancerPerCountry(mainData);
   });
 });
 
@@ -42,6 +44,7 @@ document.addEventListener('stateChange', (event) => {
   updateMap(state.selectedLifestyle, state.selectedCancer, state.selectedGender);
   renderSubPlot(mainData);
   renderMatrix(mainData);
+  renderBarGraphCancerPerCountry(mainData);
   
   const idDataAbsent = checkForToast();
   if (idDataAbsent) {

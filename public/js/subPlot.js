@@ -17,7 +17,7 @@ export function renderSubPlot(mainData) {
             .attr("preserveAspectRatio", "xMidYMid meet")
             .style("overflow", "visible")
     } else {
-        svg.selectAll(".row-background, .bar, .x-axis, .y-axis").remove();
+        svg.selectAll(".row-background, .x-axis, .y-axis").remove();
     }
 
     // Define scales
@@ -58,26 +58,36 @@ export function renderSubPlot(mainData) {
 
     rowBackgrounds.exit().remove();  // Remove any old elements
 
-    // Create or update bars
     const bars = svg.selectAll(".bar")
-        .data(chartData);
+    .data(chartData, d => d.cancerType);  // Use cancerType as the key for consistency
 
+    // Handle new bars (enter selection)
     bars.enter()
         .append("rect")
         .attr("class", d => `bar bar-${d.cancerType.replace(/\s+/g, '-')}`)
         .attr("y", d => yScale(d.cancerType))
         .attr("height", yScale.bandwidth())
         .attr("x", width)  // Start from the right edge
-        .attr("width", 0)  // Start width at 0
+        .attr("width", 0)  // Start width at 0 for animation
         .style("fill", d => d.cancerType === state.selectedCancer ? "darkgrey" : "steelblue")
         .style("pointer-events", "none")
-        .merge(bars)  // Combine enter and update selections
-        .transition()  // Apply transition for animation
-        .duration(500)  // Animation duration in milliseconds
-        .attr("x", d => xScale(d.value))  // Target x position based on value
-        .attr("width", d => width - xScale(d.value)); 
+        .transition()
+        .duration(500)
+        .attr("x", d => xScale(d.value))  // Animate to target x position based on value
+        .attr("width", d => width - xScale(d.value));
 
-    bars.exit().remove();  // Remove any old elements
+    // Handle updated bars (update selection)
+    bars.transition()
+        .duration(500)
+        .attr("y", d => yScale(d.cancerType))
+        .attr("height", yScale.bandwidth())
+        .attr("x", d => xScale(d.value))  // Animate x position based on new data
+        .attr("width", d => width - xScale(d.value))
+        .style("fill", d => d.cancerType === state.selectedCancer ? "darkgrey" : "steelblue");
+    
+    bars.exit().remove();  // Remove old bars
+
+
 
     // Update x-axis
     svg.append("g")

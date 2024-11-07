@@ -237,7 +237,7 @@ function handleMouseOver(event, cancerType, lifeStyle, svg, cellWidth, cellHeigh
 }
 
 function toggleCategoryHighlightOn(cancerType, lifeStyle) {
-    d3.selectAll(".x-axis text")
+    d3.selectAll("#correlationMatrix .x-axis text")
             .filter(function(d) { return d === cancerType; }) 
             .attr("transform", "translate(-10,-35) rotate(0)")
             
@@ -251,7 +251,7 @@ function toggleCategoryHighlightOn(cancerType, lifeStyle) {
 }
 
 function toggleCategoryHighlightOff(cancerType, lifeStyle) {
-    d3.selectAll(".x-axis text")
+    d3.selectAll("#correlationMatrix .x-axis text")
 
             .style("font-size", `${8}px`)
             .attr("transform", "translate(0,0) rotate(-45)")
