@@ -38,25 +38,37 @@ loadData()
 
 document.addEventListener('stateChange', (event) => {
   const { key, value } = event.detail;
+
+
+  // if (key === 'selectedCountriesISO') {
+  //   renderSubPlot(mainData);
+  // } 
+
+  // if (key === "selectedCancer") {
+  //   renderMatrix(mainData)
+  //   renderSubPlot(mainData);
+  // }
+
+  // if (key === 'selectedCancer' || key === 'selectedLifestyle') updateMap(state.selectedLifestyle, state.selectedCancer, state.selectedGender);
+
+  // if (key === 'selectedCancer' && key === 'selectedLifestyle') renderSubPlot(mainData);
+
+  // if (key === 'selectedGender') {
+  //   console.log("selectedGender", state.selectedGender)
+  //   updateMap(state.selectedLifestyle, state.selectedCancer, state.selectedGender);
+  //   renderSubPlot(mainData);
+  //   renderMatrix(mainData);
+  // }
+
+  updateMap(state.selectedLifestyle, state.selectedCancer, state.selectedGender);
+  renderSubPlot(mainData);
+  renderMatrix(mainData);
+
   
-  if (key === 'selectedCountriesISO') {
-    renderSubPlot(mainData);
-  } 
-
-  if (key === "selectedCancer") {
-    renderMatrix(mainData)
-    renderSubPlot(mainData);
-  }
-
-  if (key === 'selectedCancer' || key === 'selectedLifestyle') updateMap(state.selectedLifestyle, state.selectedCancer, state.selectedGender);
-
-  if (key === 'selectedCancer' && key === 'selectedLifestyle') renderSubPlot(mainData);
-
-  if (key === 'selectedGender') {
-    console.log("selectedGender", state.selectedGender)
-    updateMap(state.selectedLifestyle, state.selectedCancer, state.selectedGender);
-    renderSubPlot(mainData);
-    renderMatrix(mainData);
+  const idDataAbsent = checkForToast();
+  if (idDataAbsent && key === "selectedCancer") {
+    console.log("rene", key, value)
+    showToast(`${state.selectedGender} data is not available for ${state.selectedCancer}`);
   }
   
 });
@@ -71,3 +83,19 @@ document.getElementById("helpButton").addEventListener("click", () => {
 });
 
 
+function checkForToast() {
+  console.log("state", state)
+  const maleCancers = ["prostate", "testis", "penis"]
+  const femaleCancers = ["breast", "cervix-uteri", "corpus-uteri", "vagina", "vulva", "ovary"]
+
+  let isDataAbsent;
+  if (state.selectedGender === "male") {
+    isDataAbsent = femaleCancers.includes(state.selectedCancer)
+  }
+
+  if (state.selectedGender === "female") {
+    isDataAbsent = maleCancers.includes(state.selectedCancer)
+  }
+
+  return isDataAbsent
+}

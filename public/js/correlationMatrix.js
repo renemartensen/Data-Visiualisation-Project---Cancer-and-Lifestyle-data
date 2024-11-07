@@ -22,7 +22,6 @@ function createMatrix(data) {
     const cancerTypes = Object.keys(data.cancerTypes).sort();
     const lifeStyles = Object.keys(data.lifeStyleChoices).sort();
     let correlationCoeffs = pearsonCorrelationCoeff(data);
-    console.log(correlationCoeffs)
     
     const margin = { top: 0, right: 0, bottom: 0, left: 0 };
     const tableHeight = 130;  // Fixed height
@@ -335,13 +334,11 @@ let lifeStyleNames = {"tobacco_2005": "Tobacco", "alcohol_2019": "Alcohol", "uv_
 const calculateMeans = (data) => {
     let cancerData = data.cancerTypes;
     let lifeStyleData = data.lifeStyleChoices;
-    console.log("here", lifeStyleData)
     let lifeStyleAverages = []
 
     let keysLifeStyle = Object.keys(lifeStyleData)
     for(let i=0; i < keysLifeStyle.length; i++){
         let key = keysLifeStyle[i]
-        console.log(key, lifeStyleData[key])
         let avg = calculateAverage(lifeStyleData[key], state.selectedGender)
         lifeStyleAverages.push({lifeStyleType: key, lifeStyleRate: avg})
     }
@@ -396,7 +393,6 @@ const calculateDifferencesFromMean = (data, meansCancer, meansLifeStyle) => {
         let currData = lifeStyleData[d.lifeStyleType]
         
         let values = currData.map(entry => [entry["iso"], parseFloat(entry[state.selectedGender])])
-        console.log("values1", d.lifeStyleType, values)
         values.forEach(entry => {
             diffs[entry[0]] = isNaN(entry[1] - avg) ? 0 : entry[1] - avg;
         });
@@ -473,10 +469,8 @@ const pearsonCorrelationCoeff = (data) => {
     let resultDiffs = calculateDifferencesFromMean(data, cancerTypesAverages, lifeStyleAverages)
     let diffsFromMeanCancer = resultDiffs[0]
     let diffsFromMeanLifeStyle = resultDiffs[1]
-    console.log("diffsFromMeanLifestyle", diffsFromMeanLifeStyle)
 
     let productOfDifferences = calculateProductOfDifferences(diffsFromMeanCancer, diffsFromMeanLifeStyle)
-    console.log("productofdiff", productOfDifferences)
 
     let sumOfSquaredDifferences = calculateSumOfSquaredDifferences(diffsFromMeanCancer, diffsFromMeanLifeStyle)
 

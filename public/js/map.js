@@ -425,10 +425,7 @@ export function renderBivariateMap(cancerData, lifestyleData, gender) {
     });
 
 
-    // check if the data is there - if not show toast
-    if (isNaN(lifestyleRateMap[Object.keys(lifestyleRateMap)[0]])) {
-        showToast(`No ${lifeStyleNames[state.selectedLifestyle]} data available for gender: ${state.selectedGender}`, 4000)
-    }
+
 
     const n = 3;
 
