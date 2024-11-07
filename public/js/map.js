@@ -479,12 +479,12 @@ export function renderBivariateMap(cancerData, lifestyleData, gender) {
   
   // Legend for the bivariate map
 function legend(height) {
-    const k = height/16; // Size of each square in the legend grid
+    const k = 20; // Size of each square in the legend grid
     const n = 3
     const arrowId = "legend-arrow"; // Unique ID for arrow markers
     const legendSvg = document.createElementNS("http://www.w3.org/2000/svg", "g");
     legendSvg.setAttribute("font-family", "sans-serif");
-    legendSvg.setAttribute("font-size", `${height/38}`);
+    legendSvg.setAttribute("font-size", `${10}`);
   
     const legendGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
     legendGroup.setAttribute("transform", `translate(${-k * n / 2},${-k * n / 2}) rotate(-45 ${k * n / 2},${k * n / 2})`);

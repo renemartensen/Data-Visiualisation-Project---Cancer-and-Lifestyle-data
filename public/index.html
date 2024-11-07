@@ -74,11 +74,24 @@
     </div>
 </div>
 
-
-<div id="subplots" class=" h-[200px] m-12">
+<div id="subplots" class="h-[200px] m-12">
+  <div class="mr-2">
+    <div class="flex items-center justify-end text-xs space-x-2">
+      <p class="mr-1">Sort:</p>
+      <label for="alphabetically" class="flex items-center space-x-1">
+        <input type="radio" id="alphabetically" name="sortOption" value="alphabetical" checked>
+        <span>Alphabetically</span>
+      </label>
+      <label for="value" class="flex items-center space-x-1">
+        <input type="radio" id="value" name="sortOption" value="value">
+        <span>Value</span>
+      </label>
+    </div>
+  </div>
   <div id="barchartCountryContainer" class="w-full h-full"></div>
-
 </div>
+
+
 
 
 

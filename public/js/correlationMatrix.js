@@ -173,7 +173,7 @@ function handleCellClick(cellId, isClick = false) {
     // select the new cell
     selectedCell = cellId;
     const svg = d3.select(`#${selectedCell}`)
-    svg.style("stroke", "grey")
+    svg.style("stroke", "black")
         .style("stroke-width", 1.5)
         .style("stroke-dasharray", "5,5")
         .raise();
