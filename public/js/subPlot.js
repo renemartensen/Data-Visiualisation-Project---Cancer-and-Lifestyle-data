@@ -16,8 +16,6 @@ export function renderSubPlot(mainData) {
             .attr("viewBox", `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`)
             .attr("preserveAspectRatio", "xMidYMid meet")
             .style("overflow", "visible")
-            .style("width", "100%")
-            .style("height", "auto");
     } else {
         svg.selectAll(".row-background, .bar, .x-axis, .y-axis").remove();
     }
@@ -121,12 +119,7 @@ export function renderSubPlot(mainData) {
         .style("font-size", "12px")
         .style("fill", "black")
         .attr("transform", `rotate(90 ${width + margin.right / 2}, ${height / 2})`)
-        .text("Cancer Types");  // Replace with the actual label text
-}
-
-
-function handleRowClick(cancerType) {
-
+        .text("Cancer Types"); 
 }
 
 

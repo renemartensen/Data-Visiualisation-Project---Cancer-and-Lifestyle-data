@@ -23,7 +23,7 @@ loadData()
   .then(data => {
     mainData = data
     console.log("mainData", mainData)
-    setState("data", data);
+    setState("data", data, false);
     renderBaseMap(() => {
       updateMap("alcohol_2019", "all-cancers", "both");  // Run updateMap as a callback
       renderMatrix(mainData);
