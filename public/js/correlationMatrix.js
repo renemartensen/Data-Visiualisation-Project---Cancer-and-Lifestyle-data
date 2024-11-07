@@ -22,6 +22,7 @@ function createMatrix(data) {
     const cancerTypes = Object.keys(data.cancerTypes).sort();
     const lifeStyles = Object.keys(data.lifeStyleChoices).sort();
     let correlationCoeffs = pearsonCorrelationCoeff(data);
+    console.log(correlationCoeffs)
     
     const margin = { top: 0, right: 0, bottom: 0, left: 0 };
     const tableHeight = 130;  // Fixed height
@@ -94,7 +95,11 @@ function createMatrix(data) {
             .attr("y", yScale([lifeStyleNames[lifeStyle]]))
             .attr("width", cellWidth)
             .attr("height", cellHeight)
-            .style("fill", cancerType => correlationCoeffs[`${cancerType},${lifeStyle}`] ?  colorScale(correlationCoeffs[`${cancerType},${lifeStyle}`]): "#ccc")
+            .style("fill", cancerType => {
+                //console.log(lifeStyle, correlationCoeffs[`${cancerType},${lifeStyle}`])
+                return correlationCoeffs[`${cancerType},${lifeStyle}`] ? colorScale(correlationCoeffs[`${cancerType},${lifeStyle}`]): "#ccc"
+
+            } )
             .style("cursor", "pointer")
             .on("mouseover", (event, cancerType) => handleMouseOver(event, cancerType, lifeStyle, svg, cellWidth, cellHeight, correlationCoeffs, colorScale, tooltip))
             .on("mouseout", (event, cancerType) => handleMouseOut(event, cancerType, svg, cellWidth, cellHeight, correlationCoeffs, colorScale, tooltip))
@@ -125,7 +130,7 @@ function handleCellClick(cellId, isClick = false) {
     const lifeStyle = d3.select(`#${selectedCell}`).attr("value").split(",")[1]
 
     if (isClick) {
-        setState("selectedLifestyle", lifeStyle); // the order of this is imporant as it will trigger the stateChange event
+        setState("selectedLifestyle", lifeStyle);
         setState("selectedCancer", cancerType);
     }
     
@@ -229,17 +234,6 @@ function handleMouseOut(event, cancerType, svg, cellWidth, cellHeight, correlati
 }
 
 
-function updateMatrix(data) {
-    toggleCategoryHighlightOff()
-    toggleCategoryHighlightOn(state.selectedCancer)
-
-    
-
-    const cellId = getCellIdFromCancerAndLifestyle(data,state.selectedCancer, state.selectedLifestyle);
-
-    handleCellClick(cellId);
-}
-
 function getCellIdFromCancerAndLifestyle(data, cancerType, lifeStyle) {
     const cancerTypes = Object.keys(data.cancerTypes).sort();
     const lifeStyles = Object.keys(data.lifeStyleChoices).sort();
@@ -341,12 +335,13 @@ let lifeStyleNames = {"tobacco_2005": "Tobacco", "alcohol_2019": "Alcohol", "uv_
 const calculateMeans = (data) => {
     let cancerData = data.cancerTypes;
     let lifeStyleData = data.lifeStyleChoices;
-
+    console.log("here", lifeStyleData)
     let lifeStyleAverages = []
 
     let keysLifeStyle = Object.keys(lifeStyleData)
     for(let i=0; i < keysLifeStyle.length; i++){
         let key = keysLifeStyle[i]
+        console.log(key, lifeStyleData[key])
         let avg = calculateAverage(lifeStyleData[key], state.selectedGender)
         lifeStyleAverages.push({lifeStyleType: key, lifeStyleRate: avg})
     }
@@ -367,12 +362,14 @@ const calculateMeans = (data) => {
 
 // Function to calculate the average value of "both"
 const calculateAverage = (dataArray, gender) => {
+    
     const sum = dataArray.reduce((acc, obj) => {
-      const value = parseFloat(obj[gender]);
+      const value = +obj[gender];
       return acc + value; // Sum the values
     }, 0);
-  
-    return sum / dataArray.length; // Calculate average
+    const avg = sum / dataArray.length;
+    
+    return avg  
 };
 
 
@@ -395,9 +392,14 @@ const calculateDifferencesFromMean = (data, meansCancer, meansLifeStyle) => {
     meansLifeStyle.forEach(d => {
         let diffs = {}
         let avg = d.lifeStyleRate
+        
         let currData = lifeStyleData[d.lifeStyleType]
+        
         let values = currData.map(entry => [entry["iso"], parseFloat(entry[state.selectedGender])])
-        values.forEach(entry => diffs[entry[0]] = entry[1] -avg)
+        console.log("values1", d.lifeStyleType, values)
+        values.forEach(entry => {
+            diffs[entry[0]] = isNaN(entry[1] - avg) ? 0 : entry[1] - avg;
+        });
         diffsFromMeanLifeStyle[d.lifeStyleType] = diffs
     })
     return [diffsFromMeanCancer, diffsFromMeanLifeStyle]
@@ -458,7 +460,6 @@ const calculateCorrelationCoeffs = (productOfDifferences, sumOfSquaredDifference
         let r = (valueProductOfDifferences)/(Math.sqrt(valueSumOfSquaredDiffsCancer) * Math.sqrt(valueSumOfSquaredDiffsLifeStyle))
         resultDict[key] = r
     })
-
     return resultDict
 
 }
@@ -468,11 +469,14 @@ const pearsonCorrelationCoeff = (data) => {
     let cancerTypesAverages = result[0];
     let lifeStyleAverages = result[1];
 
+
     let resultDiffs = calculateDifferencesFromMean(data, cancerTypesAverages, lifeStyleAverages)
     let diffsFromMeanCancer = resultDiffs[0]
     let diffsFromMeanLifeStyle = resultDiffs[1]
+    console.log("diffsFromMeanLifestyle", diffsFromMeanLifeStyle)
 
     let productOfDifferences = calculateProductOfDifferences(diffsFromMeanCancer, diffsFromMeanLifeStyle)
+    console.log("productofdiff", productOfDifferences)
 
     let sumOfSquaredDifferences = calculateSumOfSquaredDifferences(diffsFromMeanCancer, diffsFromMeanLifeStyle)
 

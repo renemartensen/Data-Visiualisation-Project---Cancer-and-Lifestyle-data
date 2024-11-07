@@ -471,9 +471,7 @@ export function renderBivariateMap(cancerData, lifestyleData, gender) {
             } else {
                 return color(cancerRateMap[d.id], lifestyleRateMap[d.id]);
             }
-        }) 
-        
-       
+        })  
 }
 
 

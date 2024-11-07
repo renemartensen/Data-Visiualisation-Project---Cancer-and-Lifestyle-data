@@ -19,8 +19,6 @@ const updateMap = (selectedLifestyle, selectedCancer, selectedGender) => {
 
 
 let mainData
-
-
 loadData()
   .then(data => {
     mainData = data
@@ -40,6 +38,7 @@ loadData()
 
 document.addEventListener('stateChange', (event) => {
   const { key, value } = event.detail;
+  
   if (key === 'selectedCountriesISO') {
     renderSubPlot(mainData);
   } 
