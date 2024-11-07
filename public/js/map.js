@@ -15,7 +15,7 @@ export function renderBaseMap(callback) {
     const projection = setupProjection(width, height);
     const path = d3.geoPath().projection(projection);
 
-    const tooltip = d3.select("#tooltip");
+    const tooltip = d3.select("#tooltip").style("display", "none");
     
     const zoom = setupZoom(svg, width, height);
     svg.call(zoom);

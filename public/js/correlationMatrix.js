@@ -18,6 +18,7 @@ export function renderMatrix(data) {
 function createMatrix(data) {
     // Clear any existing SVG elements in #correlationMatrix
     d3.select("#correlationMatrix").select("svg").remove();
+    d3.select("#matrixLegend").select("svg").remove();
     
     const cancerTypes = Object.keys(data.cancerTypes).sort();
     const lifeStyles = Object.keys(data.lifeStyleChoices).sort();
@@ -79,7 +80,9 @@ function createMatrix(data) {
     yAxis.selectAll("path").style("stroke", "#ccc");
     yAxis.selectAll("line").style("stroke", "#ccc");
 
-    const tooltip = d3.select("#tooltipMatrix");
+    createLegend(colorScale);
+
+    const tooltip = d3.select("#tooltipMatrix").style("display", "none");
 
     for (let i = 0; i < lifeStyles.length; i++) {
         let lifeStyle = lifeStyles[i];
@@ -111,6 +114,56 @@ function createMatrix(data) {
     handleCellClick(getCellIdFromCancerAndLifestyle(data, state.selectedCancer, state.selectedLifestyle));
 };
 
+function createLegend(colorScale) {
+    const legendWidth = 150;
+    const legendHeight = 10;
+
+    // Select the matrixLegend div and append an SVG to it
+    const legendSvg = d3.select("#matrixLegend")
+        .append("svg")
+        .attr("class", "legend")
+        .attr("width", legendWidth + 40) // Add padding for labels
+        .attr("height", legendHeight + 20); // Add padding for labels
+
+    // Create a gradient using colorScale's colors
+    const gradient = legendSvg.append("defs")
+        .append("linearGradient")
+        .attr("id", "color-gradient")
+        .attr("x1", "0%")
+        .attr("y1", "0%")
+        .attr("x2", "100%")
+        .attr("y2", "0%");
+
+    // Set stops for the gradient from -1, 0, to 1
+    gradient.append("stop").attr("offset", "0%").attr("stop-color", colorScale(-1));
+    gradient.append("stop").attr("offset", "50%").attr("stop-color", colorScale(0));
+    gradient.append("stop").attr("offset", "100%").attr("stop-color", colorScale(1));
+
+    // Draw the legend rectangle with the gradient
+    legendSvg.append("rect")
+        .attr("x", 20)  // Padding for the labels
+        .attr("width", legendWidth)
+        .attr("height", legendHeight)
+        .style("fill", "url(#color-gradient)");
+
+    // Add tick labels (-1, 0, 1) directly without an axis line
+    const labels = [-1, 0, 1];
+    const labelPositions = [0, legendWidth / 2, legendWidth];  // Corresponding positions for each label
+
+    // Append text elements for each label
+    legendSvg.selectAll("text")
+        .data(labels)
+        .enter()
+        .append("text")
+        .attr("x", (d, i) => 20 + labelPositions[i]) // Position relative to rectangle
+        .attr("y", legendHeight + 10) // Position below the gradient
+        .attr("text-anchor", "middle")
+        .style("font-size", "8px")
+        .style("fill", "#666")
+        .text(d => d);
+}
+
+
 
 function handleCellClick(cellId, isClick = false) {
 
@@ -129,7 +182,7 @@ function handleCellClick(cellId, isClick = false) {
     const lifeStyle = d3.select(`#${selectedCell}`).attr("value").split(",")[1]
 
     if (isClick) {
-        setState("selectedLifestyle", lifeStyle);
+        setState("selectedLifestyle", lifeStyle,false);
         setState("selectedCancer", cancerType);
     }
     
