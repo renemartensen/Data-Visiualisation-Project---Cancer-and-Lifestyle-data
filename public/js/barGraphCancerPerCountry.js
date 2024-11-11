@@ -25,22 +25,26 @@ export function renderBarGraphCancerPerCountry(mainData) {
             .attr("class", "chart-content")
             .attr("transform", `translate(${margin.left},${margin.top})`);
     } else {
-        svg.selectAll(".x-axis, .y-axis, .overlay, .chart-title").remove();
+        svg.selectAll(".x-axis, .y-axis, .overlay, .chart-title, .overlay-hierarchical").remove();
     }
 
     const chartContent = svg.select(".chart-content");
 
     const value = state.selectedGender;
     let yScale;
+    let xScale
 
     // Check if data is hierarchical
     const isHierarchical = sortBy === 'hierarchical';
 
     if (isHierarchical) {
         svg.selectAll(".bar").remove();
-        console.log("Rendering hierarchical chart");
-        currentNode = currentNode ? currentNode : d3.hierarchy({ children: chartData });
-        let node = currentNode
+        console.log("Rendering hierarchical chart", chartData);
+        const selectedContinent = chartData.find(continent => continent.name === currentNode);
+
+        let hierarchyData = currentNode ? d3.hierarchy({ children: selectedContinent.children }) : d3.hierarchy({ children: chartData });
+        console.log("hierarchyData", hierarchyData)
+        let node = hierarchyData
             .eachAfter(d => {
                 if (d.children) {
                     // Calculate the average value for nodes with children
@@ -51,25 +55,23 @@ export function renderBarGraphCancerPerCountry(mainData) {
                 }
             });
         let data = node.children
-        console.log("Data", data);
         // xScale based on the current level (continent or country names)
-        const xScale = d3.scaleBand()
+        xScale = d3.scaleBand()
             .domain(data.map(d => d.data.name))
             .range([0, width])
             .padding(0.01);
 
-        const yScale = d3.scaleLinear()
+        yScale = d3.scaleLinear()
             .domain([0, d3.max(data, d => d.value)])
             .range([height, 0]);
 
         const barsOverlay = chartContent.selectAll(".overlay-hierarchical")
-        .data(data, d => d.data.name);
+            .data(data, d => d.data.name);
     
         // Adding invisible overlay for interactivity
         barsOverlay.enter()
             .append("rect")
             .attr("class", d => {
-                console.log("d", d);
                 return d.data.iso ? `overlay-hierarchical overlay-hierarchical-${d.data.iso}` : `overlay-hierarchical overlay-hierarchical-${d.data.name.replace(/\s+/g, '-')}`
             } )
             .attr("x", d => xScale(d.data.name))
@@ -112,7 +114,6 @@ export function renderBarGraphCancerPerCountry(mainData) {
                 if (d.children) {
                     return "steelblue";
                 } else {
-                    console.log(d.d)
                     return state.selectedCountriesISO.includes(d.data.iso) ? "red" : "steelblue";
                 }
             } )
@@ -120,14 +121,13 @@ export function renderBarGraphCancerPerCountry(mainData) {
             .on("click", (event, d) => {
                 console.log("Clicked on", d);
                 if (d.children) {
-                    currentNode = d;
+                    currentNode = d.data.name;
                     renderBarGraphCancerPerCountry(mainData);
                 } else {
                     handleClick(event, d.data);
                 }
             })
             .on("mouseover", function(event, d) {
-                console.log(d.data.iso ? `.overlay-hierarchical-${d.data.iso}` : `.overlay-hierarchical-${d.data.name.replace(/\s+/g, '-')}`);
                 d3.select(this).style("fill", "darkgray");
                 d3.select(d.data.iso ? `.overlay-hierarchical-${d.data.iso}` : `.overlay-hierarchical-${d.data.name.replace(/\s+/g, '-')}`).style("fill", "#ddd");
                 //showToolTip(event, d.data);
@@ -149,12 +149,7 @@ export function renderBarGraphCancerPerCountry(mainData) {
             .attr("y", d => yScale(d.value))
             .attr("width", xScale.bandwidth())
             .attr("height", d => height - yScale(d.value))
-            .style("fill", d => {
-                
-                console.log(d.data.iso, state.selectedCountriesISO);
-                return state.selectedCountriesISO.includes(d.data.iso) ? "red" : "steelblue";
-            
-        } )
+            .style("fill", d => state.selectedCountriesISO.includes(d.data.iso) ? "red" : "steelblue")
 
 
         bars.exit().remove();
@@ -188,21 +183,22 @@ export function renderBarGraphCancerPerCountry(mainData) {
             .attr("y", -10)
             .style("text-anchor", "middle")
             .style("font-size", "12px")
-            .text(node.data.name || `${cancerLongNameMap[state.selectedCancer]} (ASR) - Country Comparison`);
+            .text((node.data.name ? node.data.name + " - " : "") + `${cancerLongNameMap[state.selectedCancer]} (ASR) - Country Comparison`);
 
         // Breadcrumb navigation to go back to the previous level
         svg.on("dblclick", () => {
-            if (node.parent) {
-                currentNode = node.parent;
-                renderBarGraphCancerPerCountry(mainData);
-            }
+            
+            currentNode = null;
+            renderBarGraphCancerPerCountry(mainData);
+            
         });
 
     } else {
+        console.log("Rendering flat chart");
         svg.selectAll(".bar-hierarchical").remove();
         // Flat structure for non-hierarchical view
         const value = state.selectedGender;
-        const xScale = d3.scaleBand()
+        xScale = d3.scaleBand()
             .domain(chartData.map(d => d.iso))
             .range([0, width])
             .padding(0.01);
@@ -307,9 +303,13 @@ export function renderBarGraphCancerPerCountry(mainData) {
         .style("text-anchor", "middle")
         .style("font-size", "12px")
         .text(`${cancerLongNameMap[state.selectedCancer]} (ASR) - Country Comparison`);
+        
     }
 
+    const drag = dragSelection(chartContent, xScale);
+    svg.call(drag);
 
+    
 }
 
 
@@ -319,10 +319,11 @@ function prepareDataForChart() {
     const isos = state.selectedCountriesISO;
     const gender = state.selectedGender;
     const cancerData = state.data.cancerTypes[state.selectedCancer];
+    console.log("prepared data for chart", state.selectedCancer, cancerData, state.data);
     let chartData;
 
     if (sortBy === 'hierarchical') {
-        console.log("Preparing hierarchical data");
+        console.log("1")
         // Group data by continent
         const continents = {};
 
@@ -346,8 +347,10 @@ function prepareDataForChart() {
 
         // Convert continents object to array format
         chartData = Object.values(continents);
+        console.log("heeerrreeee",continents["Africa"] )
 
     } else {
+        console.log("2")
         // Flat structure for non-hierarchical views
         chartData = cancerData
             .map(item => ({
@@ -426,7 +429,7 @@ function dragSelection(chartContent, xScale) {
             if (!dragging) return;
 
             startX = event.x;
-            chartContent.selectAll(".bar")
+            chartContent.selectAll(".bar, .bar-hierarchical")
             .classed("selected", d => {
                 // Determine if bar is in range on start
                 const barX = xScale(d.iso) + xScale.bandwidth() / 2;
@@ -440,7 +443,7 @@ function dragSelection(chartContent, xScale) {
 
             // Get the current dragging position
             const endX = event.x;
-            chartContent.selectAll(".bar")
+            chartContent.selectAll(".bar, .bar-hierarchical")
             .classed("selected", d => {
                 // Determine if bar is within the dragging range
                 const barX = xScale(d.iso) + xScale.bandwidth() / 2;
@@ -452,7 +455,7 @@ function dragSelection(chartContent, xScale) {
         .on("end", () => {
             if (!dragging) return;
 
-            const selectedBars = chartContent.selectAll(".bar.selected").data().map(d => d.iso);
+            const selectedBars = chartContent.selectAll(".bar.selected, .bar-hierarchical.selected").data().map(d => d.iso);
             console.log("Selected bar ISOs:", selectedBars);
 
             
@@ -496,6 +499,7 @@ document.querySelectorAll('input[name="sortOption"]').forEach(option => {
     option.addEventListener('change', (event) => {
         const option = event.target.value;
         sortBy = option
+        console.log("Sort option changed to", sortBy);
         setState("selectedCancer", state.selectedCancer, true)
     });
 });

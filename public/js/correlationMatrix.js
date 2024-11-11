@@ -30,7 +30,6 @@ function createMatrix(data) {
     const parentDiv = d3.select("#correlationMatrixContainer");
     const tableHeight = parentDiv.node().clientHeight
     const tableWidth = parentDiv.node().clientWidth  
-    console.log(tableWidth, tableHeight)
 
     const svg = d3.select("#correlationMatrix")
         .append("svg")
@@ -45,7 +44,6 @@ function createMatrix(data) {
     // Calculate the size of each cell
     const cellWidth = tableWidth / cancerTypes.length;  
     const cellHeight = tableHeight / lifeStyles.length;
-    console.log("cell", cellWidth, cellHeight)
 
     const xScale = d3.scaleBand()
         .domain(cancerTypes)
