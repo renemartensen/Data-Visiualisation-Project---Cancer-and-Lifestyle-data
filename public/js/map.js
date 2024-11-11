@@ -195,7 +195,6 @@ function selectCountryBorder(iso) {
 }
 
 function deselectCountryBorder(iso) {
-    console.log("deselectCountryBorder", iso)
     d3.select(`[id="${iso}"]`)
         .style("stroke", "black")
         .style("stroke-width", "0.2px")
@@ -473,7 +472,6 @@ export function renderBivariateMap(cancerData, lifestyleData, gender) {
     toggleResetSelectedCountriesButton(state.selectedCountriesISO.length > 0);
     deSelectAllCountries()
     selectedCountries.forEach(iso => {
-        console.log("selectedCountries", iso)
         
         if (selectedCountries.includes(iso)) {
             selectCountryBorder(iso);

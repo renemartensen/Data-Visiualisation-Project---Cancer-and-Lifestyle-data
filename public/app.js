@@ -19,19 +19,6 @@ const updateMap = (selectedLifestyle, selectedCancer, selectedGender) => {
 }
 
 
-let mainData
-loadData()
-  .then(data => {
-    mainData = data
-    console.log("mainData", mainData)
-    setState("data", data, false);
-    renderBaseMap(() => {
-      updateMap("alcohol_2019", "all-cancers", "both");  // Run updateMap as a callback
-      renderMatrix(mainData);
-      renderSubPlot(mainData);
-      renderBarGraphCancerPerCountry(mainData);
-  });
-});
 
 
 
