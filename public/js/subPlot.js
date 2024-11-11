@@ -36,11 +36,11 @@ export function renderSubPlot(mainData) {
 
     rowBackgrounds.enter()
         .append("rect")
-        .attr("class", "row-background")
+        .attr("class", d =>`row-background row-background-${d.cancerType.replace(/\s+/g, '-')}`)
         .merge(rowBackgrounds)  // Combine enter and update selections
         .attr("x", 0)
         .attr("y", d => yScale(d.cancerType))
-        .attr("width", width)
+        .attr("width",d =>  width- (width - xScale(d.value)))
         .attr("height", yScale.bandwidth())
         .style("fill", d => d.cancerType === state.selectedCancer ? "#ddd" : "transparent")
         .style("cursor", "pointer")
@@ -70,7 +70,18 @@ export function renderSubPlot(mainData) {
         .attr("x", width)  // Start from the right edge
         .attr("width", 0)  // Start width at 0 for animation
         .style("fill", d => d.cancerType === state.selectedCancer ? "darkgrey" : "steelblue")
-        .style("pointer-events", "none")
+        .style("cursor", "pointer")
+        .on("click", event => setState( "selectedCancer", event.target.__data__.cancerType))
+        .on("mouseover", function(event, d) {
+            d3.select(this).style("fill", "darkgrey");
+            d3.select(`.row-background-${d.cancerType.replace(/\s+/g, '-')}`).style("fill", "#ddd");
+            d3.select(`.y-axis-label-${d.cancerType.replace(/\s+/g, '-')}`).style("fill", "black");
+        })
+        .on("mouseout", function(event, d) {
+            d3.select(this).style("fill", d.cancerType === state.selectedCancer ? "darkgrey" : "steelblue");
+            d3.select(`.row-background-${d.cancerType.replace(/\s+/g, '-')}`).style("fill", d.cancerType === state.selectedCancer ? "#ddd" : "transparent");
+            d3.select(`.y-axis-label-${d.cancerType.replace(/\s+/g, '-')}`).style("fill", c => c === state.selectedCancer ? "black" : "#ccc");
+        })
         .transition()
         .duration(500)
         .attr("x", d => xScale(d.value))  // Animate to target x position based on value

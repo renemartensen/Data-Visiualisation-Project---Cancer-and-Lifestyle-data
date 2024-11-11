@@ -4,8 +4,6 @@ import { state, setState } from "./state.js";
 import { showToast } from "./toast.js";
 let dragging = false;
 let startX, startY;
-let selectedCountries =[];
-let selectedIso = []
 
 
 export function renderBaseMap(callback) {
@@ -33,7 +31,7 @@ function setupresetSelectedCountriesBtn(svg) {
 
     // Function to update button visibility
     function updateButtonVisibility() {
-        if (selectedCountries.length > 0) {
+        if (state.selectedCountriesISO.length > 0) {
             resetSelectedCountriesBtn.classList.remove("hidden");
         } else {
             resetSelectedCountriesBtn.classList.add("hidden");
@@ -45,7 +43,6 @@ function setupresetSelectedCountriesBtn(svg) {
         state.selectedCountriesISO.forEach(country => {
             deselectCountryBorder(country);
         });
-        selectedCountries = [];
         setState("selectedCountriesISO", []);
         updateButtonVisibility(); // Update visibility after clearing selection
     });
@@ -66,7 +63,9 @@ function setupResetZoomButton(svg, zoom) {
 function setupSVG() {
     const parentDiv = document.querySelector("#mapContainer");
     const width = parentDiv.offsetWidth;
-    const height = width/2;
+    
+    const height = width/2.7;
+    console.log(width, height)
 
     const svg = d3.select("#map")
         .append("svg")
@@ -78,7 +77,7 @@ function setupSVG() {
 
 function setupProjection(width, height) {
     return d3.geoRobinson()
-        .scale(width / 6)
+        .scale(width / 7.7)
         .translate([width / 2.2, height / 1.8]);
 }
 
@@ -152,8 +151,8 @@ function loadMapData(svg, path, projection, tooltip, zoom, width, height, callba
 function handleCountrySelect(iso) {
     
     if (Array.isArray(iso)) {
+        if (iso.length === 0) return;
         iso.forEach(i => {
-            selectedIso.push(i)
             toggleResetSelectedCountriesButton(true);
             selectCountryBorder(i);
         });
@@ -164,12 +163,10 @@ function handleCountrySelect(iso) {
     const isSelected = state.selectedCountriesISO.includes(iso)
     if (isSelected) {
         setState("selectedCountriesISO", state.selectedCountriesISO.filter(c => c !== iso));
-        selectedIso = selectedIso.filter(c => c !== iso);
         toggleResetSelectedCountriesButton(state.selectedCountriesISO.length > 0);
         deselectCountryBorder(iso);
     } else {
         setState("selectedCountriesISO", [...state.selectedCountriesISO, iso]);
-        selectedIso.push(iso)
         toggleResetSelectedCountriesButton(true);
         selectCountryBorder(iso);
     }
@@ -198,6 +195,7 @@ function selectCountryBorder(iso) {
 }
 
 function deselectCountryBorder(iso) {
+    console.log("deselectCountryBorder", iso)
     d3.select(`[id="${iso}"]`)
         .style("stroke", "black")
         .style("stroke-width", "0.2px")
@@ -326,8 +324,8 @@ function initRangeSelectionRect(svg, zoom, projection, countryData,  width, heig
                     
                         return false;  // No intersection found for this country
                     }).map(d => d.id);
-                    
                     handleCountrySelect(selectedCountriesAndIso);
+                    
 
                     // Calculate the scale and translation for the zoom
                     const scaleX = width / (xMax - xMin);
@@ -401,6 +399,7 @@ function initRangeSelectionRect(svg, zoom, projection, countryData,  width, heig
 }
 
 export function renderBivariateMap(cancerData, lifestyleData, gender) {
+    console.log("renderBivariateMap")
 
     // Create the SVG canvas
     const svg = d3.select("#map").select("svg");
@@ -424,7 +423,7 @@ export function renderBivariateMap(cancerData, lifestyleData, gender) {
         lifestyleRateMap[d["iso"]] =+ d[gender]
     });
 
-
+    
 
 
     const n = 3;
@@ -469,7 +468,27 @@ export function renderBivariateMap(cancerData, lifestyleData, gender) {
                 return color(cancerRateMap[d.id], lifestyleRateMap[d.id]);
             }
         })  
+
+    const selectedCountries = state.selectedCountriesISO;
+    toggleResetSelectedCountriesButton(state.selectedCountriesISO.length > 0);
+    deSelectAllCountries()
+    selectedCountries.forEach(iso => {
+        console.log("selectedCountries", iso)
+        
+        if (selectedCountries.includes(iso)) {
+            selectCountryBorder(iso);
+        } 
+    });
+
 }
+
+function deSelectAllCountries() {
+    Object.keys(state.countryNames).forEach(iso => {
+        deselectCountryBorder(iso);
+    })
+}
+
+
 
 
 

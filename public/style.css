@@ -6,6 +6,7 @@
     border-radius: 4px; /* Rounded corners for a cleaner look */
     pointer-events: none; /* Prevent tooltip from interfering with mouse events */
     position: absolute; /* Ensure tooltip can be positioned freely */
+    display: none;
 }
 
 
@@ -46,6 +47,16 @@
 
 #subplots {
     border: 1px solid #ccc;
+    margin-top: 10px;
+    margin-left: 3rem;
+    margin-right: 3rem;
+    margin-bottom: 2rem;
+}
+
+#mainContainer {
+    margin-top: 3.5rem;
+    margin-left: 3rem;
+    margin-right: 3rem;
 }
 
 

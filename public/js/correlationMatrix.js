@@ -25,7 +25,7 @@ function createMatrix(data) {
     let correlationCoeffs = pearsonCorrelationCoeff(data);
     
     const margin = { top: 0, right: 0, bottom: 0, left: 0 };
-    const tableHeight = 130;  // Fixed height
+    const tableHeight = 100;  // Fixed height
     const parentDiv = document.querySelector("#correlationMatrix");
     const tableWidth = parentDiv.offsetWidth;   // Dynamic width based on parent div
 
