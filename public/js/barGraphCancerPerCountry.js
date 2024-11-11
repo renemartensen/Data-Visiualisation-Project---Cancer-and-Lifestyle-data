@@ -56,11 +56,46 @@ export function renderBarGraphCancerPerCountry(mainData) {
         const xScale = d3.scaleBand()
             .domain(data.map(d => d.data.name))
             .range([0, width])
-            .padding(0.1);
+            .padding(0.01);
 
         const yScale = d3.scaleLinear()
             .domain([0, d3.max(data, d => d.value)])
             .range([height, 0]);
+
+        const barsOverlay = chartContent.selectAll(".overlay-hierarchical")
+        .data(data, d => d.data.name);
+    
+        // Adding invisible overlay for interactivity
+        barsOverlay.enter()
+            .append("rect")
+            .attr("class", d => {
+                console.log("d", d);
+                return d.data.iso ? `overlay-hierarchical overlay-hierarchical-${d.data.iso}` : `overlay-hierarchical overlay-hierarchical-${d.data.name.replace(/\s+/g, '-')}`
+            } )
+            .attr("x", d => xScale(d.data.name))
+            .attr("y", d => 0)
+            .attr("width", xScale.bandwidth())
+            .attr("height", d => height- (height - yScale(d.value)) )
+            .style("fill", "transparent")
+            .style("cursor", "pointer")
+            .on("click", (event,d) => handleClick(event, d.data))
+            .on("mouseover", function(event, d) {
+                if (d.data.iso) {
+                    d3.select(`.bar-hierarchical-${d.data.iso}`).style("fill", "darkgrey");
+                } else {
+                    d3.select(`.bar-hierarchical-${d.data.name.replace(/\s+/g, '-')}`).style("fill", "darkgrey");
+                }
+                d3.select(this).style("fill", "#ddd");
+                //showToolTip(event, d.data);
+            })
+            .on("mousemove", positionToolTip)
+            .on("mouseout", function(event, d) {
+                d3.select(this).style("fill", "transparent");
+                d3.select(d.data.iso ? `.bar-hierarchical-${d.data.iso}` : `.bar-hierarchical-${d.data.name.replace(/\s+/g, '-')
+                }`).style("fill", state.selectedCountriesISO.includes(d.data.iso) ? "red" : "steelblue");
+                hideToolTip();
+            })
+            barsOverlay.exit().remove();
 
         // Draw bars at the current level
         const bars = chartContent.selectAll(".bar-hierarchical")
@@ -68,24 +103,59 @@ export function renderBarGraphCancerPerCountry(mainData) {
 
         bars.enter()
             .append("rect")
-            .attr("class", "bar-hierarchical")
+            .attr("class", d => d.data.iso ? `bar-hierarchical bar-hierarchical-${d.data.iso}` : `bar-hierarchical bar-hierarchical-${d.data.name.replace(/\s+/g, '-')}`)
             .attr("x", d => xScale(d.data.name))
             .attr("y", height)
             .attr("width", xScale.bandwidth())
             .attr("height", 0)
-            .style("fill", "steelblue")
+            .style("fill", d => {
+                if (d.children) {
+                    return "steelblue";
+                } else {
+                    console.log(d.d)
+                    return state.selectedCountriesISO.includes(d.data.iso) ? "red" : "steelblue";
+                }
+            } )
             .style("cursor", "pointer")
             .on("click", (event, d) => {
                 console.log("Clicked on", d);
                 if (d.children) {
                     currentNode = d;
                     renderBarGraphCancerPerCountry(mainData);
+                } else {
+                    handleClick(event, d.data);
                 }
+            })
+            .on("mouseover", function(event, d) {
+                console.log(d.data.iso ? `.overlay-hierarchical-${d.data.iso}` : `.overlay-hierarchical-${d.data.name.replace(/\s+/g, '-')}`);
+                d3.select(this).style("fill", "darkgray");
+                d3.select(d.data.iso ? `.overlay-hierarchical-${d.data.iso}` : `.overlay-hierarchical-${d.data.name.replace(/\s+/g, '-')}`).style("fill", "#ddd");
+                //showToolTip(event, d.data);
+            })
+            .on("mousemove", positionToolTip)
+            .on("mouseout", function(event, d) {
+                d3.select(this).style("fill", state.selectedCountriesISO.includes(d.data.iso) ? "red" : "steelblue");
+                d3.select(d.data.iso ? `.overlay-hierarchical-${d.data.iso}` : `.overlay-hierarchical-${d.data.name.replace(/\s+/g, '-')}`).style("fill", "transparent");
+                hideToolTip();
             })
             .transition()
             .duration(500)
             .attr("y", d => yScale(d.value))
-            .attr("height", d => height - yScale(d.value));
+            .attr("height", d => height - yScale(d.value))
+        
+        bars.transition()
+            .duration(500)
+            .attr("x", d => xScale(d.data.name))
+            .attr("y", d => yScale(d.value))
+            .attr("width", xScale.bandwidth())
+            .attr("height", d => height - yScale(d.value))
+            .style("fill", d => {
+                
+                console.log(d.data.iso, state.selectedCountriesISO);
+                return state.selectedCountriesISO.includes(d.data.iso) ? "red" : "steelblue";
+            
+        } )
+
 
         bars.exit().remove();
 
@@ -141,7 +211,7 @@ export function renderBarGraphCancerPerCountry(mainData) {
             .domain([0, d3.max(chartData, d => d[value])])
             .range([height, 0]);
 
-            const barsOverlay = chartContent.selectAll(".overlay")
+        const barsOverlay = chartContent.selectAll(".overlay")
         .data(chartData, d => d.iso);
     
         // Adding invisible overlay for interactivity
