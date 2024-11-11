@@ -7,6 +7,7 @@ let startX, startY;
 
 
 export function renderBaseMap(callback) {
+    console.log("renderBaseMap")
 
     const { width, height, svg } = setupSVG();
 
@@ -61,10 +62,10 @@ function setupResetZoomButton(svg, zoom) {
 }
 
 function setupSVG() {
-    const parentDiv = document.querySelector("#mapContainer");
-    const width = parentDiv.offsetWidth;
+    const parentDiv = d3.select("#mapContainer");
+    const width = parentDiv.node().offsetWidth;
     
-    const height = width/2.7;
+    const height = parentDiv.node().offsetHeight;
     console.log(width, height)
 
     const svg = d3.select("#map")

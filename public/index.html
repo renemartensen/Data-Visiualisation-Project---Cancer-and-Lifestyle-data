@@ -41,17 +41,21 @@
   </div>
   
   
-  <div id="mainContainer" class="flex flex-col md:flex-row justify-between">
+  <div id="mainContainer" class="flex flex-col md:flex-row justify-between h-[63vh]">
     <!-- Left section: Correlation Matrix + Map (2/3 width) -->
-    <div class="w-full md:w-2/3">
+    <div class="w-full md:w-2/3 flex flex-col">
         <!-- Correlation Matrix (fills width of 2/3 section) -->
+         <div id="correlationMatrixContainer" class="h-1/4 h-full">
           <div id="correlationMatrix">
             <div id="tooltipMatrix" class="tooltip"></div>
               <!-- Correlation Matrix content goes here -->
-        </div>
+          </div>
+
+         </div>
+          
 
         <!-- World Map (fills width of 2/3 section) -->
-        <div id="mapContainer" class="relative">
+        <div id="mapContainer" class="relative h-3/4 h-full">
             <div id="map"></div>
             <div id="tooltip" class="tooltip"></div>
             <div class=" absolute top-4 right-4 flex flex-col space-y-2">
@@ -74,7 +78,7 @@
     </div>
 </div>
 
-<div id="subplots" class="h-[130px]">
+<div id="subplots" class="h-[15vh]">
   <div class="mr-2 h-[20px]">
     <div class="flex items-center justify-end text-xs space-x-2">
       <p class="mr-1">Sort:</p>

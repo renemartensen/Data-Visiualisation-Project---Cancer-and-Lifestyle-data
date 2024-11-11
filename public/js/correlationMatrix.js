@@ -16,6 +16,7 @@ export function renderMatrix(data) {
 
 
 function createMatrix(data) {
+    console.log("createMatrix")
     // Clear any existing SVG elements in #correlationMatrix
     d3.select("#correlationMatrix").select("svg").remove();
     d3.select("#matrixLegend").select("svg").remove();
@@ -25,22 +26,26 @@ function createMatrix(data) {
     let correlationCoeffs = pearsonCorrelationCoeff(data);
     
     const margin = { top: 0, right: 0, bottom: 0, left: 0 };
-    const tableHeight = 100;  // Fixed height
-    const parentDiv = document.querySelector("#correlationMatrix");
-    const tableWidth = parentDiv.offsetWidth;   // Dynamic width based on parent div
+    
+    const parentDiv = d3.select("#correlationMatrixContainer");
+    const tableHeight = parentDiv.node().clientHeight
+    const tableWidth = parentDiv.node().clientWidth  
+    console.log(tableWidth, tableHeight)
 
     const svg = d3.select("#correlationMatrix")
         .append("svg")
         .attr("viewBox", `0 0 ${tableWidth + margin.left + margin.right} ${tableHeight + margin.top + margin.bottom}`)
         .style("overflow", "visible")
+        .classed("svg-content-responsive", true)
         .append("g")
         .attr("transform", `translate(${margin.left}, ${margin.top})`)
-        .classed("svg-content-responsive", true)
+        
         .on("mouseout", () => { toggleCategoryHighlightOn(state.selectedCancer) });
 
     // Calculate the size of each cell
     const cellWidth = tableWidth / cancerTypes.length;  
     const cellHeight = tableHeight / lifeStyles.length;
+    console.log("cell", cellWidth, cellHeight)
 
     const xScale = d3.scaleBand()
         .domain(cancerTypes)
