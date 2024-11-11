@@ -24,7 +24,7 @@ export function renderSubPlot(mainData) {
     const yScale = d3.scaleBand()
         .domain(chartData.map(d => d.cancerType))
         .range([0, height])
-        .padding(0);
+        .padding(0.01);
 
     const xScale = d3.scaleLinear()
         .domain([0, d3.max(chartData, d => d.value)])
