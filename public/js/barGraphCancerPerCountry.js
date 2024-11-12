@@ -80,7 +80,15 @@ export function renderBarGraphCancerPerCountry(mainData) {
             .attr("height", d => height- (height - yScale(d.value)) )
             .style("fill", "transparent")
             .style("cursor", "pointer")
-            .on("click", (event,d) => handleClick(event, d.data))
+            .on("click", (event,d) => {
+                console.log("Clicked on", d);
+                if (d.children) {
+                    currentNode = d.data.name;
+                    renderBarGraphCancerPerCountry(mainData);
+                } else {
+                    handleClick(event, d.data);
+                }
+            })
             .on("mouseover", function(event, d) {
                 if (d.data.iso) {
                     d3.select(`.bar-hierarchical-${d.data.iso}`).style("fill", "darkgrey");
@@ -166,7 +174,7 @@ export function renderBarGraphCancerPerCountry(mainData) {
             .selectAll("text")
             .style("color", "black")
             .style("font-size", "9px")
-            .attr("dy", (d, i) => i % 2 === 0 ? "1.5em" : "0em")
+            .attr("dy", (d, i) => currentNode ? i % 2 === 0 ? "1.5em" : "0em" : "0em")
             .style("text-anchor", "middle");
 
         // Append y-axis
@@ -192,6 +200,8 @@ export function renderBarGraphCancerPerCountry(mainData) {
             renderBarGraphCancerPerCountry(mainData);
             
         });
+        const drag = dragSelection(chartContent, xScale);
+        svg.call(drag);
 
     } else {
         console.log("Rendering flat chart");
@@ -280,13 +290,35 @@ export function renderBarGraphCancerPerCountry(mainData) {
                 .tickSize(5)
                 .tickSizeOuter(0)
                 .tickPadding(15)
-                .tickFormat(d => state.countryNames[d].alpha3)
+                .tickFormat((d, i) => {
+                    if (sortBy === 'alphabetical') {
+                        console.log("alphabetically ticking")
+                        const countryName = state.countryNames[d].fullname;
+                        const firstLetter = countryName[0].toUpperCase();
+                        
+                        // Only display the letter when it changes
+                        if (i === 0 || firstLetter !== state.countryNames[chartData[i - 1].iso].fullname[0].toUpperCase()) {
+                            return firstLetter;
+                        } else {
+                            return ""; // Empty string for non-starting letters
+                        }
+                    } else {
+                        return state.countryNames[d].alpha3; // Default to alpha3 code for other sorting
+                    }
+                })
             )
             .style("color", "#ccc")
             .selectAll("text")
             .style("color", "black")
             .style("font-size", "9px")
-            .attr("dy", (d, i) => i % 2 === 0 ? "1.5em" : "0em")
+            .attr("dy", (d, i) => {
+                if (sortBy === 'alphabetical') {
+                    return "0em";
+                } else {
+                    return i % 3 === 0 ? "-0.5em" : i % 3 === 1 ? "1em" : "2.5em";
+
+                }
+            })
             .style("text-anchor", "middle");
 
         // Append y-axis
@@ -303,11 +335,12 @@ export function renderBarGraphCancerPerCountry(mainData) {
         .style("text-anchor", "middle")
         .style("font-size", "12px")
         .text(`${cancerLongNameMap[state.selectedCancer]} (ASR) - Country Comparison`);
+        const drag = dragSelection(chartContent, xScale);
+        svg.call(drag);
         
     }
 
-    const drag = dragSelection(chartContent, xScale);
-    svg.call(drag);
+    
 
     
 }
@@ -422,51 +455,80 @@ function positionToolTip(event) {
 }
 
 function dragSelection(chartContent, xScale) {
-
     let startX;
     return d3.drag()
         .on("start", (event) => {
             if (!dragging) return;
-
             startX = event.x;
+
             chartContent.selectAll(".bar, .bar-hierarchical")
-            .classed("selected", d => {
-                // Determine if bar is in range on start
-                const barX = xScale(d.iso) + xScale.bandwidth() / 2;
-                const isSelected = startX <= barX && barX <= event.x;
-                d3.select(`.bar-${d.iso}`).style("fill", isSelected ? "red" : state.selectedCountriesISO.includes(d.iso) ? "red" : "steelblue");
-                return isSelected;
-            });
+                .classed("selected", d => {
+                    let barX, isSelected;
+                    
+                    if (sortBy === 'hierarchical') {
+                        barX = xScale(d.data.iso) + xScale.bandwidth() / 2;
+                        isSelected = startX <= barX && barX <= event.x;
+                        d3.select(`.bar-hierarchical-${d.data.iso}`)
+                            .style("fill", isSelected ? "red" : state.selectedCountriesISO.includes(d.data.iso) ? "red" : "steelblue");
+                    } else {
+                        barX = xScale(d.iso) + xScale.bandwidth() / 2;
+                        isSelected = startX <= barX && barX <= event.x;
+                        d3.select(`.bar-${d.iso}`)
+                            .style("fill", isSelected ? "red" : state.selectedCountriesISO.includes(d.iso) ? "red" : "steelblue");
+                    }
+                    
+                    return isSelected;
+                });
         })
         .on("drag", (event) => {
             if (!dragging) return;
 
-            // Get the current dragging position
             const endX = event.x;
+
             chartContent.selectAll(".bar, .bar-hierarchical")
-            .classed("selected", d => {
-                // Determine if bar is within the dragging range
-                const barX = xScale(d.iso) + xScale.bandwidth() / 2;
-                const isSelected = Math.min(startX, endX) <= barX && barX <= Math.max(startX, endX);
-                d3.select(`.bar-${d.iso}`).style("fill", isSelected ? "red" : state.selectedCountriesISO.includes(d.iso) ? "red" : "steelblue");
-                return isSelected;
-            });
+                .classed("selected", d => {
+                    let barX, isSelected;
+
+                    if (sortBy === 'hierarchical') {
+                        barX = xScale(d.data.name) + xScale.bandwidth() / 2;
+                        console.log("barX", barX, d.data.name)
+                        isSelected = Math.min(startX, endX) <= barX && barX <= Math.max(startX, endX);
+                        const obj = d3.select(`.bar-hierarchical-${d.data.iso}`)
+                            .style("fill", isSelected ? "red" : state.selectedCountriesISO.includes(d.data.iso) ? "red" : "steelblue");
+                    } else {
+                        barX = xScale(d.iso) + xScale.bandwidth() / 2;
+                        isSelected = Math.min(startX, endX) <= barX && barX <= Math.max(startX, endX);
+                        d3.select(`.bar-${d.iso}`)
+                            .style("fill", isSelected ? "red" : state.selectedCountriesISO.includes(d.iso) ? "red" : "steelblue");
+                    }
+
+                    return isSelected;
+                });
         })
         .on("end", () => {
             if (!dragging) return;
 
-            const selectedBars = chartContent.selectAll(".bar.selected, .bar-hierarchical.selected").data().map(d => d.iso);
+            // Select the bars based on the selection
+            let selectedBars;
+            if (sortBy === 'hierarchical') {
+                selectedBars = chartContent.selectAll(".bar-hierarchical.selected").data().map(d => d.data.iso);
+            } else {
+                selectedBars = chartContent.selectAll(".bar.selected, .bar-hierarchical.selected").data().map(d => d.iso);
+            }
+
             console.log("Selected bar ISOs:", selectedBars);
 
-            
+            // Update the global selected countries state
             setState("selectedCountriesISO", [...state.selectedCountriesISO, ...selectedBars], true);
 
-            // Reset color for all unselected bars
-            chartContent.selectAll(".bar").style("fill", d => state.selectedCountriesISO.includes(d.iso) ? "red" : "steelblue");
+            // Reset color for all bars based on the updated state
+            chartContent.selectAll(".bar, .bar-hierarchical").style("fill", d => {
+                const iso = sortBy === 'hierarchical' ? d.data.iso : d.iso;
+                return state.selectedCountriesISO.includes(iso) ? "red" : "steelblue";
+            });
         });
-    
-
 }
+
 
 
 
