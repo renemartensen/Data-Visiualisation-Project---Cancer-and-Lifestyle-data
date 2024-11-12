@@ -153,11 +153,12 @@ function handleCountrySelect(iso) {
     
     if (Array.isArray(iso)) {
         if (iso.length === 0) return;
+        setState("selectedCountriesISO", [...state.selectedCountriesISO, ...iso]);
         iso.forEach(i => {
             toggleResetSelectedCountriesButton(true);
             selectCountryBorder(i);
         });
-        setState("selectedCountriesISO", [...state.selectedCountriesISO, ...iso]);
+        
         return
     }
 
@@ -174,7 +175,7 @@ function handleCountrySelect(iso) {
 }
 
 function hoverCountryBorder(iso) {
-    const stroke_width = state.selectedCountriesISO.includes(iso) ? 4 : 1;
+    const stroke_width = state.selectedCountriesISO.includes(iso) ? 1 : 1;
 
     d3.select(`[id="${iso}"]`)
         .style("stroke", "black")
@@ -183,22 +184,33 @@ function hoverCountryBorder(iso) {
 
 function unhoverCountryBorder(iso) {
 
-    const stroke_width = state.selectedCountriesISO.includes(iso) ? 3 : 0.2;
+    const stroke_width = state.selectedCountriesISO.includes(iso) ? 1 : 0.2;
     d3.select(`[id="${iso}"]`)
         .style("stroke", "black")
         .style("stroke-width", stroke_width+"px"); 
 }
 
 function selectCountryBorder(iso) {
+    // Tone down all countries except the selected one
+    d3.selectAll(".country")
+        .style("opacity", d => (d.id === iso || state.selectedCountriesISO.includes(d.id) ? "1" : "0.3")); // Adjust opacity to tone down unselected countries
+
     d3.select(`[id="${iso}"]`)
         .style("stroke", "black")
-        .style("stroke-width", "3px")
+        .style("stroke-width", "1px")
+        .style("opacity", "1");
 }
 
 function deselectCountryBorder(iso) {
+    // Reset all countries to full opacity
+
+
+    // Reset the border of the deselected country
     d3.select(`[id="${iso}"]`)
         .style("stroke", "black")
         .style("stroke-width", "0.2px")
+
+        .style("opacity", state.selectedCountriesISO.length > 0 ? "0.3" : "1");
 }
 
 // Event handler for mouseover
