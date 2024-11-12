@@ -131,6 +131,7 @@ export function renderBarGraphCancerPerCountry(mainData) {
                 if (d.children) {
                     currentNode = d.data.name;
                     renderBarGraphCancerPerCountry(mainData);
+                    selectContinent(event, d);
                 } else {
                     handleClick(event, d.data);
                 }
@@ -328,6 +329,8 @@ export function renderBarGraphCancerPerCountry(mainData) {
         .style("color", "#ccc")
         .select(".domain").remove();
 
+
+
         chartContent.append("text")
         .attr("class", "chart-title")
         .attr("x", width / 2)
@@ -339,6 +342,17 @@ export function renderBarGraphCancerPerCountry(mainData) {
         svg.call(drag);
         
     }
+
+    // Append y-axis label
+    chartContent.append("text")
+    .attr("class", "y-axis-label")
+    .attr("transform", "rotate(0)")  // Rotate the label vertically
+    .attr("y", height / 2)  // Adjust distance from y-axis
+    .attr("x", -40)  // Center label vertically
+    .attr("dy", "1em")  // Adjust for alignment
+    .style("text-anchor", "middle")
+    .style("font-size", "9px")
+    .text("ASR");  // Replace with your desired label text
 
     
 
@@ -356,7 +370,6 @@ function prepareDataForChart() {
     let chartData;
 
     if (sortBy === 'hierarchical') {
-        console.log("1")
         // Group data by continent
         const continents = {};
 
@@ -380,10 +393,8 @@ function prepareDataForChart() {
 
         // Convert continents object to array format
         chartData = Object.values(continents);
-        console.log("heeerrreeee",continents["Africa"] )
 
     } else {
-        console.log("2")
         // Flat structure for non-hierarchical views
         chartData = cancerData
             .map(item => ({
@@ -395,6 +406,11 @@ function prepareDataForChart() {
     }
 
     return chartData;
+}
+
+function selectContinent(event, d) {
+    console.log("Selected continent", d);
+    //setState("selectedCountriesISO", [...state.selectedCountriesISO, ...selectedBars], true);
 }
 
 
