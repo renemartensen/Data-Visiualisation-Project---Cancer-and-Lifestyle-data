@@ -4,6 +4,7 @@ import { state, setState } from "./state.js";
 import { showToast } from "./toast.js";
 let dragging = false;
 let startX, startY;
+let x, y;
 
 
 export function renderBaseMap(callback) {
@@ -66,7 +67,6 @@ function setupSVG() {
     const width = parentDiv.node().offsetWidth;
     
     const height = parentDiv.node().offsetHeight;
-    console.log(width, height)
 
     const svg = d3.select("#map")
         .append("svg")
@@ -236,6 +236,7 @@ function handleMouseOver(event, d, tooltip, cancerRateMap, lifestyleRateMap) {
 
     positionTooltip(event, tooltip);
     hoverCountryBorder(d.id);
+    highlightLegendCell(d.id);
 }
 
 // Event handler for mousemove
@@ -250,6 +251,7 @@ function handleMouseOut(event,d, tooltip) {
     tooltip.style("display", "none");
 
     unhoverCountryBorder(d.id);
+    unhighlightLegendCell();
 }
 
 // Utility function to position the tooltip
@@ -257,6 +259,8 @@ function positionTooltip(event, tooltip) {
     tooltip.style("left", `${event.pageX + 5}px`)
             .style("top", `${event.pageY - 250}px`);
 }
+
+
 
 
 
@@ -410,6 +414,35 @@ function initRangeSelectionRect(svg, zoom, projection, countryData,  width, heig
     });
 }
 
+function logVariableBinStriation(n, dataMap, scale, variableName) {
+    // Initialize an array to hold counts for each bin
+    const binCounts = Array(n).fill(0);
+  
+    // Iterate over all data points
+    Object.keys(dataMap).forEach(key => {
+      const value = dataMap[key];
+      if (value == null) {
+        // Handle missing data if necessary
+        return;
+      }
+  
+      // Calculate bin index
+      const binIndex = scale(value);
+  
+      // Increment the count for this bin
+      binCounts[binIndex] += 1;
+    });
+  
+    // Log the counts
+    console.log(`Bin Striation for ${variableName}:`);
+    for (let bin = 0; bin < n; bin++) {
+      const count = binCounts[bin];
+      console.log(`Bin ${bin}: ${count} data points`);
+    }
+  }
+  
+  
+
 export function renderBivariateMap(cancerData, lifestyleData, gender) {
     console.log("renderBivariateMap")
 
@@ -420,19 +453,16 @@ export function renderBivariateMap(cancerData, lifestyleData, gender) {
     const height = parentDiv.offsetHeight;
 
     
-    // Append legend to the SVG
-    svg.append(() => legend(height))
-       .attr("transform", `translate(70,${0.8 * height})`);
-       
+
   
 
     const cancerRateMap = {};
     cancerData.forEach(d => {
-        cancerRateMap[d["iso"]] =+ d[gender];
+        cancerRateMap[d["iso"]] = +d[gender];
     });
     const lifestyleRateMap = {};
     lifestyleData.forEach(d => {
-        lifestyleRateMap[d["iso"]] =+ d[gender]
+        lifestyleRateMap[d["iso"]] = +d[gender]
     });
 
     
@@ -440,15 +470,42 @@ export function renderBivariateMap(cancerData, lifestyleData, gender) {
 
     const n = 3;
 
-  
-    // Define scales for cancer and lifestyle data
-    // d3.scaleQuantile takes as input an array of values and returns an array of n quantiles ()
-    //  it divides the input data into “n” quantiles (or buckets) and then assigns a corresponding output value to each quantile
+    // Append legend to the SVG
+    svg.append(() => legend(n))
+    .attr("transform", `translate(70,${0.8 * height})`);
+    
 
-    // Array.from(cancerData, d => d.gender) just makes an array of all cancer rates
-    // d3.range(n) creates an array of n elements, from 0 to n-1 [0, 1, 2]
-    const x = d3.scaleQuantile(Array.from(cancerData, d => d[gender]), d3.range(n));
-    const y = d3.scaleQuantile(Array.from(lifestyleData, d => d[gender]), d3.range(n));
+  
+
+    // Cancer data thresholds
+    const cancerValues = cancerData.map(d => +d[gender]);
+    const min_cancer = d3.min(cancerValues);
+    const max_cancer = d3.max(cancerValues);
+
+    // Compute thresholds for k from 1 to n - 1
+    const thresholds_cancer = d3.range(1, n).map(k => min_cancer + k * (max_cancer - min_cancer) / n);
+
+    // Lifestyle data thresholds
+    const lifestyleValues = lifestyleData.map(d => +d[gender]);
+    const min_lifestyle = d3.min(lifestyleValues);
+    const max_lifestyle = d3.max(lifestyleValues);
+
+    const thresholds_lifestyle = d3.range(1, n).map(k => min_lifestyle + k * (max_lifestyle - min_lifestyle) / n);
+
+    // Output the thresholds for verification
+    console.log("Thresholds (Cancer):", thresholds_cancer);
+    console.log("Thresholds (Lifestyle):", thresholds_lifestyle);
+
+    // Create the threshold scales
+    x = d3.scaleThreshold()
+    .domain(thresholds_cancer)
+    .range(d3.range(n));
+
+    y = d3.scaleThreshold()
+    .domain(thresholds_lifestyle)
+    .range(d3.range(n));
+
+
 
     // Create a color index combining both variables
     const color = (a,b) => {
@@ -493,100 +550,164 @@ function deSelectAllCountries() {
 }
 
 
+function highlightLegendCell(countryId) {
+    // Find the data for the selected country
+    const cancerData = state.data.cancerTypes[state.selectedCancer];
+    const lifestyleData = state.data.lifeStyleChoices[state.selectedLifestyle];
 
 
-
-
-  // Legend for the bivariate map
-  function legend(height) {
-    const k = 20; // Size of each square in the legend grid
-    const n = 3
-    const arrowId = "legend-arrow"; // Unique ID for arrow markers
-
-    // remove old label
-    const old_legend = d3.select("#map").select("svg").select("#legend")
-    console.log(old_legend)
-    if (old_legend) {
-        old_legend.remove()
-    }
-
-
-    const legendSvg = document.createElementNS("http://www.w3.org/2000/svg", "g");
-    legendSvg.setAttribute("font-family", "sans-serif");
-    legendSvg.setAttribute("font-size", `${10}`);
-    legendSvg.setAttribute("id", "legend");
   
-    const legendGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
-    legendGroup.setAttribute("transform", `translate(${-k * n / 2},${-k * n / 2}) rotate(-45 ${k * n / 2},${k * n / 2})`);
-  
-    // Create marker for the arrow
-    const marker = document.createElementNS("http://www.w3.org/2000/svg", "marker");
-    marker.setAttribute("id", arrowId);
-    marker.setAttribute("markerHeight", "10");
-    marker.setAttribute("markerWidth", "10");
-    marker.setAttribute("refX", "6");
-    marker.setAttribute("refY", "3");
-    marker.setAttribute("orient", "auto");
-  
-    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-    path.setAttribute("d", "M0,0L9,3L0,6Z");
-    path.setAttribute("fill", "#ccc")
-    marker.appendChild(path);
-    legendSvg.appendChild(marker);
-  
-    // Create the squares in the legend
-    d3.cross(d3.range(n), d3.range(n)).forEach(([i, j]) => {
-      const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-      rect.setAttribute("width", k);
-      rect.setAttribute("height", k);
-      rect.setAttribute("x", i * k);
-      rect.setAttribute("y", (n - 1 - j) * k);
-      rect.setAttribute("fill", colors[j * n + i]);
-      rect.setAttribute("title", `Cancer Rate${labels[j] ? ` (${labels[j]})` : ""}
-  Lifestyle Rate${labels[i] ? ` (${labels[i]})` : ""}`);
-      legendGroup.appendChild(rect);
+    const cancerRateMap = {};
+    cancerData.forEach(d => {
+        cancerRateMap[d["iso"]] =+ d[state.selectedGender];
+    });
+    const lifestyleRateMap = {};
+    lifestyleData.forEach(d => {
+        lifestyleRateMap[d["iso"]] =+ d[state.selectedGender]
     });
   
-    // Add the arrows and labels for the axes
-    const xLine = document.createElementNS("http://www.w3.org/2000/svg", "line");
-    xLine.setAttribute("marker-end", `url(#${arrowId})`);
-    xLine.setAttribute("x1", 0);
-    xLine.setAttribute("x2", n * k);
-    xLine.setAttribute("y1", n * k);
-    xLine.setAttribute("y2", n * k);
-    xLine.setAttribute("stroke", "#ccc");
-    xLine.setAttribute("stroke-width", 1.5);
-    legendGroup.appendChild(xLine);
+    const bin = (a,b) => {
+        if (!a || !b) return -1; // -1 for missing data
+        const res = y(b) + x(a) * 3;
+
+        return res;
+    };
+    console.log("bin", bin(cancerRateMap[countryId], lifestyleRateMap[countryId]))
   
-    const yLine = document.createElementNS("http://www.w3.org/2000/svg", "line");
-    yLine.setAttribute("marker-end", `url(#${arrowId})`);
-    yLine.setAttribute("x1", 0);
-    yLine.setAttribute("y1", n * k);
-    yLine.setAttribute("y2", 0);
-    yLine.setAttribute("stroke", "#ccc");
-    yLine.setAttribute("stroke-width", 1.5);
-    legendGroup.appendChild(yLine);
+    // Select the legend SVG
+    const legendSvg = d3.select("#map").select("svg").select("#legend");
+  
+    if (!legendSvg.empty()) {
+      // Remove previous highlights
+      legendSvg.selectAll("rect.highlight")
+        .classed("highlight", false)
+        .attr("stroke-width", 0);
+  
+      // Select the corresponding rect in the legend
+      const rect = legendSvg.select(`rect[data-res='${bin(cancerRateMap[countryId], lifestyleRateMap[countryId])}']`);
+  
+      if (!rect.empty()) {
+        // Add border to highlight the cell
+        rect.classed("highlight", true)
+          .attr("stroke", "black")
+          .attr("stroke-width", 2)
+          .raise()
+      } else {
+        return
+      }
+    } else {
+      console.error("Legend SVG not found");
+    }
+  }
+
+  function unhighlightLegendCell() {
+    // Select the legend SVG
+    const legendSvg = d3.select("#map").select("svg").select("#legend");
+  
+    if (!legendSvg.empty()) {
+      // Remove highlights from all legend cells
+      legendSvg.selectAll("rect.highlight")
+        .classed("highlight", false)
+        .attr("stroke-width", 0);
+    } else {
+      console.error("Legend SVG not found");
+    }
+  }
+  
+
+
+
+
+// Legend for the bivariate map
+function legend(n) {
+    const k = 20; // Size of each square in the legend grid
+    const arrowId = "legend-arrow"; // Unique ID for arrow markers
+  
+    // Remove old legend if it exists
+    const oldLegend = d3.select("#map").select("svg").select("#legend");
+    if (!oldLegend.empty()) {
+      oldLegend.remove();
+    }
+  
+    // Create the legend group
+    const legendSvg = d3.select("#map").select("svg")
+      .append("g")
+      .attr("font-family", "sans-serif")
+      .attr("font-size", 10)
+      .attr("id", "legend");
+  
+    const legendGroup = legendSvg.append("g")
+      .attr("transform", `translate(${-k * n / 2},${-k * n / 2}) rotate(-45 ${k * n / 2},${k * n / 2})`);
+  
+    // Create marker for the arrow
+    legendSvg.append("defs")
+      .append("marker")
+      .attr("id", arrowId)
+      .attr("markerHeight", 10)
+      .attr("markerWidth", 10)
+      .attr("refX", 6)
+      .attr("refY", 3)
+      .attr("orient", "auto")
+      .append("path")
+      .attr("d", "M0,0L9,3L0,6Z")
+      .attr("fill", "#ccc");
+  
+    // Create the squares in the legend
+    legendGroup.selectAll("rect")
+      .data(d3.cross(d3.range(n), d3.range(n)))
+      .enter()
+      .append("rect")
+      .attr("width", k)
+      .attr("height", k)
+      .attr("x", d => d[0] * k)
+      .attr("y", d => (n - 1 - d[1]) * k)
+      .attr("fill", d => {
+        const res = d[1] + d[0] * n; // Compute res the same way as in your color function
+        return colors[res];
+      })
+      .attr("data-res", d => d[1] + d[0] * n) // Assign the res index as a data attribute
+      .attr("stroke", "#ccc")
+      .attr("stroke-width", 0)
+      .append("title")
+      .text(d => `Cancer Rate: ${labels[d[1]]}\nLifestyle Rate: ${labels[d[0]]}`);
+  
+    // Add the arrows and labels for the axes
+    legendGroup.append("line")
+      .attr("marker-end", `url(#${arrowId})`)
+      .attr("x1", 0)
+      .attr("x2", n * k)
+      .attr("y1", n * k)
+      .attr("y2", n * k)
+      .attr("stroke", "#ccc")
+      .attr("stroke-width", 1.5);
+  
+    legendGroup.append("line")
+      .attr("marker-end", `url(#${arrowId})`)
+      .attr("x1", 0)
+      .attr("y1", n * k)
+      .attr("y2", 0)
+      .attr("stroke", "#ccc")
+      .attr("stroke-width", 1.5);
   
     // Add text labels for axes
-    const cancerLabel = document.createElementNS("http://www.w3.org/2000/svg", "text");
-    cancerLabel.setAttribute("font-weight", "bold");
-    cancerLabel.setAttribute("dy", "0.71em");
-    cancerLabel.setAttribute("transform", `rotate(90) translate(${n / 2 * k},6)`);
-    cancerLabel.setAttribute("text-anchor", "middle");
-    cancerLabel.textContent = cancerNameMap[state.selectedCancer];
-    legendGroup.appendChild(cancerLabel);
+    legendGroup.append("text")
+      .attr("font-weight", "bold")
+      .attr("dy", "0.71em")
+      .attr("transform", `rotate(90) translate(${(n / 2) * k},6)`)
+      .attr("text-anchor", "middle")
+      .text(state.data.lifeStyleNames[state.selectedLifestyle]);
+      
   
-    const lifestyleLabel = document.createElementNS("http://www.w3.org/2000/svg", "text");
-    lifestyleLabel.setAttribute("font-weight", "bold");
-    lifestyleLabel.setAttribute("dy", "0.71em");
-    lifestyleLabel.setAttribute("transform", `translate(${n / 2 * k},${n * k + 6})`);
-    lifestyleLabel.setAttribute("text-anchor", "middle");
-    lifestyleLabel.textContent = state.data.lifeStyleNames[state.selectedLifestyle];
-    legendGroup.appendChild(lifestyleLabel);
+    legendGroup.append("text")
+      .attr("font-weight", "bold")
+      .attr("dy", "0.71em")
+      .attr("transform", `translate(${(n / 2) * k},${n * k + 6})`)
+      .attr("text-anchor", "middle")
+      .text(cancerNameMap[state.selectedCancer]);
   
-    legendSvg.appendChild(legendGroup);
-    return legendSvg;
+    return legendSvg.node();
   }
+    
   
   // Sample colors array (you can adapt based on the type of visualization you want)
 // First color array
@@ -617,7 +738,33 @@ const colors4 = [
     "#9972af", "#976b82", "#804d36"
 ];
 
-const colors = colors3
+const colors_4_bins = [
+    // Y=0 (lowest), X from 0 to 3
+    "#f0f0f0", // X=0, Y=0
+    "#e8e8e8", // X=1, Y=0
+    "#d9d9d9", // X=2, Y=0
+    "#bdbdbd", // X=3, Y=0
+  
+    // Y=1, X from 0 to 3
+    "#c7e9b4", // X=0, Y=1
+    "#a1dab4", // X=1, Y=1
+    "#7fcdbb", // X=2, Y=1
+    "#4eb3d3", // X=3, Y=1
+  
+    // Y=2, X from 0 to 3
+    "#7fcdbb", // X=0, Y=2
+    "#41b6c4", // X=1, Y=2
+    "#1d91c0", // X=2, Y=2
+    "#225ea8", // X=3, Y=2
+  
+    // Y=3 (highest), X from 0 to 3
+    "#2c7fb8", // X=0, Y=3
+    "#253494", // X=1, Y=3
+    "#081d58", // X=2, Y=3
+    "#000000"  // X=3, Y=3
+  ];
+
+const colors = colors3;
   
   // Labels for the legend (low, medium, high)
 const labels = ["low", "medium", "high"];

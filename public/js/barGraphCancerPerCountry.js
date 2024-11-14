@@ -39,11 +39,9 @@ export function renderBarGraphCancerPerCountry(mainData) {
 
     if (isHierarchical) {
         svg.selectAll(".bar").remove();
-        console.log("Rendering hierarchical chart", chartData);
         const selectedContinent = chartData.find(continent => continent.name === currentNode);
 
         let hierarchyData = currentNode ? d3.hierarchy({ children: selectedContinent.children }) : d3.hierarchy({ children: chartData });
-        console.log("hierarchyData", hierarchyData)
         let node = hierarchyData
             .eachAfter(d => {
                 if (d.children) {
@@ -81,7 +79,6 @@ export function renderBarGraphCancerPerCountry(mainData) {
             .style("fill", "transparent")
             .style("cursor", "pointer")
             .on("click", (event,d) => {
-                console.log("Clicked on", d);
                 if (d.children) {
                     currentNode = d.data.name;
                     renderBarGraphCancerPerCountry(mainData);
@@ -127,7 +124,6 @@ export function renderBarGraphCancerPerCountry(mainData) {
             } )
             .style("cursor", "pointer")
             .on("click", (event, d) => {
-                console.log("Clicked on", d);
                 if (d.children) {
                     currentNode = d.data.name;
                     renderBarGraphCancerPerCountry(mainData);
@@ -205,7 +201,6 @@ export function renderBarGraphCancerPerCountry(mainData) {
         svg.call(drag);
 
     } else {
-        console.log("Rendering flat chart");
         svg.selectAll(".bar-hierarchical").remove();
         // Flat structure for non-hierarchical view
         const value = state.selectedGender;
@@ -293,7 +288,6 @@ export function renderBarGraphCancerPerCountry(mainData) {
                 .tickPadding(15)
                 .tickFormat((d, i) => {
                     if (sortBy === 'alphabetical') {
-                        console.log("alphabetically ticking")
                         const countryName = state.countryNames[d].fullname;
                         const firstLetter = countryName[0].toUpperCase();
                         
@@ -366,7 +360,6 @@ function prepareDataForChart() {
     const isos = state.selectedCountriesISO;
     const gender = state.selectedGender;
     const cancerData = state.data.cancerTypes[state.selectedCancer];
-    console.log("prepared data for chart", state.selectedCancer, cancerData, state.data);
     let chartData;
 
     if (sortBy === 'hierarchical') {
@@ -416,7 +409,6 @@ function selectContinent(event, d) {
 
 
 function handleClick(event, d) {
-    console.log("Clicked on", d);
     if (state.selectedCountriesISO.includes(d.iso)) {
         setState("selectedCountriesISO", state.selectedCountriesISO.filter(iso => iso !== d.iso), true);
     } else {
@@ -507,7 +499,6 @@ function dragSelection(chartContent, xScale) {
 
                     if (sortBy === 'hierarchical') {
                         barX = xScale(d.data.name) + xScale.bandwidth() / 2;
-                        console.log("barX", barX, d.data.name)
                         isSelected = Math.min(startX, endX) <= barX && barX <= Math.max(startX, endX);
                         const obj = d3.select(`.bar-hierarchical-${d.data.iso}`)
                             .style("fill", isSelected ? "red" : state.selectedCountriesISO.includes(d.data.iso) ? "red" : "steelblue");
@@ -531,8 +522,6 @@ function dragSelection(chartContent, xScale) {
             } else {
                 selectedBars = chartContent.selectAll(".bar.selected, .bar-hierarchical.selected").data().map(d => d.iso);
             }
-
-            console.log("Selected bar ISOs:", selectedBars);
 
             // Update the global selected countries state
             setState("selectedCountriesISO", [...state.selectedCountriesISO, ...selectedBars], true);
@@ -577,7 +566,6 @@ document.querySelectorAll('input[name="sortOption"]').forEach(option => {
     option.addEventListener('change', (event) => {
         const option = event.target.value;
         sortBy = option
-        console.log("Sort option changed to", sortBy);
         setState("selectedCancer", state.selectedCancer, true)
     });
 });
