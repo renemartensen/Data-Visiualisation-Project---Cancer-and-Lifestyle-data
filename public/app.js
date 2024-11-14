@@ -1,5 +1,5 @@
 import { loadData } from './js/data_loading.js';
-import { renderMap, renderBaseMap, renderBivariateMap } from './js/map.js';
+import { renderBaseMap, renderBivariateMap } from './js/map.js';
 import { renderMatrix } from './js/correlationMatrix.js';
 import { renderSubPlot } from './js/subPlot.js';
 import { state, setState } from './js/state.js';

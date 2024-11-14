@@ -457,14 +457,7 @@ export function renderBivariateMap(cancerData, lifestyleData, gender) {
 
         return colors[res];
     };
-  
-    // Format tooltips for cancer and lifestyle rates
-    const format = (value) => {
-        if (!value) return "N/A";
-        const { cancerRate: a, lifestyleRate: b } = value;
-        return `${a}% Cancer Rate ${labels[x(a)] && `(${labels[x(a)]})`}
-        ${b}% Lifestyle Rate ${labels[y(b)] && `(${labels[y(b)]})`}`;
-    };
+
     const tooltip = d3.select("#tooltip");
     // Add paths to the SVG for each geographical region (counties in this case)
     svg.selectAll("path")
@@ -504,17 +497,24 @@ function deSelectAllCountries() {
 
 
 
-
-
-  
   // Legend for the bivariate map
-function legend(height) {
+  function legend(height) {
     const k = 20; // Size of each square in the legend grid
     const n = 3
     const arrowId = "legend-arrow"; // Unique ID for arrow markers
+
+    // remove old label
+    const old_legend = d3.select("#map").select("svg").select("#legend")
+    console.log(old_legend)
+    if (old_legend) {
+        old_legend.remove()
+    }
+
+
     const legendSvg = document.createElementNS("http://www.w3.org/2000/svg", "g");
     legendSvg.setAttribute("font-family", "sans-serif");
     legendSvg.setAttribute("font-size", `${10}`);
+    legendSvg.setAttribute("id", "legend");
   
     const legendGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
     legendGroup.setAttribute("transform", `translate(${-k * n / 2},${-k * n / 2}) rotate(-45 ${k * n / 2},${k * n / 2})`);
@@ -573,7 +573,7 @@ function legend(height) {
     cancerLabel.setAttribute("dy", "0.71em");
     cancerLabel.setAttribute("transform", `rotate(90) translate(${n / 2 * k},6)`);
     cancerLabel.setAttribute("text-anchor", "middle");
-    cancerLabel.textContent = "Cancer Rate";
+    cancerLabel.textContent = cancerNameMap[state.selectedCancer];
     legendGroup.appendChild(cancerLabel);
   
     const lifestyleLabel = document.createElementNS("http://www.w3.org/2000/svg", "text");
@@ -581,7 +581,7 @@ function legend(height) {
     lifestyleLabel.setAttribute("dy", "0.71em");
     lifestyleLabel.setAttribute("transform", `translate(${n / 2 * k},${n * k + 6})`);
     lifestyleLabel.setAttribute("text-anchor", "middle");
-    lifestyleLabel.textContent = "Lifestyle Rate";
+    lifestyleLabel.textContent = state.data.lifeStyleNames[state.selectedLifestyle];
     legendGroup.appendChild(lifestyleLabel);
   
     legendSvg.appendChild(legendGroup);
@@ -589,14 +589,38 @@ function legend(height) {
   }
   
   // Sample colors array (you can adapt based on the type of visualization you want)
-  const colors = [
+// First color array
+const colors1 = [
+    "#e8e8e8", "#e4acac", "#c85a5a",
+    "#b0d5df", "#ad9ea5", "#985356",
+    "#64acbe", "#627f8c", "#574249"
+];
+
+// Second color array
+const colors2 = [
     "#e8e8e8", "#ace4e4", "#5ac8c8",
     "#dfb0d6", "#a5add3", "#5698b9",
     "#be64ac", "#8c62aa", "#3b4994"
-  ];
+];
+
+// Third color array
+const colors3 = [
+    "#e8e8e8", "#b5c0da", "#6c83b5",
+    "#b8d6be", "#90b2b3", "#567994",
+    "#73ae80", "#5a9178", "#2a5a5b"
+];
+
+// Fourth color array
+const colors4 = [
+    "#e8e8e8", "#c8b35a", "#c8ada0",
+    "#e4d9ac", "#cbb8d7", "#afbe53",
+    "#9972af", "#976b82", "#804d36"
+];
+
+const colors = colors3
   
   // Labels for the legend (low, medium, high)
-  const labels = ["low", "medium", "high"];
+const labels = ["low", "medium", "high"];
   
 
 
@@ -615,69 +639,6 @@ function legend(height) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-export function renderMap(data, gender) {
-    
-    const svg = d3.select("#map").select("svg");
-    const tooltip = d3.select("#tooltip");
-
-
-    const cancerData = data;
-   
-
-    const cancerRateMap = {};
-    cancerData.forEach(d => {
-        cancerRateMap[d["iso"]] =+ d[gender];
-    });
-
-
-    const colorScale = d3.scaleSequential(d3.interpolateBlues)
-        .domain([0, d3.max(cancerData, d => +d[gender])]);
-        
-        
-
-    svg.selectAll("path")
-        .style("fill", d => {
-            const cancerRate = cancerRateMap[d.id]; 
-            return cancerRate ? colorScale(cancerRate) : "#ccc"; // Default color for countries without data
-        })
-        .style("stroke", "black")
-        .style("stroke-width", "0.2px") 
-        .on("mouseover", function(event, d) {
-            const cancerRate = cancerRateMap[d.id]; 
-            tooltip.style("display", "block")
-                .html(`${d.properties.name}: ${cancerRate ? cancerRate : "No data"} per 100,000`)
-                .style("left", (event.pageX + 10) + "px")
-                .style("top", (event.pageY - 10) + "px");
-
-            d3.select(this)
-                .style("stroke", "black")
-                .style("stroke-width", "2px"); 
-        })
-        .on("mousemove", function(event) {
-            tooltip.style("left", (event.pageX + 10) + "px")
-                    .style("top", (event.pageY - 10) + "px");
-        })
-        .on("mouseout", function(event, d) {
-            tooltip.style("display", "none");
-
-            d3.select(this)
-                .style("stroke", "black")
-                .style("stroke-width", "0.2px"); 
-        });
-
-
-}
 
 
 
@@ -721,4 +682,44 @@ const cancerNames = {
     "trachea-bronchus-and-lung": "Trachea, Bronchus, and Lung Cancer",
     "vagina": "Vaginal Cancer",
     "vulva": "Vulvar Cancer"
+};
+
+const cancerNameMap = {
+    "all-cancers": "All Cancers",
+    "anus": "Anus",
+    "bladder": "Bladder",
+    "brain-central-nervous-system": "BrainCNS",
+    "breast": "Breast",
+    "cervix-uteri": "Cervix",
+    "colon": "Colon",
+    "colorectum": "ColRectum",
+    "corpus-uteri": "Corpus",
+    "gallbladder": "Gallblad",
+    "hodgkin-lymphoma": "Hodgkin",
+    "hypopharynx": "HypoPhar",
+    "kaposi-sarcoma": "Kaposi",
+    "kidney": "Kidney",
+    "larynx": "Larynx",
+    "leukaemia": "Leukemia",
+    "lip-oral-cavity": "LipOral",
+    "liver-and-intrahepatic-bile-ducts": "LiverIBD",
+    "melanoma-of-skin": "MelSkin",
+    "mesothelioma": "Mesothlm",
+    "multiple-myeloma": "MultMyel",
+    "nasopharynx": "NasoPhar",
+    "non-hodgkin-lymphoma": "NonHodgk",
+    "non-melanoma-skin-cancer": "NonMelSk",
+    "oesophagus": "Oesoph",
+    "oropharynx": "OroPhar",
+    "ovary": "Ovary",
+    "pancreas": "Pancreas",
+    "penis": "Penis",
+    "prostate": "Prostate",
+    "rectum": "Rectum",
+    "salivary-glands": "Salivary",
+    "testis": "Testis",
+    "thyroid": "Thyroid",
+    "trachea-bronchus-and-lung": "Lung",
+    "vagina": "Vagina",
+    "vulva": "Vulva"
 };
