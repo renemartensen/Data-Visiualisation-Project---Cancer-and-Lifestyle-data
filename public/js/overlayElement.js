@@ -421,19 +421,24 @@ export function showHelpOverlay() {
         <section class="mb-8">
             <h3 class="text-xl font-semibold mb-2">Lifestyle Factors</h3>
             <ul class="list-disc ml-8 text-gray-700 space-y-1">
-                <li><strong>Alcohol Consumption:</strong> Measured in liters per capita per year, indicating the average annual intake.</li>
-                <li><strong>Tobacco Usage:</strong> Percentage (%) of the population that uses tobacco.</li>
-                <li><strong>Physical Inactivity:</strong> Percentage (%) representing those who fall below minimum physical activity recommendations.</li>
-                <li><strong>UV Radiation:</strong> Is measure blablablablablablablablablablabla.</li>
+                <li><strong>Alcohol Consumption:</strong> The total alcohol consumption per adult aged over 15 years, measured in liters of pure alcohol per year. Estimates are based on national consumption, sales, surveys, and expert judgment of unrecorded alcohol consumption. </li>
+                <li><strong>Tobacco Usage:</strong> The percentage (%) of the population aged 15 years and over who currently use any tobacco product (smoked and/or smokeless tobacco) on a daily or non-daily basis. Tobacco products include cigarettes, pipes, cigars, cigarillos, waterpipes (hookah, shisha), bidis, kretek, heated tobacco products, and all forms of smokeless (oral and nasal) tobacco. Tobacco products exclude e-cigarettes (which do not contain tobacco), “e-cigars”, “e-hookahs”, JUUL and “e-pipes”.  (Age-Standardized).</li>
+                <li><strong>Physical Inactivity:</strong> Percentage (%) of population attaining less than 150 minutes of moderate-intensity physical activity per week, or less than 75 minutes of vigorous-intensity physical activity per week, or equivalent. (Age-Standardized).</li>
+                <li><strong>UV Radiation:</strong> The estimates are population-weighted average daily ambient UVR level (in J/m2) for the years 1997–2003. The estimations of UVR involve assuming a population-level exposure represented by annual ambient erythemally weighted UVR (calculated from satellite data) or a proxy such as latitudinal position.  </li>
             </ul>
         </section>
 
-        <section class="mb-8">
-            <h3 class="text-xl font-semibold mb-2 ">Cancer Types and ASR</h3>
+        <section class="mb-8">  
+            <h3 class="text-xl font-semibold mb-2 ">Cancer Types</h3>
             <ul class="list-disc ml-8 text-gray-700 space-y-2">
-                <li><strong>ASR (Age-Standardized Rate):</strong> Per 100,000 individuals, standardizing rates across age-diverse populations.</li>
+                <li><strong>ASR (Age-Standardized Rate) per 100,000 individuals:</strong> Standardizing rates across populations with different age distributions and population sizes.</li>
                 
             </ul>
+        </section>
+
+        <section>
+            <h3 class="text-xl font-semibold mb-2">Understanding ASR (Age-Standardized Rate)</h3>
+            <p class="text-gray-600"> The age-standardized rate (ASR) is a statistical measure used to compare the rate of a condition across different populations with varying age distribution</p>
         </section>
 
         <section>

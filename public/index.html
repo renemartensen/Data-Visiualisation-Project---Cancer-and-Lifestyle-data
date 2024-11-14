@@ -56,6 +56,20 @@
 
         <!-- World Map (fills width of 2/3 section) -->
         <div id="mapContainer" class="relative h-3/4">
+          <!-- Dropdown Menu -->
+          <!-- Dropdown Menu -->
+            <div class="absolute top-4 left-4">
+              <div class="relative">
+                  <button id="mapTypeToggle" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg p-2 shadow-lg focus:ring-blue-500 focus:border-blue-500">
+                      Map Type
+                  </button>
+                  <div id="mapTypeDropdown" class="absolute mt-2 w-48 bg-white border border-gray-300 rounded-lg shadow-lg hidden">
+                      <button value="bivariate" class="block w-full text-left px-4 py-2 bg-gray-200 hover:bg-gray-200">Bivariate</button>
+                      <button value="lifestyle" class="block w-full text-left px-4 py-2 hover:bg-gray-200">Lifestyle</button>
+                      <button value="cancer" class="block w-full text-left px-4 py-2 hover:bg-gray-200">Cancer</button>
+                  </div>
+              </div>
+            </div>
             <div id="map"></div>
             <div id="tooltip" class="tooltip"></div>
             <div class=" absolute top-4 right-4 flex flex-col space-y-2">
@@ -65,9 +79,7 @@
                 <button id="resetZoomBtn" class=" hidden bg-blue-500 text-white px-4 py-2 rounded shadow-lg">
                   Zoom to Default
               </button>
-              
             </div>
-            
         </div>
     </div>
 
