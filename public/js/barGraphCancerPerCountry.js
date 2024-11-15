@@ -57,7 +57,7 @@ export function renderBarGraphCancerPerCountry(mainData) {
         xScale = d3.scaleBand()
             .domain(data.map(d => d.data.name))
             .range([0, width])
-            .padding(0.01);
+            .padding(currentNode ? 0.1 : 0.4);
 
         yScale = d3.scaleLinear()
             .domain([0, d3.max(data, d => d.value)])
@@ -207,7 +207,7 @@ export function renderBarGraphCancerPerCountry(mainData) {
         xScale = d3.scaleBand()
             .domain(chartData.map(d => d.iso))
             .range([0, width])
-            .padding(0.01);
+            .padding(0.1);
 
         yScale = d3.scaleLinear()
             .domain([0, d3.max(chartData, d => d[value])])

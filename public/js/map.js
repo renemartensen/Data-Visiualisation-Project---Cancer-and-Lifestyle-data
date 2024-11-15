@@ -564,7 +564,7 @@ function createColorScale(cancerValues, lifestyleValues, n) {
         // Use d3.scaleSequential with a color interpolator (e.g., d3.interpolateBlues)
         const color = d3.scaleSequential()
             .domain([min_cancer, max_cancer])
-            .interpolator(d3.interpolateBlues);
+            .interpolator(d3.interpolateRgb("#e8e8e8", "#c8b35a"));
 
         return (a) => a !== null && a !== undefined ? color(a) : "#ccc"; // Gray for missing data
     }
@@ -581,7 +581,7 @@ function createColorScale(cancerValues, lifestyleValues, n) {
         // Use d3.scaleSequential with a color interpolator (e.g., d3.interpolateOranges)
         const color = d3.scaleSequential()
             .domain([min_lifestyle, max_lifestyle])
-            .interpolator(d3.interpolateBlues);
+            .interpolator(d3.interpolateRgb("#e8e8e8", "#9972af"));
 
         return (b) => b !== null && b !== undefined ? color(b) : "#ccc"; // Gray for missing data
     }
