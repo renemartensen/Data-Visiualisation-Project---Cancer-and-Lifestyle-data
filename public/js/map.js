@@ -9,7 +9,6 @@ let selectedMapType = "bivariate";
 
 
 export function renderBaseMap(callback) {
-    console.log("renderBaseMap")
 
     const { width, height, svg } = setupSVG();
 
@@ -228,10 +227,10 @@ function handleMouseOver(event, d, tooltip, cancerRateMap, lifestyleRateMap) {
                 ${countryName}
             </div>
             <div class="text-left" style="margin-bottom: 5px;">
-                <strong>${lifeStyleNames[state.selectedLifestyle]}:</strong> ${lifestyleRateMap[countryISO]}
+                <strong>${lifeStyleNames[state.selectedLifestyle]}:</strong> ${lifestyleRateMap[countryISO] ? lifestyleRateMap[countryISO] : "No Data"}
             </div>
             <div class="text-left">
-                <strong>${cancerNames[state.selectedCancer]} (ASR):</strong> ${cancerRateMap[countryISO]}
+                <strong>${cancerNames[state.selectedCancer]} (ASR):</strong> ${cancerRateMap[countryISO] ? cancerRateMap[countryISO] : "No Data"}
             </div>
         `);
 
@@ -444,7 +443,6 @@ function logVariableBinStriation(n, dataMap, scale, variableName) {
   
 
 export function renderBivariateMap(cancerData, lifestyleData, gender) {
-    console.log("renderBivariateMap")
 
     // Create the SVG canvas
     const svg = d3.select("#map").select("svg");
@@ -471,11 +469,7 @@ export function renderBivariateMap(cancerData, lifestyleData, gender) {
     const n = 3;
     const color = createColorScale(cancerValues, lifestyleValues, n);
 
-    
 
-    console.log("color", color)
-
-    
 
     // Append legend to the SVG
     svg.append(() => legend(n, color, cancerValues, lifestyleValues, height))
@@ -491,10 +485,17 @@ export function renderBivariateMap(cancerData, lifestyleData, gender) {
         .transition()
         .duration(200)
         .style("fill", d => {
-            if (d == undefined || !cancerRateMap[d.id] || !lifestyleRateMap[d.id]) {
+            if (d == undefined) {
                 return "#ccc"; // Gray for missing data
             } else {
-                return color(cancerRateMap[d.id], lifestyleRateMap[d.id]);
+                if (selectedMapType === "bivariate") {
+                    return color(cancerRateMap[d.id], lifestyleRateMap[d.id]);
+                } else if (selectedMapType === "cancer") {
+                    return color(cancerRateMap[d.id]);
+                } else if (selectedMapType === "lifestyle") {
+                    return color(lifestyleRateMap[d.id]);
+                }
+                 
             }
         })  
 
@@ -519,7 +520,6 @@ function deSelectAllCountries() {
 function createColorScale(cancerValues, lifestyleValues, n) { 
 
     if (selectedMapType === "bivariate") {
-        console.log(selectedMapType)
         // Cancer data thresholds
         const min_cancer = d3.min(cancerValues);
         const max_cancer = d3.max(cancerValues);
@@ -544,40 +544,46 @@ function createColorScale(cancerValues, lifestyleValues, n) {
         .range(d3.range(n));
 
         // Create a color index combining both variables
-        const color = (a,b) => {
-            if (!a || !b) return "#ccc"; // Gray for missing data
+        const color = (a, b) => {
+            if (a === null || a === undefined || b === null || b === undefined) return "#ccc"; // Gray for missing data
             const res = y(b) + x(a) * n;
 
             return colors[res];
         };
+
 
         return color
     }
 
     // Continuous color scale for Cancer data
     if (selectedMapType === "cancer") {
-        const min_cancer = d3.min(cancerValues);
+        const min_cancer = 0 //d3.min(cancerValues);
         const max_cancer = d3.max(cancerValues);
+        
 
         // Use d3.scaleSequential with a color interpolator (e.g., d3.interpolateBlues)
         const color = d3.scaleSequential()
             .domain([min_cancer, max_cancer])
             .interpolator(d3.interpolateBlues);
 
-        return (a) => a ? color(a) : "#ccc"; // Gray for missing data
+        return (a) => a !== null && a !== undefined ? color(a) : "#ccc"; // Gray for missing data
     }
 
     // Continuous color scale for Lifestyle data
     if (selectedMapType === "lifestyle") {
-        const min_lifestyle = d3.min(lifestyleValues);
+        
+        
+
+        const min_lifestyle = 0 // d3.min(lifestyleValues);
         const max_lifestyle = d3.max(lifestyleValues);
+        console.log("min max", min_lifestyle, max_lifestyle)
 
         // Use d3.scaleSequential with a color interpolator (e.g., d3.interpolateOranges)
         const color = d3.scaleSequential()
             .domain([min_lifestyle, max_lifestyle])
             .interpolator(d3.interpolateBlues);
 
-        return (b) => b ? color(b) : "#ccc"; // Gray for missing data
+        return (b) => b !== null && b !== undefined ? color(b) : "#ccc"; // Gray for missing data
     }
 
     
@@ -601,7 +607,7 @@ function highlightLegendCell(countryId) {
     });
   
     const bin = (a,b) => {
-        if (!a || !b) return -1; // -1 for missing data
+        if (a === null || a === undefined || b === null || b === undefined) return -1; // -1 for missing data
         const res = y(b) + x(a) * 3;
 
         return res;
@@ -652,9 +658,11 @@ function highlightLegendCell(countryId) {
 
 
   function legend(n, colorScale, cancerValues, lifestyleValues, height) {
-    console.log("creating legend for: ", selectedMapType)
     const k = 20; // Size of each square in the legend grid
     const arrowId = "legend-arrow"; // Unique ID for arrow markers
+    const legendWidth = 100;
+    const legendHeight = 20;
+    const legendMargin = { top: 0, right: 0, bottom: 0, left: 0 };
 
     // Remove old legend if it exists
     const oldLegend = d3.select("#map").select("svg").select("#legend");
@@ -688,21 +696,23 @@ function highlightLegendCell(countryId) {
 
         // Create the squares in the legend
         legendGroup.selectAll("rect")
-          .data(d3.cross(d3.range(n), d3.range(n)))
-          .enter()
-          .append("rect")
-          .attr("width", k)
-          .attr("height", k)
-          .attr("x", d => d[0] * k)
-          .attr("y", d => (n - 1 - d[1]) * k)
-          .attr("fill", d => {
-              const res = d[1] + d[0] * n;
-              return colors[res];
-          })
-          .attr("stroke", "#ccc")
-          .attr("stroke-width", 0)
-          .append("title")
-          .text(d => `Cancer Rate: ${labels[d[1]]}\nLifestyle Rate: ${labels[d[0]]}`);
+        .data(d3.cross(d3.range(n), d3.range(n)))
+        .enter()
+        .append("rect")
+        .attr("width", k)
+        .attr("height", k)
+        .attr("x", d => d[0] * k)
+        .attr("y", d => (n - 1 - d[1]) * k)
+        .attr("fill", d => {
+            const res = d[1] + d[0] * n; // Compute res the same way as in your color function
+            return colors[res];
+        })
+        .attr("data-res", d => d[1] + d[0] * n) // Assign the res index as a data attribute
+        .attr("stroke", "#ccc")
+        .attr("stroke-width", 0)
+        .append("title")
+        .text(d => `Cancer Rate: ${labels[d[1]]}\nLifestyle Rate: ${labels[d[0]]}`);
+
 
         // Add the arrows and labels for the axes
         legendGroup.append("line")
@@ -737,62 +747,148 @@ function highlightLegendCell(countryId) {
           .attr("text-anchor", "middle")
           .text(cancerNameMap[state.selectedCancer]);
 
+          legendSvg.append("rect")
+          .attr("x", legendWidth -25) // Position to the right of the legend
+          .attr("y", legendMargin.top)
+          .attr("width", 20)
+          .attr("height", 20)
+          .attr("fill", "#ccc")
+      
+          legendSvg.append("text")
+          .attr("x", legendWidth -22) // Position to the right of the square
+          .attr("y", legendMargin.top +30)
+          .attr("text-anchor", "start")
+          .attr("font-size", 10)
+          .attr("font-family", "sans-serif")
+          .text("n/a");
+
         legendSvg.attr("transform", `translate(70,${0.8 * height})`)
         
-    } else if (selectedMapType === "cancer" || selectedMapType === "lifestyle") {
-        // Continuous color scale legend for cancer or lifestyle map types
-        const legendWidth = 100;
-        const legendHeight = 20;
-        const legendMargin = { top: 0, right: 0, bottom: 0, left: 0 };
+        } else if (selectedMapType === "cancer") {
+            // Cancer legend with specific color scale
+            const gradient = legendSvg.append("defs")
+                .append("linearGradient")
+                .attr("id", "cancer-legend-gradient")
+                .attr("x1", "0%")
+                .attr("x2", "100%");
+    
+            gradient.append("stop")
+                .attr("offset", "0%")
+                .attr("stop-color", colorScale(d3.min(cancerValues)));
+    
+            gradient.append("stop")
+                .attr("offset", "100%")
+                .attr("stop-color", colorScale(d3.max(cancerValues)));
+    
+            legendSvg.append("rect")
+                .attr("x", legendMargin.left)
+                .attr("y", legendMargin.top)
+                .attr("width", legendWidth)
+                .attr("height", legendHeight)
+                .style("fill", "url(#cancer-legend-gradient)");
+    
+            const scale = d3.scaleLinear()
+                .domain(d3.extent(cancerValues))
+                .range([0, legendWidth]);
+    
+            const axisBottom = d3.axisBottom(scale)
+                .ticks(5)
+                .tickSize(1);
+    
+            legendSvg.append("g")
+                .attr("transform", `translate(${legendMargin.left},${legendMargin.top + legendHeight})`)
+                .call(axisBottom)
+                .select(".domain").remove();
+    
+            legendSvg.append("text")
+                .attr("x", legendWidth / 2 + legendMargin.left)
+                .attr("y", legendMargin.top + legendHeight + 30)
+                .attr("text-anchor", "middle")
+                .attr("font-weight", "bold")
+                .text("Cancer Rate");
 
-        // Append gradient legend
-        const gradient = legendSvg.append("defs")
-          .append("linearGradient")
-          .attr("id", "legend-gradient")
-          .attr("x1", "0%")
-          .attr("x2", "100%");
+                legendSvg.append("rect")
+                .attr("x", legendWidth + 10) // Position to the right of the legend
+                .attr("y", legendMargin.top)
+                .attr("width", 20)
+                .attr("height", 20)
+                .attr("fill", "#ccc")
+            
+                legendSvg.append("text")
+                .attr("x", legendWidth + 13) // Position to the right of the square
+                .attr("y", legendMargin.top +30)
+                .attr("text-anchor", "start")
+                .attr("font-size", 10)
+                .attr("font-family", "sans-serif")
+                .text("n/a");
+    
+            legendSvg.attr("transform", `translate(20,${0.8 * height})`);
+        } 
+        else if (selectedMapType === "lifestyle") {
+            // Lifestyle legend with specific color scale
+            const gradient = legendSvg.append("defs")
+                .append("linearGradient")
+                .attr("id", "lifestyle-legend-gradient")
+                .attr("x1", "0%")
+                .attr("x2", "100%");
+    
+            gradient.append("stop")
+                .attr("offset", "0%")
+                .attr("stop-color", colorScale(d3.min(lifestyleValues)));
+    
+            gradient.append("stop")
+                .attr("offset", "100%")
+                .attr("stop-color", colorScale(d3.max(lifestyleValues)));
+    
+            legendSvg.append("rect")
+                .attr("x", legendMargin.left)
+                .attr("y", legendMargin.top)
+                .attr("width", legendWidth)
+                .attr("height", legendHeight)
+                .style("fill", "url(#lifestyle-legend-gradient)");
+    
+            const scale = d3.scaleLinear()
+                .domain(d3.extent(lifestyleValues))
+                .range([0, legendWidth]);
+    
+            const axisBottom = d3.axisBottom(scale)
+                .ticks(5)
+                .tickSize(1)
+                .tickFormat(d3.format(".1s"));
+    
+            legendSvg.append("g")
+                .attr("transform", `translate(${legendMargin.left},${legendMargin.top + legendHeight})`)
+                .call(axisBottom)
+                .select(".domain").remove();
+    
+            legendSvg.append("text")
+                .attr("x", legendWidth / 2 + legendMargin.left)
+                .attr("y", legendMargin.top + legendHeight + 30)
+                .attr("text-anchor", "middle")
+                .attr("font-weight", "bold")
+                .text(state.data.lifeStyleNames[state.selectedLifestyle]);
+    
+            legendSvg.attr("transform", `translate(20,${0.8 * height})`);
 
-        gradient.append("stop")
-          .attr("offset", "0%")
-          .attr("stop-color", colorScale(d3.min(selectedMapType === "cancer" ? cancerValues : lifestyleValues)));
-
-        gradient.append("stop")
-          .attr("offset", "100%")
-          .attr("stop-color", colorScale(d3.max(selectedMapType === "cancer" ? cancerValues : lifestyleValues)));
-
-        // Create the rectangle for the legend
-        legendSvg.append("rect")
-          .attr("x", legendMargin.left)
-          .attr("y", legendMargin.top)
-          .attr("width", legendWidth)
-          .attr("height", legendHeight)
-          .style("fill", "url(#legend-gradient)");
-
-        // Add axis labels
-        const scale = d3.scaleLinear()
-          .domain(d3.extent(selectedMapType === "cancer" ? cancerValues : lifestyleValues))
-          .range([0, legendWidth]);
-
-        const axisBottom = d3.axisBottom(scale)
-          .ticks(5)
-          .tickSize(1);
-
-        legendSvg.append("g")
-          .attr("transform", `translate(${legendMargin.left},${legendMargin.top + legendHeight})`)
-          .call(axisBottom)
-          .select(".domain").remove();
-
-        // Add label for the legend
-        legendSvg.append("text")
-          .attr("x", legendWidth / 2 + legendMargin.left)
-          .attr("y", legendMargin.top + legendHeight + 30)
-          .attr("text-anchor", "middle")
-          .attr("font-weight", "bold")
-          .text(selectedMapType === "cancer" ? "Cancer Rate" : state.data.lifeStyleNames[state.selectedLifestyle]);
-
+            legendSvg.append("rect")
+            .attr("x", legendWidth + 10) // Position to the right of the legend
+            .attr("y", legendMargin.top)
+            .attr("width", 20)
+            .attr("height", 20)
+            .attr("fill", "#ccc")
         
-        legendSvg.attr("transform", `translate(20,${0.8 * height})`)
-    }
+            legendSvg.append("text")
+            .attr("x", legendWidth + 13) // Position to the right of the square
+            .attr("y", legendMargin.top +30)
+            .attr("text-anchor", "start")
+            .attr("font-size", 10)
+            .attr("font-family", "sans-serif")
+            .text("n/a");
+        }
+
+            
+
+
 
     return legendSvg.node();
 }
@@ -823,10 +919,10 @@ const colors3 = [
 
 // Fourth color array
 const colors4 = [
-    "#e8e8e8", "#c8b35a", "#c8ada0",
-    "#e4d9ac", "#cbb8d7", "#afbe53",
-    "#9972af", "#976b82", "#804d36"
-];
+    "#e8e8e8", "#cbb8d7", "#9972af",
+    "#e4d9ac", "#c8ada0", "#976b82",
+    "#c8b35a", "#af8e53", "#804d36"
+]
 
 const colors_4_bins = [
     // Y=0 (lowest), X from 0 to 3
@@ -854,7 +950,7 @@ const colors_4_bins = [
     "#000000"  // X=3, Y=3
   ];
 
-const colors = colors3;
+const colors = colors4;
   
   // Labels for the legend (low, medium, high)
 const labels = ["low", "medium", "high"];
@@ -889,7 +985,6 @@ document.querySelectorAll("#mapTypeDropdown button").forEach(button => {
         document.getElementById("mapTypeDropdown").classList.add("hidden");
 
         selectedMapType = this.getAttribute("value");
-        console.log(selectedMapType)
 
         setState("selectedCancer", state.selectedCancer, true);
     });

@@ -21,9 +21,9 @@ export async function loadData() {
 
                 const filteredData = cancerTypeData.map(row => ({
                     iso: row.code,
-                    both: row["both"],
-                    male: row["male"],
-                    female: row["female"]
+                    both: +row["both"],
+                    male: +row["male"],
+                    female: +row["female"]
                 }));
 
                 // if (type == "vagina") {
@@ -50,12 +50,12 @@ export async function loadData() {
                 const filteredData = lifeStyleData.map(row => ({
                     iso: row.code,
                     both: type === "tobacco_2005" 
-                    ? row.both.split(" ")[0]
+                    ? +row.both.split(" ")[0]
                     : type === "sun_data"  // Else-if condition
-                        ? row.annual
-                        : row.both,
-                    male: type==="tobacco_2005" ? row.male.split(" ")[0] : row.male,
-                    female: type==="tobacco_2005" ? row.female.split(" ")[0] : row.female
+                        ? +row.annual
+                        : +row.both,
+                    male: type==="tobacco_2005" ? row.male.split(" ")[0] : +row.male,
+                    female: type==="tobacco_2005" ? row.female.split(" ")[0] : +row.female
                 }));
                 mainData.lifeStyleChoices[type] = filteredData.sort();
             })
