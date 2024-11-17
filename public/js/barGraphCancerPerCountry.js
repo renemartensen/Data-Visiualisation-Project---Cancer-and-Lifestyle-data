@@ -154,7 +154,7 @@ export function renderBarGraphCancerPerCountry(mainData) {
             .attr("y", d => yScale(d.value))
             .attr("width", xScale.bandwidth())
             .attr("height", d => height - yScale(d.value))
-            .style("fill", d => state.selectedCountriesISO.includes(d.data.iso) ? "red" : "steelblue")
+            .style("fill", d => state.selectedCountriesISO.includes(d.data.iso) ? "darkgrey" : "steelblue")
 
 
         bars.exit().remove();
