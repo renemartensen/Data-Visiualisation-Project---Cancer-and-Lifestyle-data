@@ -99,7 +99,7 @@ export function renderBarGraphCancerPerCountry(mainData) {
             .on("mouseout", function(event, d) {
                 d3.select(this).style("fill", "transparent");
                 d3.select(d.data.iso ? `.bar-hierarchical-${d.data.iso}` : `.bar-hierarchical-${d.data.name.replace(/\s+/g, '-')
-                }`).style("fill", state.selectedCountriesISO.includes(d.data.iso) ? "red" : "steelblue");
+                }`).style("fill", state.selectedCountriesISO.includes(d.data.iso) ? "darkgrey" : "steelblue");
                 hideToolTip();
             })
             barsOverlay.exit().remove();
@@ -119,7 +119,7 @@ export function renderBarGraphCancerPerCountry(mainData) {
                 if (d.children) {
                     return "steelblue";
                 } else {
-                    return state.selectedCountriesISO.includes(d.data.iso) ? "red" : "steelblue";
+                    return state.selectedCountriesISO.includes(d.data.iso) ? "darkgrey" : "steelblue";
                 }
             } )
             .style("cursor", "pointer")
@@ -139,7 +139,7 @@ export function renderBarGraphCancerPerCountry(mainData) {
             })
             .on("mousemove", positionToolTip)
             .on("mouseout", function(event, d) {
-                d3.select(this).style("fill", state.selectedCountriesISO.includes(d.data.iso) ? "red" : "steelblue");
+                d3.select(this).style("fill", state.selectedCountriesISO.includes(d.data.iso) ? "darkgrey" : "steelblue");
                 d3.select(d.data.iso ? `.overlay-hierarchical-${d.data.iso}` : `.overlay-hierarchical-${d.data.name.replace(/\s+/g, '-')}`).style("fill", "transparent");
                 hideToolTip();
             })
@@ -235,7 +235,7 @@ export function renderBarGraphCancerPerCountry(mainData) {
             .on("mousemove", positionToolTip)
             .on("mouseout", function(event, d) {
                 d3.select(this).style("fill", "transparent");
-                d3.select(`.bar-${d.iso}`).style("fill", state.selectedCountriesISO.includes(d.iso) ? "red" : "steelblue");
+                d3.select(`.bar-${d.iso}`).style("fill", state.selectedCountriesISO.includes(d.iso) ? "darkgrey" : "steelblue");
                 hideToolTip();
             })
         barsOverlay.exit().remove();
@@ -250,7 +250,7 @@ export function renderBarGraphCancerPerCountry(mainData) {
             .attr("y", height)
             .attr("width", xScale.bandwidth())
             .attr("height", 0)
-            .style("fill", d => state.selectedCountriesISO.includes(d.iso) ? "red" : "steelblue")
+            .style("fill", d => state.selectedCountriesISO.includes(d.iso) ? "darkgrey" : "steelblue")
             .style("cursor", "pointer")
             .on("click", (event,d) => handleClick(event, d))
             .on("mouseover", function(event, d) {
@@ -260,7 +260,7 @@ export function renderBarGraphCancerPerCountry(mainData) {
             })
             .on("mousemove", positionToolTip)
             .on("mouseout", function(event, d) {
-                d3.select(this).style("fill", state.selectedCountriesISO.includes(d.iso) ? "red" : "steelblue");
+                d3.select(this).style("fill", state.selectedCountriesISO.includes(d.iso) ? "darkgrey" : "steelblue");
                 d3.select(`.overlay-${d.iso}`).style("fill", "transparent");
                 hideToolTip();
             })
@@ -275,7 +275,7 @@ export function renderBarGraphCancerPerCountry(mainData) {
             .attr("y", d => yScale(d[value]))
             .attr("width", xScale.bandwidth())
             .attr("height", d => height - yScale(d[value]))
-            .style("fill", d => state.selectedCountriesISO.includes(d.iso) ? "red" : "steelblue");
+            .style("fill", d => state.selectedCountriesISO.includes(d.iso) ? "darkgrey" : "steelblue");
 
         bars.exit().remove();
 
@@ -477,12 +477,12 @@ function dragSelection(chartContent, xScale) {
                         barX = xScale(d.data.iso) + xScale.bandwidth() / 2;
                         isSelected = startX <= barX && barX <= event.x;
                         d3.select(`.bar-hierarchical-${d.data.iso}`)
-                            .style("fill", isSelected ? "red" : state.selectedCountriesISO.includes(d.data.iso) ? "red" : "steelblue");
+                            .style("fill", isSelected ? "darkgrey" : state.selectedCountriesISO.includes(d.data.iso) ? "darkgrey" : "steelblue");
                     } else {
                         barX = xScale(d.iso) + xScale.bandwidth() / 2;
                         isSelected = startX <= barX && barX <= event.x;
                         d3.select(`.bar-${d.iso}`)
-                            .style("fill", isSelected ? "red" : state.selectedCountriesISO.includes(d.iso) ? "red" : "steelblue");
+                            .style("fill", isSelected ? "darkgrey" : state.selectedCountriesISO.includes(d.iso) ? "darkgrey" : "steelblue");
                     }
                     
                     return isSelected;
@@ -501,12 +501,12 @@ function dragSelection(chartContent, xScale) {
                         barX = xScale(d.data.name) + xScale.bandwidth() / 2;
                         isSelected = Math.min(startX, endX) <= barX && barX <= Math.max(startX, endX);
                         const obj = d3.select(`.bar-hierarchical-${d.data.iso}`)
-                            .style("fill", isSelected ? "red" : state.selectedCountriesISO.includes(d.data.iso) ? "red" : "steelblue");
+                            .style("fill", isSelected ? "darkgrey" : state.selectedCountriesISO.includes(d.data.iso) ? "darkgrey" : "steelblue");
                     } else {
                         barX = xScale(d.iso) + xScale.bandwidth() / 2;
                         isSelected = Math.min(startX, endX) <= barX && barX <= Math.max(startX, endX);
                         d3.select(`.bar-${d.iso}`)
-                            .style("fill", isSelected ? "red" : state.selectedCountriesISO.includes(d.iso) ? "red" : "steelblue");
+                            .style("fill", isSelected ? "darkgrey" : state.selectedCountriesISO.includes(d.iso) ? "darkgrey" : "steelblue");
                     }
 
                     return isSelected;
@@ -529,7 +529,7 @@ function dragSelection(chartContent, xScale) {
             // Reset color for all bars based on the updated state
             chartContent.selectAll(".bar, .bar-hierarchical").style("fill", d => {
                 const iso = sortBy === 'hierarchical' ? d.data.iso : d.iso;
-                return state.selectedCountriesISO.includes(iso) ? "red" : "steelblue";
+                return state.selectedCountriesISO.includes(iso) ? "darkgrey" : "steelblue";
             });
         });
 }
