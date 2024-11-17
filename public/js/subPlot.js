@@ -44,7 +44,7 @@ export function renderSubPlot(mainData) {
         .attr("height", yScale.bandwidth())
         .style("fill", d => d.cancerType === state.selectedCancer ? "#ddd" : "transparent")
         .style("cursor", "pointer")
-        .on("click", event => setState( "selectedCancer", event.target.__data__.cancerType))
+        .on("click", event => setState( "selectedCancer", event.target.__data__.cancerType, true))
         .on("mouseover", function(event, d) {
             d3.select(this).style("fill", "#ddd");
             d3.select(`.bar-${d.cancerType.replace(/\s+/g, '-')}`).style("fill", "darkgrey");
@@ -52,7 +52,7 @@ export function renderSubPlot(mainData) {
         })
         .on("mouseout", function(event, d) {
             d3.select(this).style("fill", d.cancerType === state.selectedCancer ? "#ddd" : "transparent");
-            d3.select(`.bar-${d.cancerType.replace(/\s+/g, '-')}`).style("fill", "steelblue");
+            d3.select(`.bar-${d.cancerType.replace(/\s+/g, '-')}`).style("fill", d => d.cancerType === state.selectedCancer ? "darkgrey" : "steelblue");
             d3.select(`.y-axis-label-${d.cancerType.replace(/\s+/g, '-')}`).style("fill", c => c === state.selectedCancer ? "black" : "#ccc");
         });
 
@@ -71,7 +71,7 @@ export function renderSubPlot(mainData) {
         .attr("width", 0)  // Start width at 0 for animation
         .style("fill", d => d.cancerType === state.selectedCancer ? "darkgrey" : "steelblue")
         .style("cursor", "pointer")
-        .on("click", event => setState( "selectedCancer", event.target.__data__.cancerType))
+        .on("click", event => setState( "selectedCancer", event.target.__data__.cancerType), true)
         .on("mouseover", function(event, d) {
             d3.select(this).style("fill", "darkgrey");
             d3.select(`.row-background-${d.cancerType.replace(/\s+/g, '-')}`).style("fill", "#ddd");
@@ -85,7 +85,7 @@ export function renderSubPlot(mainData) {
         .transition()
         .duration(500)
         .attr("x", d => xScale(d.value))  // Animate to target x position based on value
-        .attr("width", d => width - xScale(d.value));
+        .attr("width", d => width - xScale(d.value))
 
     // Handle updated bars (update selection)
     bars.transition()
@@ -94,7 +94,9 @@ export function renderSubPlot(mainData) {
         .attr("height", yScale.bandwidth())
         .attr("x", d => xScale(d.value))  // Animate x position based on new data
         .attr("width", d => width - xScale(d.value))
-        .style("fill", d => d.cancerType === state.selectedCancer ? "darkgrey" : "steelblue");
+        .style("fill", d => {
+            return d.cancerType === state.selectedCancer ? "darkgrey" : "steelblue";
+        } );
     
     bars.exit().remove();  // Remove old bars
 
