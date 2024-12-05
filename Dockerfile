@@ -1,5 +1,5 @@
 # Use the official Node.js 18 image
-FROM node:20
+FROM --platform=linux/amd64 node:20
 
 # Set working directory in the container
 WORKDIR /usr/src

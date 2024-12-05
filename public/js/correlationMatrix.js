@@ -23,7 +23,22 @@ function createMatrix(data) {
     
     const cancerTypes = Object.keys(data.cancerTypes).sort();
     const lifeStyles = Object.keys(data.lifeStyleChoices).sort();
-    let correlationCoeffs = pearsonCorrelationCoeff(data);
+    //let correlationCoeffs = pearsonCorrelationCoeff(data);
+
+    let correlationCoeffs = spearmanCorrelationCoeff(data);
+
+    // const diffs = {}
+    // Object.entries(correlationCoeffs2).forEach(([key, valuePear]) => {
+    //     const valueSpear = correlationCoeffs[key]
+    //     const diff = valuePear - valueSpear  
+    //     diffs[key] = Math.abs(diff)
+    // })
+
+    // const maxi = Math.max(...Object.values(diffs))
+    // console.log(maxi)
+
+
+    // console.log("Diffs:", diffs)
     
     const margin = { top: 0, right: 0, bottom: 0, left: 0 };
     
@@ -200,7 +215,7 @@ function handleMouseOver(event, cancerType, lifeStyle, svg, cellWidth, cellHeigh
     const cellRect = cell.getBoundingClientRect(); // Get the cell's position in page coordinates
 
     tooltip.style("display", "block")
-        .html(`Pearson Correlation Coeff.: ${correlationCoeffs[`${cancerType},${lifeStyle}`].toFixed(2)}`)
+        .html(`Correlation Coeff.: ${correlationCoeffs[`${cancerType},${lifeStyle}`].toFixed(2)}`)
         .style("left", `${cellRect.left + window.scrollX + cellRect.width + 10}px`) // Position to the right of the cell
         .style("top", `${cellRect.top + window.scrollY }px`);
 
@@ -535,5 +550,132 @@ const pearsonCorrelationCoeff = (data) => {
 
 }
 
+const createCountryToArrayDict = (lifestyleArray, cancerArray) => {
 
+    let results = {};
+
+    // Convert list2 to a map for fast lookup by 'iso'
+    let lifeStyleMap = new Map(lifestyleArray.map(item => [item.iso, item]));
+
+    // Loop through list1 and match each item with list2 by 'iso'
+    cancerArray.forEach(item1 => {
+    if (lifeStyleMap.has(item1.iso)) {
+        results[item1.iso] = {cancer: item1, lifestyle: lifeStyleMap.get(item1.iso)}
+    }
+    });
+
+    return results
+
+}
+
+const createRankedList = (list1) => {
+
+
+    // Initialize rank and a variable to track the position
+    let rank = 1;
+
+    for (let i = 0; i < list1.length; i++) {
+        const item = list1[i]
+        // check how many same values
+        let j = i + 1
+        while (j < list1.length && item.both == list1[j].both){
+            j++;
+        }
+
+        const divider = j - i 
+        const newRank = rank + (divider - 1) / 2;
         
+        for (let k = 0; k < divider; k++){
+            list1[i+k].rank = newRank
+        }
+ 
+        rank += divider
+        i += divider-1  
+    }
+
+    
+    return list1
+
+}
+
+const createDValues = (rankedCancer, rankedLifestyle) => {
+    const mergedDict = createCountryToArrayDict(rankedLifestyle, rankedCancer)    
+
+    Object.entries(mergedDict).forEach(([iso, entry]) => {
+        const cancerRank = entry.cancer.rank
+        const lifestyleRank = entry.lifestyle.rank
+        const d = (cancerRank - lifestyleRank)**2
+        entry.d = d
+    })
+
+    return mergedDict
+
+}
+
+const filterCountriesNotInBoth = (list1, list2) => {
+    const list2Set = new Set(list2.map(item => item.iso));
+    const filteredList1 = list1.filter(item => list2Set.has(item.iso));
+    return filteredList1
+}
+
+
+const spearmanCorrelationCoeff = (data) => {
+    const lifeStyles = data.lifeStyleChoices
+    const cancerTypes = data.cancerTypes
+
+    const cooefsDict = {} // key is lifestyle,cancerType
+
+    Object.entries(lifeStyles).forEach(([lifestyle, lifestyleArray]) => {
+        
+        Object.entries(cancerTypes).forEach(([cancerType, cancerArray]) => {
+            // cancer is x
+            let cancerArrayTEST = [
+                { iso: '1', both: 7 },
+                { iso: '2', both: 6 },
+                { iso: '3', both: 4 },
+                { iso: '4', both: 5 },
+                { iso: '5', both: 8 },
+                { iso: '6', both: 7 },
+                { iso: '7', both: 10 },
+                { iso: '8', both: 3 },
+                { iso: '9', both: 9 },
+                { iso: '10', both: 2 }
+            ];
+            
+            let lifestyleArrayTEST = [
+                { iso: '1', both: 5 },
+                { iso: '2', both: 4 },
+                { iso: '3', both: 5 },
+                { iso: '4', both: 6 },
+                { iso: '5', both: 10 },
+                { iso: '6', both: 7 },
+                { iso: '7', both: 9 },
+                { iso: '8', both: 2 },
+                { iso: '9', both: 8 },
+                { iso: '10', both: 1 }
+            ];
+            
+
+            const sortedCancer = cancerArray.sort((a, b) => a.both - b.both);
+            const sortedLifestyle = lifestyleArray.sort((a, b) => a.both - b.both)
+
+            const filterSortedCancer = filterCountriesNotInBoth(sortedCancer, sortedLifestyle)
+            const filterSortedLifeStyle = filterCountriesNotInBoth(sortedLifestyle, sortedCancer)
+
+            const rankedCancer = createRankedList(filterSortedCancer)
+            const rankedLifestyle = createRankedList(filterSortedLifeStyle)
+            const dValues = createDValues(rankedCancer, rankedLifestyle)
+           
+            const sumOfDValues = Object.values(dValues).reduce((acc, curr) => acc + curr.d, 0)
+            const n = Object.keys(dValues).length
+            const p = 1 - (6 * sumOfDValues)/ (n* (n**2-1))
+            
+            cooefsDict[cancerType + "," + lifestyle] = p
+        });
+    
+    });
+
+
+    return cooefsDict
+
+}

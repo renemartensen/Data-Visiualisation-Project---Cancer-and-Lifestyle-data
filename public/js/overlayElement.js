@@ -442,8 +442,8 @@ export function showHelpOverlay() {
         </section>
 
         <section>
-            <h3 class="text-xl font-semibold mb-2">Understanding Pearson Correlation</h3>
-            <p class="text-gray-600">The Pearson Correlation Coefficient describes the relationship between lifestyle factors and cancer rates:</p>
+            <h3 class="text-xl font-semibold mb-2">Understanding Spearman Correlation</h3>
+            <p class="text-gray-600">The Spearman coefficient is a non-parametric measure of statistical dependence between two variables. It assesses how well the relationship between two variables can be described using a monotonic function.</p>
             <ul class="list-disc ml-8 text-gray-700 space-y-2">
                 <li><strong>Range:</strong> Values between -1 and 1 indicate negative, positive, or no correlation.</li>
                 <li><strong>Interpretation:</strong> Positive correlation indicates that as one factor increases, so does another (e.g., smoking and lung cancer).</li>
